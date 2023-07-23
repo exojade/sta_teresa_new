@@ -88,10 +88,10 @@
             <div class="row">
               <div class="col-lg-7">
                 <div class="caption">
-              <h2>Welcome to Sta Teresa <br>Funeral Homes Inc.</h2>
+              <h2>Welcome to Sta Teresa <br>Funeral Homes </h2>
               <p>Family Satisfaction is our Prime Objective </p>
               <p>High Quality Caskets, Excellent Service, Reasonable Cost </p>
-              <p>Km. 31 Gredu, Panabo City | Bunawan, Davao City </p>
+              <p>Km. 31 Gredu, Panabo City | Km. 24 Bunawan, Davao City </p>
           </div>
               </div>
               <div class="col-lg-5 text-center">
