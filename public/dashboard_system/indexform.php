@@ -41,7 +41,7 @@
 
       <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Deceased <?php echo(date("Y")); ?></h3>
+              <h3 class="box-title">Deceased <?php echo(date("Y")); ?>: Line represents the deceased per month"</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -54,8 +54,71 @@
                 <canvas id="lineChart" style="height:250px"></canvas>
               </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+               <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Deceased per Gender for this month of <?php echo(date("F, Y")); ?></h3>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="row">
+              <div class="col-md-6">
+              <canvas id="pieChart" style="height:250px"></canvas>
+              </div>
+              <div class="col-md-4">
+                  <ul class="chart-legend clearfix">
+                    <li><i class="fa fa-circle-o text-red"></i> Male</li>
+                    <li><i class="fa fa-circle-o text-green"></i> Female</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             <!-- /.box-body -->
           </div>
+            </div>
+            <div class="col-md-8">
+
+              <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Collectibles for this month of  <?php echo(date("F, Y")); ?></h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <table class="table">
+                <thead>
+                  <th>SOA</th>
+                  <th>Collectible</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DSWD</td>
+                    <td>6,000.00</td>
+                  </tr>
+                  <tr>
+                    <td>CSWDO</td>
+                    <td>7,000.00</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+              
+            </div>
+          </div>
+         
 
 
 	
@@ -96,16 +159,7 @@
     var areaChartData = {
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
-        {
-          label               : 'Electronics',
-          fillColor           : 'rgba(210, 214, 222, 1)',
-          strokeColor         : 'rgba(210, 214, 222, 1)',
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
+        
         {
           label               : 'Digital Goods',
           fillColor           : 'rgba(60,141,188,0.9)',
@@ -181,38 +235,15 @@
         value    : 700,
         color    : '#f56954',
         highlight: '#f56954',
-        label    : 'Chrome'
+        label    : 'Male'
       },
       {
         value    : 500,
         color    : '#00a65a',
         highlight: '#00a65a',
-        label    : 'IE'
+        label    : 'Female'
       },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'FireFox'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Safari'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Opera'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Navigator'
-      }
+      
     ]
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
@@ -282,6 +313,51 @@
     barChartOptions.datasetFill = false
     barChart.Bar(barChartData, barChartOptions)
   })
+
+var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieChart       = new Chart(pieChartCanvas)
+    var PieData        = [
+      {
+        value    : 700,
+        color    : '#f56954',
+        highlight: '#f56954',
+        label    : 'Male'
+      },
+      {
+        value    : 500,
+        color    : '#00a65a',
+        highlight: '#00a65a',
+        label    : 'Female'
+      },
+     
+    ]
+    var pieOptions     = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke    : true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor   : '#fff',
+      //Number - The width of each segment stroke
+      segmentStrokeWidth   : 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps       : 100,
+      //String - Animation easing effect
+      animationEasing      : 'easeOutBounce',
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate        : true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale         : false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive           : true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio  : true,
+      //String - A legend template
+      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions)
 </script>
 
   <?php

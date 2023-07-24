@@ -21,6 +21,15 @@
             <li><a href="#">Users </a></li>
             <li><a href="static" target="_blank">Website </a></li>
             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Sales Revenue</a></li>
+                <li><a href="#">Casket Sold</a></li>
+                <li><a href="#">List of Deceased Report</a></li>
+                <li><a href="#">Collectibles Report</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="caskets?action=list">Caskets</a></li>
