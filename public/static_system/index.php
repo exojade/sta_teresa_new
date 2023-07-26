@@ -12,12 +12,8 @@
     <link rel="stylesheet" href="public/static_system/assets/css/templatemo-edu-meeting.css">
     <link rel="stylesheet" href="public/static_system/assets/css/owl.css">
     <link rel="stylesheet" href="public/static_system/assets/css/lightbox.css">
-
   </head>
-
 <body>
-
-  <!-- Sub Header -->
   <div class="sub-header">
     <div class="container">
       <div class="row">
@@ -36,22 +32,17 @@
       </div>
     </div>
   </div>
-
-  <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
       <div class="container">
           <div class="row">
               <div class="col-12">
                   <nav class="main-nav">
-                      <!-- ***** Logo Start ***** -->
                       <a href="index.html" class="logo">
                           <?php $site = query("select * from site_options");
                           $site = $site[0];
                           echo($site["site_title"]);
                           ?>
                       </a>
-                      <!-- ***** Logo End ***** -->
-                      <!-- ***** Menu Start ***** -->
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                           <li><a href="meetings.html">Caskets</a></li>
@@ -163,6 +154,117 @@
     </div>
   </section>
 
+  <section class="our-facts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-12">
+              <h2>A Few Facts About Our University</h2>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-12">
+                  <div class="count-area-content percentage">
+                    <div class="count-digit">94</div>
+                    <div class="count-title">Succesed Students</div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="count-area-content">
+                    <div class="count-digit">126</div>
+                    <div class="count-title">Current Teachers</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-12">
+                  <div class="count-area-content new-students">
+                    <div class="count-digit">2345</div>
+                    <div class="count-title">New Students</div>
+                  </div>
+                </div> 
+                <div class="col-12">
+                  <div class="count-area-content">
+                    <div class="count-digit">32</div>
+                    <div class="count-title">Awards</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div class="col-lg-6 align-self-center">
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="assets/images/play-icon.png" alt=""></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="our-courses" id="courses">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center section-heading">
+            <h2>CASKETS</h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="owl-courses-item owl-carousel">
+          <?php $caskets = query("select * FROM casket ORDER BY RAND() LIMIT  10"); ?>
+          <?php foreach($caskets as $c): ?>
+            <a href="caskets?id=<?php echo($c["casket_id"]); ?>">
+            <div class="item">
+              <?php if($c["casket_image"] == ""): ?>
+                <img src="resources/caskets/default_casket.jpg" alt="Course One">
+              <?php else: ?>
+                <img src="<?php echo($c["casket_image"]); ?>" alt="Course One">
+              <?php endif; ?>
+              <div class="down-content">
+                <h4><?php echo($c["casket"]); ?></h4>
+                <div class="info">
+                  <div class="row">
+                    <div class="col-12">
+                       <span class="text-center">$160</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </a>
+          <?php endforeach; ?>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-lg-12 text-center">
+          <br>
+          <br>
+                    <fieldset>
+                      <button style="    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;" type="submit" id="form-submit" class="button">VIEW ALL CASKETS</button>
+                    </fieldset>
+                  </div>
+      </div>
+    </div>
+  </section>
+
+
+
   <section class="apply-now" id="apply">
     <div class="container">
       <div class="row">
@@ -251,113 +353,8 @@
     </div>
   </section>
 
-  <section class="our-courses" id="courses">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="text-center section-heading">
-            <h2>CASKETS</h2>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="owl-courses-item owl-carousel">
-          <?php $caskets = query("select * FROM casket ORDER BY RAND() LIMIT  10"); ?>
-          <?php foreach($caskets as $c): ?>
-            <a href="caskets?id=<?php echo($c["casket_id"]); ?>">
-            <div class="item">
-              <?php if($c["casket_image"] == ""): ?>
-                <img src="resources/caskets/default_casket.jpg" alt="Course One">
-              <?php else: ?>
-                <img src="<?php echo($c["casket_image"]); ?>" alt="Course One">
-              <?php endif; ?>
-              <div class="down-content">
-                <h4><?php echo($c["casket"]); ?></h4>
-                <div class="info">
-                  <div class="row">
-                    <div class="col-12">
-                       <span class="text-center">$160</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-              </a>
-          <?php endforeach; ?>
-          </div>
-        </div>
-        <br>
-        <br>
-        <div class="col-lg-12 text-center">
-          <br>
-          <br>
-                    <fieldset>
-                      <button style="    font-size: 13px;
-    color: #fff;
-    background-color: #a12c2f;
-    padding: 12px 30px;
-    display: inline-block;
-    border-radius: 22px;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: all .3s;
-    border: none;
-    outline: none;" type="submit" id="form-submit" class="button">VIEW ALL CASKETS</button>
-                    </fieldset>
-                  </div>
-        
-      </div>
-    </div>
-  </section>
-  <section class="our-facts">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="row">
-            <div class="col-lg-12">
-              <h2>A Few Facts About Our University</h2>
-            </div>
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="col-12">
-                  <div class="count-area-content percentage">
-                    <div class="count-digit">94</div>
-                    <div class="count-title">Succesed Students</div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="count-area-content">
-                    <div class="count-digit">126</div>
-                    <div class="count-title">Current Teachers</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="col-12">
-                  <div class="count-area-content new-students">
-                    <div class="count-digit">2345</div>
-                    <div class="count-title">New Students</div>
-                  </div>
-                </div> 
-                <div class="col-12">
-                  <div class="count-area-content">
-                    <div class="count-digit">32</div>
-                    <div class="count-title">Awards</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div class="col-lg-6 align-self-center">
-          <div class="video">
-            <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="assets/images/play-icon.png" alt=""></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
+  
 
   <section class="contact-us" id="contact">
     <div class="container">

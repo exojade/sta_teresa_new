@@ -9,7 +9,87 @@
 }
 </style>
 
+
+
 <!-- Content Wrapper. Contains page content -->
+
+
+      <div class="modal fade" id="modal_add_casket">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Casket</h4>
+              </div>
+              <form class="general_form" data-url="caskets">
+              <div class="modal-body">
+              <input type="hidden" name="action" value="add">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Casket Name</label>
+                  <input required type="text" name="casket" class="form-control" id="exampleInputEmail1" placeholder="Enter Casket Name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Price / Amount</label>
+                  <input required type="number" name="amount" class="form-control" id="exampleInputEmail1" placeholder="Enter Casket Name">
+                </div>
+
+
+                <div id="main_image_div"></div>
+                  <div id="image_div">
+                    <!-- APPEND ITEMS GOES HERE -->
+                  </div>
+
+                  <div id="add_image_div">
+                    <div class="row">
+                    <div class="col-md-12">
+                      <div class="centerbtn">
+                        <a href="#" id="add_more_image">Add Image</a>
+                      </div>
+                    </div>
+
+                    </div>
+                    
+                  </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+<?php foreach($caskets_image as $image): ?>
+  <div class="modal fade" id="modal_<?php echo($image["casket_image_id"]); ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Image</h4>
+              </div>
+              <form class="general_form" data-url="caskets">
+                <input type="hidden" name="action" value="delete_image">
+                <input type="hidden" name="image_id" value="<?php echo($image["casket_image_id"]); ?>">
+            
+              <div class="modal-body" >
+                <img class="img-responsive"  src="<?php echo($image["image_url"]); ?>" style="max-height:300px;" alt="Photo">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+              </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+<?php endforeach; ?>
 
 
 <?php foreach($caskets as $casket): ?>
@@ -33,11 +113,6 @@
                   <label for="exampleInputEmail1">Price / Amount</label>
                   <input required type="number" value="<?php echo($casket["amount"]); ?>" name="amount" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
-                <img class="img-responsive" src="<?php echo($casket["casket_image"]); ?>" alt="Photo">
-                <div class="form-group">
-                  <label for="exampleInputFile">Change Image / Upload New</label>
-                  <input name="casket_image" accept="image/*" type="file" id="exampleInputFile">
-                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -60,35 +135,49 @@
   <div class="content-wrapper">
     <div class="container">
     <section class="content">
+    <a href="#" data-toggle="modal" data-target="#modal_add_casket" class="btn btn-primary pull-right">Add Casket Info</a>
+    <br>
+    <br>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
+      
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Caskets</h3>
+              <h3 class="box-title">Caskets
+              
+              
+
+              </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered table-striped sample-datatable">
                 <thead>
                 <tr>
-                  <th>Action</th>
+                  <th width="15%">Action</th>
                   <th>ID</th>
                   <th>Casket</th>
                   <th>Amount</th>
-                  <th>Image</th>
+                  <th width="45%">Image</th>
                 </tr>
                 </thead>
                 <tbody>
                   <?php foreach($caskets as $casket): ?>
                     <tr>
-                      <td><a href="#" data-toggle="modal" data-target="#modal_<?php echo($casket["casket_id"]); ?>" class="btn btn-warning btn-block">Update</a></td>
+                      <td>
+                        <a href="#" data-toggle="modal" data-target="#modal_<?php echo($casket["casket_id"]); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#modal_<?php echo($casket["casket_id"]); ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#modal_<?php echo($casket["casket_id"]); ?>" class="btn btn-danger"><i class="fa fa-close"></i></a>
+                      </td>
                       <td><?php echo($casket["casket_id"]); ?></td>
                       <td><?php echo($casket["casket"]); ?></td>
                       <td><?php echo($casket["amount"]); ?></td>
                       <td>
-                      <?php if($casket["casket_image"] != ""): ?>
-                      <a href="<?php echo($casket["casket_image"]); ?>" target="_blank"
-                      class="btn btn-primary">View Image
+                      <?php if(isset($Caskets_image[$casket["casket_id"]])): ?>
+                        <?php foreach($Caskets_image[$casket["casket_id"]] as $image): ?>
+                          <a data-toggle="modal" data-target="#modal_<?php echo($image["casket_image_id"]); ?>"  href="#" ><img style="border: 2px solid black;" src="<?php echo($image["image_url"]); ?>" width="50" height="50"></a>
+                        <?php endforeach; ?>
+                     
                       <?php endif; ?>
                       </td>
 
@@ -107,37 +196,6 @@
               </table>
             </div>
           </div>
-
-      </div>
-      <div class="col-md-4">
-
-
-      <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Add New Casket</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <form class="general_form" data-url="caskets" enctype="multipart/form-data">
-                <input type="hidden" name="action" value="add">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Casket Name</label>
-                  <input required type="text" name="casket" class="form-control" id="exampleInputEmail1" placeholder="Enter Casket Name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Price / Amount</label>
-                  <input required type="number" name="amount" class="form-control" id="exampleInputEmail1" placeholder="Enter Casket Name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">Upload Image</label>
-                  <input name="casket_image" accept="image/*" required type="file" id="exampleInputFile">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-          </div>
-
-      
 
       </div>
     </div>
@@ -172,4 +230,30 @@ $('.sample-datatable').DataTable();
     $('#example2').DataTable()
    
   })
+
+
+
+  $("body").on("click", "#remove_image", function() {
+    $(this).parents("#image_div").remove();
+  });
+
+
+  $("#add_more_image").on("click", function(e) {
+    e.preventDefault();
+	var newform ='<div id="image_div"> \
+        <div class="row"> \
+					<div class="col-md-10"> \
+          <div class="form-group">\
+                  <input name="casket_image[]" accept="image/*" required type="file" id="exampleInputFile">\
+          </div>\
+          </div> \
+					<div class="col-md-2"><div class="form-group"><button type="button" id="remove_image" class="btn btn-info btn-flat btn-block"><i class="fa fa-remove"></i></button></div></div> \
+				 </div>\
+				 </div>\
+         ';
+    // var newform = '<div id="child_residence"><div class="col-md-3"><div class="form-group"><input type="text" name="dependentname[]" class="form-control" class="form-control" placeholder="Full Name" required /><div class="help-block with-errors"></div></div></div><div class="col-md-2"><div class="form-group"><input type="date" name="dependentdob[]" class="form-control" class="form-control" placeholder="Birthdate Birthdate (MM/DD/YYYY)" required /><div class="help-block with-errors"></div></div></div><div class="col-md-2"><div class="form-group"><select name="dependentcivilstatus[]" class="form-control" required><option value="" disabled selected>Status</option><option value="SINGLE">SINGLE</option><option value="MARRIED">MARRIED</option><option value="DIVORCED">DIVORCED</option><option value="SEPARATED">SEPARATED</option><option value="WIDOW">WIDOW</option></select><div class="help-block with-errors"></div></div></div><div class="col-md-2"><div class="form-group"><input type="text" name="dependentrelationship[]" class="form-control" class="form-control" placeholder="Relationship" required /><div class="help-block with-errors"></div></div></div><div class="col-md-2"><div class="form-group"><input type="text" name="dependentoccupation[]" class="form-control" class="form-control" placeholder="Occupation" required /><div class="help-block with-errors"></div></div></div><div class="col-md-1"><div class="form-group"><button type="button" id="removechild" class="btn btn-info btn-flat btn-block"><i class="fa fa-remove"></i></button></div></div></div>';
+    $('#add_image_div').append(newform);
+  });
+
+
 </script>
