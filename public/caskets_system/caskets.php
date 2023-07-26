@@ -47,6 +47,45 @@ use mikehaertl\pdftk\Pdf;
 		}
 
 
+
+		if($_POST["action"] == "add_casket_image"){
+
+			// dump($_FILES);
+		
+				$casket_id = $_POST["casket_id"];
+				$i = 0;
+				foreach($_FILES["casket_image"]["name"] as $image):
+					$target = "resources/caskets/".$_FILES["casket_image"]["name"][$i];
+					$image_id = create_uuid("CASKETIMAGE");
+					if(!move_uploaded_file($_FILES['casket_image']['tmp_name'][$i], $target)){
+						echo("Do not have upload files");
+						exit();
+					}
+					if (query("insert INTO casket_image (casket_image_id,casket_id,image_url) 
+						VALUES(?,?,?)", 
+						$image_id,$casket_id,$target) === false)
+						{
+							apologize("Sorry, that username has already been taken!");
+							
+						}
+					$i++;
+				endforeach;
+			
+			
+
+
+				
+
+				$res_arr = [
+					"result" => "success",
+					"title" => "Success",
+					"message" => "Success on Adding Casket",
+					"link" => "caskets?action=list",
+					];
+					echo json_encode($res_arr); exit();
+		}
+
+
 		if($_POST["action"] == "update"){
 			// dump($_POST);
 				query("update casket set casket = ?, amount = ? where casket_id = ?",
