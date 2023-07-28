@@ -154,57 +154,52 @@
     </div>
   </section>
 
-  <section class="our-facts">
+
+
+  <?php $announcement = query("select * from announcements where status = 'ACTIVE'");
+        $announcement = $announcement[0];
+  ?>
+
+
+  <section class="our-facts" >
+  <style>
+.our-facts{
+  background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('<?php echo($announcement["background_image"]); ?>') !important;
+}
+  </style>
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
           <div class="row">
             <div class="col-lg-12">
-              <h2>A Few Facts About Our University</h2>
+              <h2>Announcements</h2>
             </div>
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="col-12">
-                  <div class="count-area-content percentage">
-                    <div class="count-digit">94</div>
-                    <div class="count-title">Succesed Students</div>
-                  </div>
+            <div class="accordions is-first-expanded">
+            <article class="accordion">
+                <div class="accordion-head">
+                    <span><?php echo($announcement["title"]); ?></span>
+                    <span class="icon">
+                        <i class="icon fa fa-chevron-right"></i>
+                    </span>
                 </div>
-                <div class="col-12">
-                  <div class="count-area-content">
-                    <div class="count-digit">126</div>
-                    <div class="count-title">Current Teachers</div>
-                  </div>
+                <div class="accordion-body">
+                    <div class="content">
+                        <p><?php echo($announcement["announcement"]); ?></p>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="col-12">
-                  <div class="count-area-content new-students">
-                    <div class="count-digit">2345</div>
-                    <div class="count-title">New Students</div>
-                  </div>
-                </div> 
-                <div class="col-12">
-                  <div class="count-area-content">
-                    <div class="count-digit">32</div>
-                    <div class="count-title">Awards</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </article>
+            
+        </div>
           </div>
         </div> 
         <div class="col-lg-6 align-self-center">
-          <div class="video">
-            <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="assets/images/play-icon.png" alt=""></a>
+          <div class="video" style="background-image: url('<?php echo($announcement["background_image"]); ?>')">
+            <a href="#" target="_blank"><img src="" alt=""></a>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 
   <section class="our-courses" id="courses">
     <div class="container">
@@ -218,12 +213,13 @@
           <div class="owl-courses-item owl-carousel">
           <?php $caskets = query("select * FROM casket ORDER BY RAND() LIMIT  10"); ?>
           <?php foreach($caskets as $c): ?>
+            <?php $casket_image = query("select * FROM casket_image where casket_id = ?", $c["casket_id"]); ?>
             <a href="caskets?id=<?php echo($c["casket_id"]); ?>">
             <div class="item">
-              <?php if($c["casket_image"] == ""): ?>
-                <img src="resources/caskets/default_casket.jpg" alt="Course One">
+              <?php if(!isset($casket_image[0]["image_url"])): ?>
+                <img width="300" height="250" src="resources/caskets/default_casket.jpg" alt="Course One">
               <?php else: ?>
-                <img src="<?php echo($c["casket_image"]); ?>" alt="Course One">
+                <img width="300" height="250" src="<?php echo($casket_image[0]["image_url"]); ?>" alt="Course One">
               <?php endif; ?>
               <div class="down-content">
                 <h4><?php echo($c["casket"]); ?></h4>

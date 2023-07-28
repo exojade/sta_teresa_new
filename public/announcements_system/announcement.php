@@ -2,39 +2,25 @@
 use mikehaertl\pdftk\Pdf;
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 		if($_POST["action"] == "add"){
-			// dump($_FILES);
-			if (query("INSERT INTO chapel (chapel_name,price_amount) 
-				VALUES(?,?)", 
-				$_POST["chapel"],$_POST["amount"]) === false)
+			// dump($_POST);
+			$target = "resources/announcements/".$_FILES["bg-image"]["name"];
+			if(!move_uploaded_file($_FILES['bg-image']['tmp_name'], $target)){
+				echo("Do not have upload files");
+				exit();
+			}
+			if (query("insert INTO announcements (title,announcement,date_added,timestamp,time_added,status,background_image) 
+				VALUES(?,?,?,?,?,?,?)", 
+				$_POST["title"],$_POST["announcement"],date("Y-m-d"), time(), date("h:i:s a"), $_POST["status"], $target) === false)
 				{
 					apologize("Sorry, that username has already been taken!");
 				}
-				if(isset($_FILES["chapel_image"])):
-				$chapel_id = query("SELECT LAST_INSERT_ID() AS id");
-				// dump($chapel_id);
-				$chapel_id = $chapel_id[0]["id"];
-				$i = 0;
-				foreach($_FILES["chapel_image"]["name"] as $image):
-					$target = "resources/chapels/".$_FILES["chapel_image"]["name"][$i];
-					$image_id = create_uuid("CHAPELIMAGE");
-					if(!move_uploaded_file($_FILES['chapel_image']['tmp_name'][$i], $target)){
-						echo("Do not have upload files");
-						exit();
-					}
-					if (query("insert INTO chapel_image (chapel_image_id,chapel_id,chapel_image) 
-						VALUES(?,?,?)", 
-						$image_id,$chapel_id,$target) === false)
-						{
-							apologize("Sorry, that username has already been taken!");
-						}
-					$i++;
-				endforeach;
-				endif;
+				
+		
 				$res_arr = [
 					"result" => "success",
 					"title" => "Success",
-					"message" => "Success on Adding chapel",
-					"link" => "chapels?action=list",
+					"message" => "Success on Adding Announcement",
+					"link" => "announcements?action=list",
 					];
 					echo json_encode($res_arr); exit();
 		}
@@ -109,18 +95,11 @@ use mikehaertl\pdftk\Pdf;
     }
 	else {
 
-		$chapels = query("select * from chapel");
-		$chapels_image = query("select * from chapel_image");
-		$Chapel_image = [];
-		foreach($chapels_image as $c):
-			$Chapel_image[$c["chapel_id"]][$c["chapel_image_id"]] = $c;
-		endforeach;
+		$announcements = query("select * from announcements");
 		if($_GET["action"] == "list"){
-			render("public/chapels_system/chapels_list.php", [
+			render("public/announcements_system/announcement_list.php", [
 				"title" => "Chapels Databank",
-				"chapels" => $chapels,
-				"chapels_image" => $chapels_image,
-				"Chapel_image" => $Chapel_image,
+				"announcements" => $announcements,
 			]);
 		}
 	}

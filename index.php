@@ -38,7 +38,7 @@
 				else if ($request == 'chapels')
 					require 'public/chapels_system/chapels.php';
 				else if ($request == 'announcements')
-					require 'public/announcements_system/announcements.php';
+					require 'public/announcements_system/announcement.php';
 
 
 				else if ($request == 'soa')
