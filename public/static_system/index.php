@@ -168,7 +168,7 @@
   <section class="our-facts" id="announcements">
   <style>
 .our-facts{
-  background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('<?php echo($announcement["background_image"]); ?>') !important;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('<?php echo($announcement["background_image"]); ?>') !important;
 }
   </style>
     <div class="container">
