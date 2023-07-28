@@ -353,6 +353,66 @@
     </div>
   </section>
 
+
+  <section class="our-courses" id="courses">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center section-heading">
+            <h2>CHAPELS</h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="owl-courses-item owl-carousel">
+          <?php $chapel = query("select * FROM chapel ORDER BY RAND() LIMIT  10"); 
+          ?>
+          <?php foreach($chapel as $c): ?>
+            <a href="caskets?id=<?php echo($c["casket_id"]); ?>">
+            <?php $chapel_image = query("select * FROM chapel_image where chapel_id = ?", $c["chapel_id"]); ?>
+            <div class="item">
+              <?php if($chapel_image[0]["chapel_image"] == ""): ?>
+                <img src="resources/chapel/default_chapel.jpg" alt="Course One">
+              <?php else: ?>
+                <img src="<?php echo($chapel_image[0]["chapel_image"]); ?>" alt="Course One">
+              <?php endif; ?>
+              <div class="down-content">
+                <h4><?php echo($c["chapel_name"]); ?></h4>
+                <div class="info">
+                  <div class="row">
+                    <div class="col-12">
+                       <span class="text-center">P <?php echo($c["price_amount"]); ?></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </a>
+          <?php endforeach; ?>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-lg-12 text-center">
+          <br>
+          <br>
+                    <fieldset>
+                      <button style="    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;" type="submit" id="form-submit" class="button">VIEW ALL CHAPELS</button>
+                    </fieldset>
+                  </div>
+      </div>
+    </div>
+  </section>
+
   
   
 
