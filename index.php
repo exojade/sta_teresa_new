@@ -16,7 +16,7 @@
 		$request = explode('/',$request);
 		$request = $request[1];
 		
-		$countering = array("login", "register", "soa", "static");
+		$countering = array("login", "register", "soa", "static", "static_casket_list", "static_casket_details");
 		
 		if (!in_array($request, $countering)){
 			if(empty($_SESSION["sta_teresa"]["userid"]) && empty($_SESSION["sta_teresa"]["application"])){
@@ -52,8 +52,28 @@
 			if ($request == 'login')
 				require 'public/login_system/login.php';
 
+			
+			
+			
+			
+			
 			if ($request == 'static')
 				require 'public/static_system/index.php';
+
+			if ($request == 'static_casket_list')
+				require 'public/static_system/casket_list.php';
+
+			if ($request == 'static_casket_details')
+				require 'public/static_system/casket_details.php';
+
+
+
+
+
+
+
+
+
 
 			if ($request == 'soa')
 				require 'public/soa_system/soa.php';

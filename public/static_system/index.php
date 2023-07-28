@@ -218,7 +218,7 @@
           <?php $caskets = query("select * FROM casket ORDER BY RAND() LIMIT  10"); ?>
           <?php foreach($caskets as $c): ?>
             <?php $casket_image = query("select * FROM casket_image where casket_id = ?", $c["casket_id"]); ?>
-            <a href="caskets?id=<?php echo($c["casket_id"]); ?>">
+            <a href="static_casket_details?id=<?php echo($c["casket_id"]); ?>">
             <div class="item">
               <?php if(!isset($casket_image[0]["image_url"])): ?>
                 <img width="300" height="250" src="resources/caskets/default_casket.jpg" alt="Course One">
