@@ -1,14 +1,12 @@
 <?php
 use mikehaertl\pdftk\Pdf;
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-
 		if($_POST["action"] == "add"){
 			if (query("INSERT INTO casket (casket,amount) 
 				VALUES(?,?)", 
 				$_POST["casket"],$_POST["amount"]) === false)
 				{
 					apologize("Sorry, that username has already been taken!");
-					
 				}
 				if(isset($_FILES["casket_image"])):
 				$casket_id = query("SELECT LAST_INSERT_ID() AS id");
@@ -27,16 +25,10 @@ use mikehaertl\pdftk\Pdf;
 						$image_id,$casket_id,$target) === false)
 						{
 							apologize("Sorry, that username has already been taken!");
-							
 						}
 					$i++;
 				endforeach;
 				endif;
-			
-
-
-				
-
 				$res_arr = [
 					"result" => "success",
 					"title" => "Success",
@@ -130,8 +122,5 @@ use mikehaertl\pdftk\Pdf;
 				"Chapel_image" => $Chapel_image,
 			]);
 		}
-
-		
-			
 	}
 ?>
