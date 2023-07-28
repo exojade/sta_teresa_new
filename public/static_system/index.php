@@ -45,16 +45,17 @@
                       </a>
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li><a href="meetings.html">Caskets</a></li>
-                          <li class="scroll-to-section"><a href="#apply">Obituary</a></li>
-                          <li class="has-sub">
+                          <li class="scroll-to-section"><a href="#obituary">Obituary</a></li>
+                          <li class="scroll-to-section"><a href="#announcements">Announcements</a></li>
+                          <li class="scroll-to-section"><a href="#caskets">Caskets</a></li>
+                          <!-- <li class="has-sub">
                               <a href="javascript:void(0)">Pages</a>
                               <ul class="sub-menu">
                                   <li><a href="meetings.html">Upcoming Meetings</a></li>
                                   <li><a href="meeting-details.html">Meeting Details</a></li>
                               </ul>
-                          </li>
-                          <li class="scroll-to-section"><a href="#courses">Courses</a></li>
+                          </li> -->
+                          <li class="scroll-to-section"><a href="#chapels">Chapels</a></li>
                           <li class=""><a href="login">Login</a></li>
                       </ul>        
                       <a class='menu-trigger'>
@@ -101,7 +102,7 @@
           </div>
       </div>
   </section>
-  <section class="upcoming-meetings" style="padding-top: 50px !important;" id="meetings">
+  <section class="upcoming-meetings" style="padding-top: 50px !important;" id="obituary">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -160,15 +161,10 @@
       </div>
     </div>
   </section>
-
-
-
   <?php $announcement = query("select * from announcements where status = 'ACTIVE'");
         $announcement = $announcement[0];
   ?>
-
-
-  <section class="our-facts" >
+  <section class="our-facts" id="announcements">
   <style>
 .our-facts{
   background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('<?php echo($announcement["background_image"]); ?>') !important;
@@ -208,7 +204,7 @@
     </div>
   </section>
 
-  <section class="our-courses" id="courses">
+  <section class="our-courses" id="caskets">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -357,7 +353,7 @@
   </section>
 
 
-  <section class="our-courses" id="courses">
+  <section class="our-courses" id="chapels">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
