@@ -70,9 +70,16 @@
 
   <!-- ***** Main Banner Area Start ***** -->
   <section class="section main-banner" id="top" data-section="section1">
-      <video autoplay muted loop id="bg-video">
-          <source src="public/static_system/assets/images/course-video.mp4" type="video/mp4" />
-      </video>
+    <div id="bg-video" style="background-image: url('GDRIVE/background-image.jpg'); background-repeat: no-repeat; background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  ">
+        <div ></div>
+    </div>
+      <!-- <video autoplay muted loop id="bg-video">
+          <source src="" type="video/mp4" />
+      </video> -->
 
       <div class="video-overlay header-text">
           <div class="container">
