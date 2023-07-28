@@ -296,9 +296,9 @@
             <div class="item" style="background: none;">
                 <img src="resources/partners/Majar Logo.png" alt="Course One">
             </div>
-            <div class="item" style="background: none;">
+            <!-- <div class="item" style="background: none;">
                 <img src="resources/partners/Tadeco-Logo-removebg-preview.png" alt="Course One">
-            </div>
+            </div> -->
             <div class="item" style="background: none;">
                 <img src="resources/partners/TagumCooplogo-removebg-preview.png" alt="Course One">
             </div>
