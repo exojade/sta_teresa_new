@@ -77,13 +77,13 @@
       </div>
   </header>
 <?php 
-  $casket = query("select * from casket"); 
+  $chapel = query("select * from chapel"); 
 ?>
   <section class="heading-page header-text" id="top">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h2>Caskets</h2>
+          <h2>Chapels</h2>
         </div>
       </div>
     </div>
@@ -93,21 +93,21 @@
     <div class="container">
       <div class="row">
           <?php 
-          foreach($casket as $c): 
-          $casket_image = query("select * from casket_image where casket_id = ? limit 1", $c["casket_id"]);
+          foreach($chapel as $c): 
+          $chapel_image = query("select * from chapel_image where chapel_id = ? limit 1", $c["chapel_id"]);
           ?>
             <div class="col-lg-3">
             <div class="our-courses">
-            <a href="static_casket_details?id=<?php echo($c["casket_id"]); ?>">
+            <a href="static_chapel_details?id=<?php echo($c["chapel_id"]); ?>">
             <div class="item" style="padding-top: 10px; padding-bottom:10px;">
-            <?php if(!isset($casket_image[0]["image_url"])): ?>
-              <img width="300" height="250" src="resources/caskets/default_casket.jpg" alt="Course One" style="border: 5px solid #fff;">
+            <?php if(!isset($chapel_image[0]["chapel_image"])): ?>
+              <img width="300" height="250" src="resources/chapels/default_chapel.jpg" alt="Course One" style="border: 5px solid #fff;">
             <?php else: ?>
-              <img width="300" height="250" src="<?php echo($casket_image[0]["image_url"]); ?>" alt="Course One" style="border: 5px solid #fff;">
+              <img width="300" height="250" src="<?php echo($chapel_image[0]["chapel_image"]); ?>" alt="Course One" style="border: 5px solid #fff;">
             <?php endif; ?>
               
               <div class="down-content">
-                <h4><?php echo($c["casket"]); ?></h4>
+                <h4><?php echo($c["chapel_name"]); ?></h4>
                 <div class="info">
                   <div class="row">
                     <div class="col-12">

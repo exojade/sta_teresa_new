@@ -347,7 +347,7 @@
 
 
 
-              <div class="tab-pane active" id="obituary">
+              <div class="tab-pane" id="obituary">
            
               <form class="general_form" id="obituary_form" url="burial_contract">
               <input type="hidden" value="update_obituary" name="action">

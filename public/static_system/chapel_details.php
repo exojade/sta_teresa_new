@@ -77,13 +77,16 @@
       </div>
   </header>
 <?php 
-  $casket = query("select * from casket"); 
+  $chapel = query("select * from chapel where chapel_id = ?", $_GET["id"]); 
+  $chapel_image = query("select * from chapel_image where chapel_id = ?", $_GET["id"]); 
 ?>
   <section class="heading-page header-text" id="top">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h2>Caskets</h2>
+          <h6>Chapel; Section</h6>
+          <h2><?php echo($chapel[0]["chapel_name"]); ?></h2>
+          <h2>Price : P<?php echo($chapel[0]["price_amount"]); ?></h2>
         </div>
       </div>
     </div>
@@ -93,32 +96,9 @@
     <div class="container">
       <div class="row">
           <?php 
-          foreach($casket as $c): 
-          $casket_image = query("select * from casket_image where casket_id = ? limit 1", $c["casket_id"]);
-          ?>
-            <div class="col-lg-3">
-            <div class="our-courses">
-            <a href="static_casket_details?id=<?php echo($c["casket_id"]); ?>">
-            <div class="item" style="padding-top: 10px; padding-bottom:10px;">
-            <?php if(!isset($casket_image[0]["image_url"])): ?>
-              <img width="300" height="250" src="resources/caskets/default_casket.jpg" alt="Course One" style="border: 5px solid #fff;">
-            <?php else: ?>
-              <img width="300" height="250" src="<?php echo($casket_image[0]["image_url"]); ?>" alt="Course One" style="border: 5px solid #fff;">
-            <?php endif; ?>
-              
-              <div class="down-content">
-                <h4><?php echo($c["casket"]); ?></h4>
-                <div class="info">
-                  <div class="row">
-                    <div class="col-12">
-                       <span class="text-center">$160</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </a>
-            </div>
+          foreach($chapel_image as $image): ?>
+            <div class="col-lg-4">
+              <img width="300" height="250" src="<?php echo($image["chapel_image"]); ?>" alt="Course One" style="border: 10px solid #fff; margin-top:10px;margin-bottom:10px;">
             </div>
           <?php endforeach; ?>
       </div>

@@ -63,11 +63,6 @@ use mikehaertl\pdftk\Pdf;
 						}
 					$i++;
 				endforeach;
-			
-			
-
-
-				
 
 				$res_arr = [
 					"result" => "success",

@@ -37,7 +37,7 @@
           <div class="row">
               <div class="col-12">
                   <nav class="main-nav">
-                      <a href="index.html" class="logo">
+                      <a href="index.html" class="logo" style="font-size: 22px !important;">
                           <?php $site = query("select * from site_options");
                           $site = $site[0];
                           echo($site["site_title"]);
@@ -151,7 +151,7 @@
                     <h6><?php echo($month); ?> <span><?php echo($day); ?></span></h6>
                   </div>
                   <a href="meeting-details.html"><h4><?php echo($o["deceased_lastname"] . ", " . $o["deceased_firstname"]); ?></h4></a>
-                  <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p>
+                  <!-- <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p> -->
                 </div>
               </div>
             </div>
@@ -246,7 +246,7 @@
           <br>
           <br>
                     <fieldset>
-                      <button style="    font-size: 13px;
+                      <a style="    font-size: 13px;
     color: #fff;
     background-color: #a12c2f;
     padding: 12px 30px;
@@ -256,7 +256,7 @@
     text-transform: uppercase;
     transition: all .3s;
     border: none;
-    outline: none;" type="submit" id="form-submit" class="button">VIEW ALL CASKETS</button>
+    outline: none;"  class="button" href="static_casket_list">VIEW ALL CASKETS</a>
                     </fieldset>
                   </div>
       </div>
@@ -354,7 +354,7 @@
           <br>
           <br>
                     <fieldset>
-                      <button style="    font-size: 13px;
+                      <a style="    font-size: 13px;
     color: #fff;
     background-color: #a12c2f;
     padding: 12px 30px;
@@ -364,7 +364,7 @@
     text-transform: uppercase;
     transition: all .3s;
     border: none;
-    outline: none;" type="submit" id="form-submit" class="button">VIEW ALL CHAPELS</button>
+    outline: none;" href="static_chapel_list" class="button">VIEW ALL CHAPELS</a>
                     </fieldset>
                   </div>
       </div>
