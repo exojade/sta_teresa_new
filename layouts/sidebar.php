@@ -18,7 +18,7 @@
               </ul>
             </li>
             <li><a href="#">Salary Report </a></li>
-            <li><a href="#">Users </a></li>
+            <li><a href="users">Users </a></li>
             <li><a href="static" target="_blank">Website </a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>

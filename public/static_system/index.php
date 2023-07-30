@@ -124,9 +124,6 @@
             $month = date("M", strtotime($o["burial_date"]));
             $day = date("d", strtotime($o["burial_date"]));
 
-
-
-
             ?>
             <?php if($count == 1 || $count == 2): ?>
               <div class="col-lg-6">

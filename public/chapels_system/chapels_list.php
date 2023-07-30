@@ -236,11 +236,11 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Action</th>
+                  <th width="15%">Action</th>
                   <th>ID</th>
                   <th>chapel</th>
                   <th>Amount</th>
-                  <th>Image</th>
+                  <th width="45%">Image</th>
                 </tr>
                 </tfoot>
               </table>

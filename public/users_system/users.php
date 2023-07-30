@@ -2,8 +2,8 @@
 // use PHPJasper\PHPJasper;  
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 		// dump(get_defined_constants(true));
-		if($_POST["action"] == 'add_user'){
-			// dump($_POST);
+		if($_POST["action"] == 'add'){
+			dump($_POST);
 			$userid = create_uuid("USERS");
 			if (query("insert INTO mtop_users (userId,userName,userPassword,fullName,userLevel) 
 				VALUES(?,?,?,?,?)", 
@@ -22,6 +22,12 @@
 		}
     }
 	else {
-		render("public/users_system/usersform.php");
+
+		$users = query("select * from tblusers");
+		render("public/users_system/usersform.php",[
+			"title" => "Users",
+			"users" => $users,
+
+		]);
 	}
 ?>

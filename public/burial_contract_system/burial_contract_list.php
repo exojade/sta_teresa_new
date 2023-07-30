@@ -55,7 +55,7 @@
                       <td><?php echo($balance); ?></td>
                       <td><?php echo($contract["branch"]); ?></td>
                       <td><?php echo($contract["remarks"]); ?></td>
-                      <td><a href="burial_contract?action=details&id=<?php echo($contract["contract_id"]); ?>" class="btn btn-block btn-primary"><i class="fa fa-cogs"></i></a></td>
+                      <td><a href="burial_contract?action=details&id=<?php echo($contract["contract_id"]); ?>" class="btn btn-block btn-primary">Details</a></td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
