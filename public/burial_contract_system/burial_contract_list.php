@@ -21,6 +21,7 @@
               <table class="table table-bordered table-striped sample-datatable">
                 <thead>
                 <tr>
+                  <th>Action</th>
                   <th>Contract</th>
                   <th>Client</th>
                   <th>Deceased</th>
@@ -29,7 +30,6 @@
                   <th>Balance</th>
                   <th>Branch</th>
                   <th>Remarks</th>
-                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,11 +42,10 @@
                         $total_payment = $total_payment + $transaction["amount"];
                       endforeach; 
                     }
-                    
-                    
                     $balance = $contract["total_amount"] - $total_payment;
                     ?>
                     <tr>
+                    <td><a href="burial_contract?action=details&id=<?php echo($contract["contract_id"]); ?>" class="btn btn-block btn-primary">Details</a></td>
                       <td><?php echo($contract["contract_id"]); ?></td>
                       <td><?php echo($contract["client_lastname"] . ", " . $contract["client_firstname"]); ?></td>
                       <td><?php echo($contract["deceased_lastname"] . ", " . $contract["deceased_firstname"]); ?></td>
@@ -54,13 +53,36 @@
                       <td><?php echo($contract["total_amount"]); ?></td>
                       <td><?php echo($balance); ?></td>
                       <td><?php echo($contract["branch"]); ?></td>
-                      <td><?php echo($contract["remarks"]); ?></td>
-                      <td><a href="burial_contract?action=details&id=<?php echo($contract["contract_id"]); ?>" class="btn btn-block btn-primary">Details</a></td>
+                      <td>
+                      <?php 
+
+                      if($contract["remarks"] == "UNPAID"):
+                        $now = time(); // or your date as well
+                        $your_date = strtotime($contract["contract_date"]);
+                        $datediff = $now - $your_date;
+                        $datediff = round($datediff / (60 * 60 * 24));
+                        if($datediff > 15):
+                          $contract["remarks"] = "OVERDUE";
+                        endif;
+                      endif;
+                      $remarks = "";
+                      if($contract["remarks"] == "PAID"):
+                        $remarks = '<p class="text-center bg-green" style="padding:5px;">'.$contract["remarks"].'</p>';
+                      elseif($contract["remarks"] == "UNPAID"):
+                        $remarks = '<p class="text-center bg-yellow" style="padding:5px;">'.$contract["remarks"].'</p>';
+                      elseif($contract["remarks"] == "OVERDUE"):
+                        $remarks = '<p class="text-center bg-red" style="padding:5px;">'.$contract["remarks"].'</p>';
+                      endif;
+                      ?>
+
+                        <?php echo($remarks); ?>
+                      </td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                 <tr>
+                <th>Action</th>
                   <th>Contract</th>
                   <th>Client</th>
                   <th>Deceased</th>
@@ -69,7 +91,7 @@
                   <th>Balance</th>
                   <th>Branch</th>
                   <th>Remarks</th>
-                  <th>Action</th>
+                  
                 </tr>
                 </tfoot>
               </table>

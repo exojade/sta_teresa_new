@@ -12,6 +12,7 @@
 					"uname" => $row["username"],
 					"role" => $row["role"],
 					"fullname" => $row["fullname"],
+					"profile" => $row["image_url"],
 					"application" => "sta_teresa"
 				];
 				echo("proceed");

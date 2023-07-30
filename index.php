@@ -27,6 +27,9 @@
 					require 'public/dashboard_system/main.php';
 				else if ($request == 'users')
 					require 'public/users_system/users.php';
+
+				else if ($request == 'employees')
+					require 'public/employees_system/employees.php';
 				else if ($request == 'logout')
 					require 'logout.php';
 				else if ($request == 'burial_contract')

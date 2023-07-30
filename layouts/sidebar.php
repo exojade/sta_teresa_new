@@ -17,8 +17,7 @@
                <?php endforeach; ?>
               </ul>
             </li>
-            <li><a href="#">Salary Report </a></li>
-            <li><a href="users">Users </a></li>
+          
             <li><a href="static" target="_blank">Website </a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
@@ -27,6 +26,7 @@
                 <li><a href="#">Casket Sold</a></li>
                 <li><a href="#">List of Deceased Report</a></li>
                 <li><a href="#">Collectibles Report</a></li>
+                <li><a href="#">Payroll</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -35,6 +35,8 @@
                 <li><a href="caskets?action=list">Caskets</a></li>
                 <li><a href="chapels?action=list">Chapels</a></li>
                 <li><a href="announcements?action=list">Announcements</a></li>
+                <li><a href="employees?action=list">Employees</a></li>
+                <li><a href="users">Users</a></li>
               </ul>
             </li>
 

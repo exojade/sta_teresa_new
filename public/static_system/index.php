@@ -130,16 +130,16 @@
             <?php elseif($count == 3 ): ?> 
               <div class="col-lg-4">
             <?php elseif($count >= 4 ): ?> 
-              <div class="col-lg-3">
+              <div class="col-lg-4">
             <?php endif; ?>
               <div class="meeting-item">
                 <div class="thumb">
                   <div class="price">
                   </div>
                   <?php if($o["obituary_image"] == ""): ?>
-                    <a href="meeting-details.html"><img style="max-height: 250px;" src="resources/obituary/default_obituary.jpg" alt="New Lecturer Meeting"></a>
+                    <a href="meeting-details.html"><img width="250" height="200" src="resources/obituary/default_obituary.jpg" alt="New Lecturer Meeting"></a>
                   <?php else: ?>
-                    <a href="meeting-details.html"><img style="max-height: 250px;" src="<?php echo($o["obituary_image"]); ?>" alt="New Lecturer Meeting"></a>
+                    <a href="meeting-details.html"><img width="250" height="200" src="<?php echo($o["obituary_image"]); ?>" alt="New Lecturer Meeting"></a>
                   <?php endif; ?>
                   <!-- <a href="meeting-details.html"><img src="public/static_system/assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a> -->
                 </div>
