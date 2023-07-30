@@ -8,14 +8,9 @@
     overflow: auto;
 }
 </style>
-
-
-
 <!-- Content Wrapper. Contains page content -->
-
-
-<?php foreach($users as $u): ?>
-  <div class="modal fade" id="modal_image_<?php echo($u["user_id"]); ?>">
+<?php foreach($employees as $e): ?>
+  <div class="modal fade" id="modal_image_<?php echo($e["employee_id"]); ?>">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
               <div class="modal-header">
@@ -23,12 +18,12 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Image</h4>
               </div>
-              <form class="general_form" data-url="users">
+              <form class="general_form" data-url="employees">
                 <input type="hidden" name="action" value="change_image">
-                <input type="hidden" name="user_id" value="<?php echo($u["user_id"]); ?>">
+                <input type="hidden" name="employee_id" value="<?php echo($e["employee_id"]); ?>">
             
               <div class="modal-body" >
-                <img class="img-responsive"  src="<?php echo($u["image_url"]); ?>" style="max-height:300px;" alt="Photo">
+                <img class="img-responsive"  src="<?php echo($e["profile"]); ?>" style="max-height:300px;" alt="Photo">
 				
 
 				<div class="form-group">
@@ -41,9 +36,6 @@
 			</div>
 
 			  <br>
-
-			 
-            
               </form>
             </div>
             <!-- /.modal-content -->
@@ -53,33 +45,33 @@
 <?php endforeach; ?>
 
 
-<?php foreach($users as $u): ?>
-  <div class="modal fade" id="modal_<?php echo($u["user_id"]); ?>">
+<?php foreach($employees as $e): ?>
+  <div class="modal fade" id="modal_<?php echo($e["employee_id"]); ?>">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><?php echo($u["user_id"]); ?></h4>
+                <h4 class="modal-title"><?php echo($e["employee_id"]); ?></h4>
               </div>
-              <form class="general_form" data-url="chapels">
+              <form class="general_form" data-url="employees">
               <div class="modal-body">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="chapel_id" value="<?php echo($u["user_id"]); ?>">
+                <input type="hidden" name="employee_id" value="<?php echo($e["employee_id"]); ?>">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Username</label>
-                  <input required type="text" value="<?php echo($u["username"]); ?>" name="username" class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <label for="exampleInputEmail1">Employee Name</label>
+                  <input required type="text" value="<?php echo($e["employee_name"]); ?>" name="employeename" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
 				<div class="form-group">
-                  <label for="exampleInputEmail1">Fullname</label>
-                  <input required type="text" value="<?php echo($u["fullname"]); ?>" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <label for="exampleInputEmail1">Base Salary</label>
+                  <input required type="text" value="<?php echo($e["base_salary"]); ?>" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
 				<div class="form-group">
-                  <label for="exampleInputEmail1">Role</label>
+                  <label for="exampleInputEmail1">Branch</label>
                   <select name="role" required class="form-control">
-						<option selected value="<?php echo($u["role"]); ?>"><?php echo($u["role"]); ?></option>
-						<option value="ADMIN">ADMIN</option>
-						<option value="USER">USER</option>
+						<option selected value="<?php echo($e["branch"]); ?>"><?php echo($e["branch"]); ?></option>
+						<option value="PANABO">PANABO</option>
+						<option value="BUNAWAN">BUNAWAN</option>
 				  </select>
                 </div>
 				
@@ -95,7 +87,7 @@
         </div>
 
 
-        <div class="modal fade" id="modal_add_image_<?php echo($u["user_id"]); ?>">
+        <div class="modal fade" id="modal_add_image_<?php echo($u["employee_id"]); ?>">
           <div class="modal-dialog ">
             <div class="modal-content">
               <div class="modal-header">
@@ -106,16 +98,16 @@
               <form class="general_form" data-url="chapels">
               <div class="modal-body">
                 <input type="hidden" name="action" value="add_chapel_image">
-                <input type="hidden" name="chapel_id" value="<?php echo($u["user_id"]); ?>">
-                <div id="main_image_div_<?php echo($u["user_id"]); ?>"></div>
-                  <div id="image_div_<?php echo($u["user_id"]); ?>">
+                <input type="hidden" name="chapel_id" value="<?php echo($u["employee_id"]); ?>">
+                <div id="main_image_div_<?php echo($u["employee_id"]); ?>"></div>
+                  <div id="image_div_<?php echo($u["employee_id"]); ?>">
                     <!-- APPEND ITEMS GOES HERE -->
                   </div>
-                  <div id="add_image_div_<?php echo($u["user_id"]); ?>">
+                  <div id="add_image_div_<?php echo($u["employee_id"]); ?>">
                     <div class="row">
                     <div class="col-md-12">
                       <div class="centerbtn">
-                        <a href="#" id="add_more_image_<?php echo($u["user_id"]); ?>">Add Image</a>
+                        <a href="#" id="add_more_image_<?php echo($u["employee_id"]); ?>">Add Image</a>
                       </div>
                     </div>
                     </div>
@@ -152,7 +144,6 @@
   });
         </script>
 
-
 <?php endforeach; ?>
   <div class="content-wrapper">
     <div class="container">
@@ -161,7 +152,7 @@
       <div class="col-md-8">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Users</h3>
+              <h3 class="box-title">employees</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -169,34 +160,26 @@
                 <thead>
                 <tr>
                   <th width="20%">Action</th>
-                  <th>Username</th>
-                  <th>Fullname</th>
-                  <th>Role</th>
+                  <th>Employee</th>
+                  <th>Branch</th>
+                  <th>Salary</th>
                   <th>Image</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($users as $u): ?>
+                  <?php foreach($employees as $e): ?>
                     <tr>
                       <td>
-                        <a href="#" title="Update User" data-toggle="modal" data-target="#modal_<?php echo($u["user_id"]); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a href="#" title="Delete User" data-toggle="modal" data-target="#modal_<?php echo($u["user_id"]); ?>" class="btn btn-danger"><i class="fa fa-close"></i></a>
-                        <form class="general_form" style="display: inline;">
-							<input type="hidden" name="action" value="reset_password">
-							<input  type="hidden" name="user_id" value="<?php echo($u["user_id"]); ?>">
-							<button title="Change Password" type="submit" class="btn btn-success"><i class="fa fa-refresh"></i></a>
-				  		</form>
+                        <a href="#" title="Update employee" data-toggle="modal" data-target="#modal_<?php echo($e["employee_id"]); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a href="#" title="Delete employee" data-toggle="modal" data-target="#modal_<?php echo($e["employee_id"]); ?>" class="btn btn-danger"><i class="fa fa-close"></i></a>
+              
                       
 					</td>
-                      <td><?php echo($u["username"]); ?></td>
-                      <td><?php echo($u["fullname"]); ?></td>
-                      <td><?php echo($u["role"]); ?></td>
+                      <td><?php echo($e["employee_name"]); ?></td>
+                      <td><?php echo($e["branch"]); ?></td>
+                      <td><?php echo($e["base_salary"]); ?></td>
                       <td>
-                      <?php if($u["image_url"] != ""): ?>
-                          <a data-toggle="modal" data-target="#modal_image_<?php echo($u["user_id"]); ?>"  href="#" ><img style="border: 2px solid black;" src="<?php echo($u["image_url"]); ?>" width="50" height="50"></a>
-						<?php else: ?>
-						  <a data-toggle="modal" data-target="#modal_image_<?php echo($u["user_id"]); ?>"  href="#" ><img style="border: 2px solid black;" src="resources/avatar5.png" width="50" height="50"></a>
-					  <?php endif; ?>
+                          <a data-toggle="modal" data-target="#modal_image_<?php echo($e["employee_id"]); ?>"  href="#" ><img style="border: 2px solid black;" src="<?php echo($e["profile"]); ?>" width="50" height="50"></a>
                       </td>
 
                     </tr>
@@ -221,41 +204,33 @@
 
 	 <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Add Users</h3>
+              <h3 class="box-title">Add employees</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-				<form class="general_form" data-url="users">
+				<form class="general_form" data-url="employees">
 				<input type="hidden" name="action" value="add">
 				<div class="form-group">
-                  <label for="exampleInputEmail1">Username</label>
-                  <input required type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter username">
+                  <label for="exampleInputEmail1">Name of the Employee</label>
+                  <input required type="text" name="employee_name" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
-
 				<div class="form-group">
-                  <label for="exampleInputEmail1">Password</label>
-                  <input required type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter password">
-                </div>
-
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Fullname</label>
-                  <input required type="text" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter full name">
+                  <label for="exampleInputEmail1">Base Salary</label>
+                  <input required type="text" name="base_salary" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
 				
 				<div class="form-group">
-                  <label for="exampleInputEmail1">Role</label>
-				  <select class="form-control" name="role" required>
-							<option selected disabled value="">Please select role</option>
-							<option value="ADMIN">ADMIN</option>
-							<option value="USER">USER</option>
+                  <label for="exampleInputEmail1">Branch</label>
+				  <select class="form-control" name="branch" required>
+							<option selected disabled value="">Please select branch assigned</option>
+							<option value="PANABO">PANABO</option>
+							<option value="BUNAWAN">BUNAWAN</option>
 						</select>
                 </div>
-
 				<div class="form-group">
                   <label for="exampleInputFile">Profile Image</label>
-                  <input required name="image_url" type="file" id="exampleInputFile">
+                  <input name="image_url" type="file" id="exampleInputFile">
                 </div>
-
 				<button class="btn btn-primary" type="submit">Submit</button>
 						</form>
             </div>
