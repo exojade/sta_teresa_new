@@ -26,7 +26,7 @@
                 <li><a href="#">Casket Sold</a></li>
                 <li><a href="#">List of Deceased Report</a></li>
                 <li><a href="#">Collectibles Report</a></li>
-                <li><a href="#">Payroll</a></li>
+                <li><a href="payroll?action=list">Payroll</a></li>
               </ul>
             </li>
             <li class="dropdown">

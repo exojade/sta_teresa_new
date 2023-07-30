@@ -44,6 +44,10 @@
 					require 'public/announcements_system/announcement.php';
 
 
+				else if ($request == 'payroll')
+					require 'public/payroll_system/payroll.php';
+
+
 				else if ($request == 'soa')
 					require 'public/soa_system/soa.php';
 				else
