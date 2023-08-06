@@ -4,18 +4,21 @@
 
 
 #login_form_body {
-    background-image: url("AdminLTE/dist/img/0 (1).jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)),url("GDRIVE/background-image.jpg");
     height: 500px;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 
 .login-box-body img{
   vertical-align: middle;
   width: 100%;
 }
+
+
     </style>
 <head>
   <meta charset="utf-8">

@@ -1,3 +1,9 @@
+<?php
+
+$role=$_SESSION["sta_teresa"]["role"];
+
+?>
+
 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index">Dashboard </a></li>
@@ -29,6 +35,7 @@
                 <li><a href="payroll?action=list">Payroll</a></li>
               </ul>
             </li>
+            <?php if($role == "admin"): ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -36,9 +43,13 @@
                 <li><a href="chapels?action=list">Chapels</a></li>
                 <li><a href="announcements?action=list">Announcements</a></li>
                 <li><a href="employees?action=list">Employees</a></li>
+           
                 <li><a href="users">Users</a></li>
+              
               </ul>
             </li>
+
+            <?php endif; ?>
 
 
           </ul>
