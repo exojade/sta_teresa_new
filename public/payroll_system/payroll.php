@@ -60,17 +60,20 @@
     }
 	else {
 
+	
 		if($_GET["action"] == "list"):
-
-		$payroll = query("select * from payroll order by from_date desc, to_date desc");
-		render("public/employees_system/employees_list.php",[
-			"title" => "Payroll",
-			"payroll" => $payroll,
-		]);
-
-		else:
-
+			render("public/payroll_system/payroll_list.php",[
+				"title" => "Payroll",
+			]);
+		elseif($_GET["action"] == "details"):
+			render("public/payroll_system/payroll_details.php",[
+				"title" => "Payroll",
+			]);
 		endif;
+
+
+		
+
 		
 	}
 ?>

@@ -22,10 +22,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Sales Revenue</a></li>
-                <li><a href="#">Casket Sold</a></li>
-                <li><a href="#">List of Deceased Report</a></li>
-                <li><a href="#">Collectibles Report</a></li>
+                <li><a href="reports_page?action=sales_report">Sales Revenue</a></li>
+                <li><a href="reports_page?action=casket_report">Casket Sold</a></li>
+                <li><a href="reports_page?action=deceased_report">List of Deceased Report</a></li>
+                <li><a href="reports_page?action=collectibles_report">Collectibles Report</a></li>
                 <li><a href="payroll?action=list">Payroll</a></li>
               </ul>
             </li>
