@@ -63,6 +63,7 @@
               <li class=""><a href="#obituary" data-toggle="tab" aria-expanded="true">Obituary Page</a></li>
               <li class=""><a href="#embalmer" data-toggle="tab" aria-expanded="false">Embalmer's Certification</a></li>
               <li class=""><a href="#promissory" data-toggle="tab" aria-expanded="false">Promissory Note</a></li>
+              <li class=""><a href="#overdue" data-toggle="tab" aria-expanded="false">Overdue Invoice</a></li>
               <li class=""><a href="#demand" data-toggle="tab" aria-expanded="false">Demand Letter</a></li>
               <li class=""><a href="#sss" data-toggle="tab" aria-expanded="false">SSS</a></li>
               <li class=""><a href="#transaction" data-toggle="tab" aria-expanded="false">Payments</a></li>
@@ -345,6 +346,51 @@
           
               </div>
 
+
+              <div class="tab-pane " id="overdue">
+              <form class="general_form" data-url="burial_contract">
+              <input type="hidden" value="generate_overdue" name="action">
+              <input type="hidden" value="<?php echo($_GET["id"]) ?>" name="contract_id">
+              <button type="submit" class="btn btn-info pull-right">Generate Overdue Invoice</button>
+                  </form>
+              <table class="table table-bordered">
+                <thead>
+                    <th>Action</th>
+                    <th>Invoice</th>
+                    <th>Date Created</th>
+                    <th>Deadline</th>
+                    <th>Balance</th>
+                </thead>
+                <tbody>
+                    <?php 
+                    $overdue = query("select * from overdue where contract_id = ?", $_GET["id"]);
+                    foreach($overdue as $o):
+                    ?>
+                    <tr>
+                      <td>
+                      <form class="generic_form_pdf" data-url="burial_contract">
+                        <input type="hidden" name="action" value="print_overdue">
+                        <input type="hidden" name="invoice_id" value="<?php echo($o["invoice_number"]) ?>">
+                        <button type="submit" class="btn btn-primary">Print</button>
+                      </form>
+                      </td>
+                      <td><?php echo($o["invoice_number"]); ?></td>
+                      <td><?php echo($o["date_created"]); ?></td>
+                      <td><?php echo($o["deadline"]); ?></td>
+                      <td><?php echo($o["balance"]); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+
+
+              </table>
+
+
+              <br>
+              <br>
+              <br>
+          
+            </div>
 
 
               <div class="tab-pane" id="obituary">

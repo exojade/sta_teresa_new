@@ -12,32 +12,9 @@
   <div class="content-wrapper">
     <div class="container">
     <section class="content">
+  
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Users</span>
-              <span class="info-box-number">2</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-file"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Files</span>
-              <span class="info-box-number">2</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <div class="col-md-6">
 
       <div class="box box-info">
             <div class="box-header with-border">
@@ -55,6 +32,31 @@
               </div>
             </div>
           </div>
+
+      </div>
+      <div class="col-md-6">
+
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Deceased <?php echo(date("Y")); ?>: Line represents the deceased per month"</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart2" style="height:250px"></canvas>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+      
           <div class="row">
             <div class="col-md-4">
                <div class="box box-danger">
@@ -224,6 +226,13 @@
     lineChartOptions.datasetFill = false
     lineChart.Line(areaChartData, lineChartOptions)
 
+
+
+    var lineChartCanvas          = $('#lineChart2').get(0).getContext('2d')
+    var lineChart                = new Chart(lineChartCanvas)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart.Line(areaChartData, lineChartOptions)
     //-------------
     //- PIE CHART -
     //-------------

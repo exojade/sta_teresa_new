@@ -294,6 +294,118 @@ use mikehaertl\pdftk\Pdf;
               echo json_encode($json);
 		}
 
+		if($_POST["action"] == "generate_overdue"){
+			// dump($_POST);
+			$count = query("select count(*) as count from overdue where contract_id = ?", $_POST["contract_id"]);
+			$count = $count[0]["count"];
+			$count++;
+			$invoice_number = "INV".$_POST["contract_id"] . "-".$count;
+
+			$burial_contract = query("select * from burial_service_contract where contract_id = ?",
+								$_POST["contract_id"]);
+			$burial_contract = $burial_contract[0];
+			$transaction = query("select sum(amount) as total_amount from transaction where contract_id = ?",
+			$_POST["contract_id"]);
+			$balance = $burial_contract["total_amount"] - $transaction[0]["total_amount"];
+			// dump($balance);
+			$client_name = $burial_contract["client_firstname"] . " " . $burial_contract["client_lastname"];
+			$date_created = date("Y-m-d");
+			$deadline = date('Y-m-d', strtotime('+5 days'));
+			
+			if (query("insert INTO overdue 
+			(
+				invoice_number,contract_id,date_created,deadline,amount_paid,balance
+			) 
+			VALUES(?,?,?,?,?,?)", 
+			$invoice_number,$_POST["contract_id"], $date_created, 
+			$deadline,$transaction[0]["total_amount"],$balance
+			) === false)
+			{
+				apologize("Sorry, that username has already been taken!");
+			}
+
+			$res_arr = [
+                "result" => "success",
+                "title" => "Success",
+                "message" => "Success on Adding a Burial Contract",
+                "link" => "burial_contract?action=details&id=".$_POST["contract_id"],
+                ];
+                echo json_encode($res_arr); exit();
+		}
+
+
+		if($_POST["action"] == "print_overdue"){
+			// dump($_POST);
+
+			$overdue = query("select * from overdue where invoice_number = ?", 
+					$_POST["invoice_id"]);
+			$overdue = $overdue[0];
+
+			$burial_contract = query("select * from burial_service_contract
+								where contract_id = ?", $overdue["contract_id"]);
+			$burial_contract = $burial_contract[0];
+
+			$pdf = new Pdf('reports/overdue.pdf');
+
+			$result = $pdf->fillForm([
+				"deceased_name"    => strtoupper($burial_contract["deceased_firstname"] . " " . $burial_contract["deceased_lastname"]),
+				"invoice_number"    => $overdue["invoice_number"],
+				"contract_number"    => $overdue["contract_id"],
+				"invoice_date"    => $overdue["date_created"],
+				"due_date"    => $overdue["deadline"],
+				"balance"    => to_peso($overdue["balance"]),
+				"amount_paid"    => to_peso($overdue["amount_paid"]),
+				"total_fee"    => to_peso($burial_contract["total_amount"]),
+				"client_name"    => strtoupper($burial_contract["client_firstname"] . " " . $burial_contract["client_lastname"]),
+				])
+			//   ->needAppearances()
+				->flatten()
+				->saveAs("reports/".$_POST["invoice_id"]."_overdue.pdf");
+		
+				$filename = $_POST["invoice_id"]."_overdue.pdf";
+				$path = "reports/".$_POST["invoice_id"]."_overdue.pdf";
+				$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+				$json = array('info' => $load);
+				echo json_encode($json);
+
+
+		}
+
+		if($_POST["action"] == "embalmer_pdf"){
+			// dump($_POST);
+			$contract = query("select * from burial_service_contract where contract_id
+								= ?", $_POST["contract_id"]);
+			$contract = $contract[0];
+			// 
+			// dump($contract);
+
+			$pdf = new Pdf('reports/embalmer_certificate.pdf');
+			
+            $result = $pdf->fillForm([
+              "deceased"    => strtoupper($contract["deceased_firstname"] . " " . $contract["deceased_lastname"]),
+			  "address"    => strtoupper($contract["deceased_address"] . " " . $contract["deceased_barangay"]. " " . $contract["deceased_city"]),
+			  "death"    => ($contract["death_date"]),
+			  "death_address"    => strtoupper($contract["death_address"]),
+			  "client_name"    => strtoupper($_POST["issued_client_name"]),
+			  "relationship"    => strtoupper($_POST["relationship"]),
+			  "day"    => (date("d")),
+			  "month"    => (date("F")),
+			  "year"    => (date("Y")),
+				])
+            //   ->needAppearances()
+              ->flatten()
+              ->saveAs("reports/".$_POST["contract_id"]."_embalmer.pdf");
+        
+              $filename = $_POST["contract_id"]."_embalmer.pdf";
+              $path = "reports/".$_POST["contract_id"]."_embalmer.pdf";
+              $load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+              $json = array('info' => $load);
+              echo json_encode($json);
+
+
+
+		}
+
 
 		if($_POST["action"] == "sss_pdf"){
 			
