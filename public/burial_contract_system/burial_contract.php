@@ -386,7 +386,8 @@ use mikehaertl\pdftk\Pdf;
 
 			$payment_total = $total_cash + $total_guarantee;
 			$balance = $burial_contract["total_amount"] - $payment_total;
-
+			$total_payment = "";
+			$total_payment_words = "";
 			if($payment_total != 0){
 				$total_payment = "(" . to_peso($payment_total) . ")";
 				$total_payment_words = strtoupper(convert_number_to_words($payment_total));
