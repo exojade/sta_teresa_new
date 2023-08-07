@@ -36,7 +36,7 @@
 <div class="login-box">
   <div class="login-box-body">
   <img src="AdminLTE/dist/img/0 (5).jpg">
-  <p class="login-box-msg">STA TERESA INFORMATION MANAGEMENT SYSTEM</p>
+  <p class="login-box-msg">STA TERESA MANAGEMENT INFORMATION SYSTEM</p>
     <form id="login_form" autocomplete="off">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username" name="username" required="required">
