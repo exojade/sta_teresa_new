@@ -24,7 +24,7 @@ $role=$_SESSION["sta_teresa"]["role"];
               </ul>
             </li>
           
-            <li><a href="static" target="_blank">Website </a></li>
+            <!-- <li><a href="static" target="_blank">Website </a></li> -->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -37,7 +37,7 @@ $role=$_SESSION["sta_teresa"]["role"];
             </li>
             <?php if($role == "admin"): ?>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utilities <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="caskets?action=list">Caskets</a></li>
                 <li><a href="chapels?action=list">Chapels</a></li>
