@@ -137,6 +137,69 @@
 				);
 				echo json_encode($json_data);
 
+
+				elseif($_POST["action"] == "deceased-datatable"):
+					// dump($_POST);
+					$draw = isset($_POST["draw"]) ? $_POST["draw"] : 1;
+					$offset = $_POST["start"];
+					$limit = $_POST["length"];
+					$search = $_POST["search"]["value"];
+					
+	
+	
+					$where = " ";
+					if(isset($_REQUEST["from"])):
+						if($_REQUEST["from"] != "")
+							$where = $where . " and contract_date >= '" . $_REQUEST["from"] . "'";
+					endif;
+		
+					if(isset($_REQUEST["to"])):
+						if($_REQUEST["to"] != "")
+							$where = $where . " and contract_date <= '" . $_REQUEST["to"] . "'";
+					endif;
+		
+		
+		
+		
+		
+		
+					if($where != ""):
+						$query_string = "select * from burial_service_contract
+									 where 1=1 ".$where." 
+									 order by contract_date DESC
+										limit ".$limit." offset ".$offset." ";
+						// dump($query_string);
+						$data = query($query_string);
+						$all_data = query("select * from burial_service_contract
+						where 1=1 ".$where." 
+						order by contract_date DESC");
+						// $all_data = $data;
+					else:
+						$query_string = "select * from burial_service_contract
+									 where 1=1 
+									 order by contract_date DESC
+										limit ".$limit." offset ".$offset." ";
+										// dump($query_string);
+						$data = query($query_string);
+						$all_data = query("select * from burial_service_contract");
+						// $all_data = $data;
+					endif;
+					// $i=0;
+					// foreach($data as $row):
+					
+					// 	$data[$i]["transaction_date"] = readable_date($row["transaction_date"]);
+					// 	$data[$i]["amount"] = to_amount($row["amount"]);
+					// 	// dump();	
+					// 	$i++;
+					// endforeach;
+					$json_data = array(
+						"draw" => $draw + 1,
+						"iTotalRecords" => count($all_data),
+						"iTotalDisplayRecords" => count($all_data),
+						"aaData" => $data
+					);
+					echo json_encode($json_data);
+
 			elseif($_POST["action"] == "pdf_sales"):
 			// dump($_POST);
 				$sql = query("select * from site_options");
@@ -167,6 +230,25 @@
 						// dump($webpath);
 						// dump($webpath);
 						$filename = "CASKET_REPORT";
+						// dump($filename);
+						$path = "reports/".$filename.".pdf";
+						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
+						// dump($exec);
+						exec($exec);
+						$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+						$json = array('info' => $load);
+						echo json_encode($json);
+
+			elseif($_POST["action"] == "pdf_deceased"):
+						// dump($_POST);
+						$sql = query("select * from site_options");
+					// dump($sql);
+						$url = $sql[0]["url"];
+						$options = urlencode(serialize($_POST));
+						$webpath = $url . "/reports_page?action=pdf_deceased&options=".$options;
+						// dump($webpath);
+						// dump($webpath);
+						$filename = "DECEASED_REPORT";
 						// dump($filename);
 						$path = "reports/".$filename.".pdf";
 						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
@@ -211,6 +293,12 @@
 				renderview("public/report_system/pdf_casket.php",[
 					"title" => "Sales Report",
 				]);
+		elseif($_GET["action"] == "pdf_deceased"):
+			renderview("public/report_system/pdf_deceased.php",[
+				"title" => "Sales Report",
+			]);
+
+
 		endif;
 
 

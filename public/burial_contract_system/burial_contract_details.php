@@ -158,6 +158,13 @@
                   <input type="text" value="<?php echo($contract["client_relationship"]); ?>" name="client_relationship" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
+
+              <div class="col-md-4">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Relationship</label>
+                  <input type="text" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
+                </div>
+              </div>
             </div>
             <span class="rheader bg-pink">DECEASED'S PROFILE</span>
             <br>

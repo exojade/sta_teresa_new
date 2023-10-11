@@ -109,6 +109,13 @@ input[type=text] {
                 </div>
               </div>
 
+              <div class="col-md-4">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Contact Number</label>
+                  <input type="number" name="contact_number" required class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
+                </div>
+              </div>
+
 
             </div>
             <span class="rheader bg-pink">DECEASED PROFILE</span>

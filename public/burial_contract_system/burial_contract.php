@@ -19,10 +19,10 @@ use mikehaertl\pdftk\Pdf;
 				deceased_firstname, deceased_lastname, deceased_middlename, deceased_suffix,
 				death_date, contract_date, remarks, deceased_gender, client_relationship,
 				deceased_city, deceased_address, deceased_barangay, deceased_zipcode,
-				death_address
+				death_address, contact_number
 			) 
 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-					?,?,?,?,?)", 
+					?,?,?,?,?,?)", 
 			$contract_id,$_POST["client_firstname"],$_POST["client_middlename"],$_POST["client_lastname"],$_POST["client_suffix"],
 			$_POST["address"],$_POST["barangay"],$_POST["city"],$_POST["zipcode"],
 			$_POST["branch"],$_POST["embalming_cost"],$_POST["embalming_days"],$_POST["casket_type"],$_POST["casket_cost"],
@@ -31,7 +31,7 @@ use mikehaertl\pdftk\Pdf;
 			$_POST["deceased_firstname"],$_POST["deceased_lastname"],$_POST["deceased_middlename"],$_POST["deceased_suffix"],
 			$_POST["death_date"],date("Y-m-d"), "UNPAID", $_POST["gender"], $_POST["client_relationship"],
 			$_POST["deceased_city"], $_POST["deceased_address"], $_POST["deceased_barangay"], $_POST["deceased_zipcode"],
-			$_POST["death_address"]
+			$_POST["death_address"], $_POST["contact_number"]
 			
 			
 			) === false)
@@ -171,7 +171,8 @@ use mikehaertl\pdftk\Pdf;
 						deceased_city = '".$_POST["deceased_city"]."',
 						deceased_address = '".$_POST["deceased_address"]."',
 						deceased_barangay = '".$_POST["deceased_barangay"]."',
-						deceased_zipcode = '".$_POST["deceased_zipcode"]."'
+						deceased_zipcode = '".$_POST["deceased_zipcode"]."',
+						contact_number = '".$_POST["contact_number"]."'
 						where contract_id = '".$_POST["contract_id"]."'
 					");
 

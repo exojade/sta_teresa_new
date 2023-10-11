@@ -23,6 +23,7 @@
             <div class="box-body">
 
 
+            <form class="generic_form_pdf"  url="reports_page">
             <div class="row">
               <div class="col-md-3">
               <div class="form-group">
@@ -31,7 +32,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input name="from_date" id="from" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -43,7 +44,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input id="to" name="to_date" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -51,17 +52,19 @@
               <div class="col-md-3">
               <div class="form-group">
                 <label>Filter:</label>
-                <button class="btn btn-primary btn-block">Filter</button>
+                <button type="button" onclick="filter();" class="btn btn-primary btn-block">Filter</button>
               </div>
               </div>
-              <div class="col-md-3">
-              <div class="form-group">
-                <label>Print:</label>
-                <a href="resources/deceased_report.pdf" target="_blank" class="btn btn-success btn-block"><i class="fa fa-print"></i> Print</a>
-              </div>
-              </div>
+                <div class="col-md-3">
+                        <input type="hidden" name="action" value="pdf_deceased">
+                        <div class="form-group">
+                          <label>Print</label>
+                          <button class="btn btn-success btn-block">Print</button>
+                        </div>
+                      </form>
+                </div>
             </div>
-              <table class="table table-bordered table-striped sample-datatable">
+              <table class="table table-bordered table-striped deceased-datatable">
                 <thead>
                 <tr>
                   <th rowspan="2">Date</th>
@@ -75,99 +78,6 @@
                   <th>MI</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>BAUTISTA</td>
-                    <td>RAJESH</td>
-                    <td>M</td>
-                    <td>09099282091</td>
-                    <td>BSC2023-0001</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>PALMA</td>
-                    <td>IKENJ</td>
-                    <td>M</td>
-                    <td>09099282092</td>
-                    <td>BSC2023-0002</td>
-                  </tr>
-                  <tr>
-                    <td>January 23, 2023</td>
-                    <td>MCGREGOR</td>
-                    <td>CONNOR</td>
-                    <td>M</td>
-                    <td>09099282691</td>
-                    <td>BSC2023-0003</td>
-                  </tr>
-                  <tr>
-                    <td>June 30, 2023</td>
-                    <td>ALDO</td>
-                    <td>JOSE</td>
-                    <td>M</td>
-                    <td>09099272091</td>
-                    <td>BSC2023-0004</td>
-                  </tr>
-                  <tr>
-                    <td>July 10, 2023</td>
-                    <td>MARS</td>
-                    <td>BRUNO</td>
-                    <td>M</td>
-                    <td>09099282091</td>
-                    <td>BSC2023-0005</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>ALAWI</td>
-                    <td>IVANA</td>
-                    <td>M</td>
-                    <td>09099282091</td>
-                    <td>BSC2023-0006</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>HARAKE</td>
-                    <td>ZEINAB</td>
-                    <td>M</td>
-                    <td>09099282093</td>
-                    <td>BSC2023-0007</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>BAUTISTA</td>
-                    <td>MAVRICK</td>
-                    <td>M</td>
-                    <td>09099282093</td>
-                    <td>BSC2023-0008</td>
-                  </tr>
-                  <tr>
-                    <td>January 25, 2023</td>
-                    <td>BAUTISTA</td>
-                    <td>RAJESH</td>
-                    <td>M</td>
-                    <td>09099282091</td>
-                    <td>BSC2023-0009</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>MAZO</td>
-                    <td>EKATRINA</td>
-                    <td>M</td>
-                    <td>09099282092</td>
-                    <td>BSC2023-0010</td>
-                  </tr>
-
-                  
-               
-                  
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Date</th>
-                  <th>Payment Type</th>
-                  <th>Amount</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
           </div>
@@ -195,7 +105,67 @@
 	<script src="AdminLTE/dist/js/adminlte.min.js"></script>
 	<script src="AdminLTE/dist/js/demo.js"></script>
   <script>
-$('.sample-datatable').DataTable();
+  var datatable = 
+            $('.deceased-datatable').DataTable({
+                "pageLength": 100,
+                language: {
+                    searchPlaceholder: "Enter Filter"
+                },
+                searching: false,
+                "bLengthChange": true,
+                "ordering": false,
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url':'reports_page',
+                     'type': "POST",
+                     "data": function (data){
+                        data.action = "deceased-datatable";
+                     }
+                },
+                'columns': [
+                    { data: 'contract_date', "orderable": false },
+                    { data: 'deceased_lastname', "orderable": false },
+                    { data: 'deceased_firstname', "orderable": false },
+                    { data: 'deceased_middlename', "orderable": false },
+                    { data: 'contact_number', "orderable": false },
+                    { data: 'contract_id', "orderable": false },
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    // var api = this.api(), data;
+                    // var intVal = function (i) {
+                    //     return typeof i === 'string' ?
+                    //         i.replace(/[\$,]/g, '') * 1 :
+                    //         typeof i === 'number' ?
+                    //             i : 0;
+                    // };
+                    // // // Total over all pages
+
+                    // console.log(received = api
+                    //     .column(2)
+                    //     .data());
+
+
+                    // received = api
+                    //     .column(2)
+                    //     .data()
+                    //     .reduce(function (a, b) {
+                    //         return intVal(a) + intVal(b);
+                    //     }, 0);
+                    //     console.log(received);
+
+                    // $('#currentTotal').html('' + received.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }));
+                }
+            });
+
+            function filter() {
+              var from = $('#from').val();
+              var to = $('#to').val();
+              console.log(from);
+              console.log(to);
+              datatable.ajax.url('reports_page?action=deceased-datatable&from='+from+'&to='+to).load();
+          }
   </script>
   <?php
 	// render footer 2
