@@ -16,7 +16,7 @@
 		$request = explode('/',$request);
 		$request = $request[1];
 		
-		$countering = array("login", "register", "soa", "static", "static_casket_list", "static_casket_details", "static_chapel_list", "static_chapel_details");
+		$countering = array("login", "register", "soa", "static", "static_casket_list", "static_casket_details", "static_chapel_list", "static_chapel_details", "reports_page");
 		
 		if (!in_array($request, $countering)){
 			if(empty($_SESSION["sta_teresa"]["userid"]) && empty($_SESSION["sta_teresa"]["application"])){
@@ -81,6 +81,9 @@
 
 			if ($request == 'static_chapel_details')
 				require 'public/static_system/chapel_details.php';
+
+			if ($request == 'reports_page')
+			require 'public/report_system/reports.php';
 
 
 

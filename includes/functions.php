@@ -10,6 +10,30 @@
     require_once("constants.php");
 
 
+    function to_amount($number){
+        return(round($number, 2));
+    }
+
+    function full_month($date){
+        $readable_date = date("F", strtotime($date));  
+        // dump($readable_date);
+        return $readable_date;
+    }
+
+    function date_day($date){
+        $readable_date = date("d", strtotime($date));  
+        // dump($readable_date);
+        return $readable_date;
+    }
+
+
+
+    function readable_date($date){
+        $readable_date = date("F d, Y", strtotime($date));  
+        // dump($readable_date);
+        return $readable_date;
+    }
+
     function convert_number_to_words($number) {
 
         $hyphen      = '-';

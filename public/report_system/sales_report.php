@@ -22,7 +22,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-
+            <form class="generic_form_pdf"  url="reports_page">
             <div class="row">
               <div class="col-md-3">
               <div class="form-group">
@@ -31,7 +31,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input name="from_date" id="from" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -43,7 +43,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input id="to" name="to_date" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -51,19 +51,26 @@
               <div class="col-md-3">
               <div class="form-group">
                 <label>Filter:</label>
-                <button class="btn btn-primary btn-block">Filter</button>
+                <button type="button" onclick="filter();" class="btn btn-primary btn-block">Filter</button>
               </div>
               </div>
-              <div class="col-md-3">
-              <div class="form-group">
-                <label>Print:</label>
-                <a href="resources/sales_revenue.pdf" target="_blank" class="btn btn-success btn-block"><i class="fa fa-print"></i> Print</a>
-              </div>
-              </div>
+                <div class="col-md-3">
+                        <input type="hidden" name="action" value="pdf_sales">
+                        <div class="form-group">
+                          <label>Print</label>
+                          <button class="btn btn-success btn-block">Print</button>
+                        </div>
+                      </form>
+                </div>
             </div>
 
+            <br>
+            <div style="float:right;">
+                       Total Amount:
+                        <h3 style="margin-top:2px !important;" name="currentTotal" id="currentTotal">P 0.00</h3>
+                    </div>
 
-              <table class="table table-bordered table-striped sample-datatable">
+              <table class="table table-bordered table-striped sales-datatable">
                 <thead>
                 <tr>
                   <th>Date</th>
@@ -71,77 +78,6 @@
                   <th>Amount</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>CSWDO</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>PSWDO</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>TAGUM COOP</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>PSWDO</td>
-                    <td>2,222.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>DSWD</td>
-                    <td>4,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>3,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-               
-                  
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Date</th>
-                  <th>Payment Type</th>
-                  <th>Amount</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
           </div>
@@ -169,15 +105,65 @@
 	<script src="AdminLTE/dist/js/adminlte.min.js"></script>
 	<script src="AdminLTE/dist/js/demo.js"></script>
   <script>
-$('.sample-datatable').DataTable();
+  var datatable = 
+            $('.sales-datatable').DataTable({
+                "pageLength": 100,
+                language: {
+                    searchPlaceholder: "Enter Filter"
+                },
+                searching: false,
+                "bLengthChange": true,
+                "ordering": false,
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url':'reports_page',
+                     'type': "POST",
+                     "data": function (data){
+                        data.action = "sales-datatable";
+                     }
+                },
+                'columns': [
+                    { data: 'transaction_date', "orderable": false },
+                    { data: 'payment_type', "orderable": false },
+                    { data: 'amount', "orderable": false, render: $.fn.dataTable.render.number( ',', '.', 2, '' ), className: "text-right"},
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    // // Total over all pages
+
+                    console.log(received = api
+                        .column(2)
+                        .data());
+
+
+                    received = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                        console.log(received);
+
+                    $('#currentTotal').html('P ' + received.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                }
+            });
+
+            function filter() {
+              var from = $('#from').val();
+              var to = $('#to').val();
+              console.log(from);
+              console.log(to);
+              datatable.ajax.url('reports_page?action=sales-datatable&from='+from+'&to='+to).load();
+          }
   </script>
   <?php
-	// render footer 2
-	require("layouts/footer_end.php");
+	  require("layouts/footer_end.php");
   ?>
-<script>
-  $(function () {
-    $('#example2').DataTable()
-   
-  })
-</script>

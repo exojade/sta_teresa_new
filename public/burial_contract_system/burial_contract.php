@@ -9,7 +9,6 @@ use mikehaertl\pdftk\Pdf;
 			contract_date between ? and ?", $from_date, $to_date);
 			$count = $count[0]["count"] + 2;
 			$contract_id = date("Ym"). sprintf("%04d", $count);
-
 			if (query("insert INTO burial_service_contract 
 			(
 				contract_id,client_firstname,client_middlename,client_lastname,client_suffix,

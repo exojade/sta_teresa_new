@@ -8,8 +8,6 @@
     overflow: auto;
 }
 </style>
-
-
   <div class="content-wrapper">
     <div class="container">
     <section class="content">
@@ -23,6 +21,7 @@
             <div class="box-body">
 
 
+            <form class="generic_form_pdf"  url="reports_page">
             <div class="row">
               <div class="col-md-3">
               <div class="form-group">
@@ -31,7 +30,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input name="from_date" id="from" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -43,7 +42,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" class="form-control">
+                  <input id="to" name="to_date" type="date" class="form-control">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -51,95 +50,38 @@
               <div class="col-md-3">
               <div class="form-group">
                 <label>Filter:</label>
-                <button class="btn btn-primary btn-block">Filter</button>
+                <button type="button" onclick="filter();" class="btn btn-primary btn-block">Filter</button>
               </div>
               </div>
-              <div class="col-md-3">
-              <div class="form-group">
-                <label>Print:</label>
-                <a href="resources/casket_report.pdf" target="_blank" class="btn btn-success btn-block"><i class="fa fa-print"></i> Print</a>
-              </div>
-              </div>
+                <div class="col-md-3">
+                        <input type="hidden" name="action" value="pdf_casket">
+                        <div class="form-group">
+                          <label>Print</label>
+                          <button class="btn btn-success btn-block">Print</button>
+                        </div>
+                      </form>
+                </div>
             </div>
 
 
-              <table class="table table-bordered table-striped sample-datatable">
+            <div style="float:right;">
+                       Total Quantity:
+                        <h3 style="margin-top:2px !important;" name="currentTotal" id="currentTotal">0</h3>
+                    </div>
+
+              <table class="table table-bordered table-striped casket-datatable">
                 <thead>
                 <tr>
                   <th>Date</th>
                   <th>Casket Type</th>
-                  <th>Amount</th>
+                  <th>Quantity</th>
                 </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>OGOY PLAIN</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 2, 2023</td>
-                    <td>OGOY PLAIN</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>JR FG</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 5, 2023</td>
-                    <td>FLAT</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>ORDINARY</td>
-                    <td>2,222.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 4, 2023</td>
-                    <td>TAPIAS HG</td>
-                    <td>4,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>Cash</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 5, 2023</td>
-                    <td>FLAT</td>
-                    <td>3,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>FLAT</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>OGOY PLAIN</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>TAPIAS HG</td>
-                    <td>2,500.00</td>
-                  </tr>
-                  <tr>
-                    <td>January 1, 2023</td>
-                    <td>JR FG</td>
-                    <td>2,500.00</td>
-                  </tr>
-               
-                  
-                </tbody>
                 <tfoot>
                 <tr>
                   <th>Date</th>
                   <th>Payment Type</th>
-                  <th>Amount</th>
+                  <th>Quantity</th>
                 </tr>
                 </tfoot>
               </table>
@@ -169,7 +111,64 @@
 	<script src="AdminLTE/dist/js/adminlte.min.js"></script>
 	<script src="AdminLTE/dist/js/demo.js"></script>
   <script>
-$('.sample-datatable').DataTable();
+  var datatable = 
+            $('.casket-datatable').DataTable({
+                "pageLength": 100,
+                language: {
+                    searchPlaceholder: "Enter Filter"
+                },
+                searching: false,
+                "bLengthChange": true,
+                "ordering": false,
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url':'reports_page',
+                     'type': "POST",
+                     "data": function (data){
+                        data.action = "casket-datatable";
+                     }
+                },
+                'columns': [
+                    { data: 'contract_date', "orderable": false },
+                    { data: 'casket_type', "orderable": false },
+                    { data: 'quantity', "orderable": false,className: "text-right"},
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    // // Total over all pages
+
+                    console.log(received = api
+                        .column(2)
+                        .data());
+
+
+                    received = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                        console.log(received);
+
+                    $('#currentTotal').html('' + received.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }));
+                }
+            });
+
+            function filter() {
+              var from = $('#from').val();
+              var to = $('#to').val();
+              console.log(from);
+              console.log(to);
+              datatable.ajax.url('reports_page?action=sales-datatable&from='+from+'&to='+to).load();
+          }
   </script>
   <?php
 	// render footer 2
