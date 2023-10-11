@@ -200,6 +200,77 @@
 					);
 					echo json_encode($json_data);
 
+
+			elseif($_POST["action"] == "collectible-datatable"):
+				// dump($_POST);
+				$draw = isset($_POST["draw"]) ? $_POST["draw"] : 1;
+				$offset = $_POST["start"];
+				$limit = $_POST["length"];
+				$search = $_POST["search"]["value"];
+
+
+				$Transaction = [];
+				$transaction = query("select contract_id, sum(amount) as amount from transaction group by contract_id");
+				foreach($transaction as $row):
+					$Transaction[$row["contract_id"]] = $row;
+				endforeach;
+				// dump($Transaction);
+
+
+				$where = " ";
+				if(isset($_REQUEST["from"])):
+					if($_REQUEST["from"] != "")
+						$where = $where . " and contract_date >= '" . $_REQUEST["from"] . "'";
+				endif;
+	
+				if(isset($_REQUEST["to"])):
+					if($_REQUEST["to"] != "")
+						$where = $where . " and contract_date <= '" . $_REQUEST["to"] . "'";
+				endif;
+	
+	
+				if($where != ""):
+					$query_string = "select * from burial_service_contract
+									where 1=1 ".$where." and remarks = 'UNPAID'
+									order by contract_date DESC
+									limit ".$limit." offset ".$offset." ";
+					// dump($query_string);
+					$data = query($query_string);
+					$all_data = query("select * from burial_service_contract
+					where 1=1 ".$where." and remarks = 'UNPAID'
+					order by contract_date DESC");
+					// $all_data = $data;
+				else:
+					$query_string = "select * from burial_service_contract
+									where 1=1 and remarks = 'UNPAID'
+									order by contract_date DESC
+									limit ".$limit." offset ".$offset." ";
+									// dump($query_string);
+					$data = query($query_string);
+					$all_data = query("select * from burial_service_contract");
+					// $all_data = $data;
+				endif;
+				$i=0;
+				foreach($data as $row):
+					$data[$i]["contract_date"] = readable_date($row["contract_date"]);
+					$payment_total = 0;
+					if(isset($Transaction[$row["contract_id"]]))
+						$payment_total = $Transaction[$row["contract_id"]]["amount"];
+					$data[$i]["balance"] = to_peso($row["total_amount"] - $payment_total);
+					$data[$i]["debtor"] = $row["client_lastname"] . ", " . $row["client_firstname"];
+					$data[$i]["address"] = $row["address_home"] . ", " . $row["address_barangay"] . ", " . $row["address_city"];
+					$data[$i]["deceased"] = $row["deceased_lastname"] . ", " . $row["deceased_firstname"];
+					// dump();	
+					$i++;
+				endforeach;
+				$json_data = array(
+					"draw" => $draw + 1,
+					"iTotalRecords" => count($all_data),
+					"iTotalDisplayRecords" => count($all_data),
+					"aaData" => $data
+				);
+				echo json_encode($json_data);
+
 			elseif($_POST["action"] == "pdf_sales"):
 			// dump($_POST);
 				$sql = query("select * from site_options");
@@ -258,8 +329,18 @@
 						$json = array('info' => $load);
 						echo json_encode($json);
 
-
-
+			elseif($_POST["action"] == "pdf_collectibles"):
+						$sql = query("select * from site_options");
+						$url = $sql[0]["url"];
+						$options = urlencode(serialize($_POST));
+						$webpath = $url . "/reports_page?action=pdf_collectibles&options=".$options;
+						$filename = "COLLECTIBLE_REPORT";
+						$path = "reports/".$filename.".pdf";
+						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O landscape  "'.$webpath.'" '.$path.'';
+						exec($exec);
+						$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+						$json = array('info' => $load);
+						echo json_encode($json);
 		endif;
 		
     }
@@ -295,6 +376,11 @@
 				]);
 		elseif($_GET["action"] == "pdf_deceased"):
 			renderview("public/report_system/pdf_deceased.php",[
+				"title" => "Sales Report",
+			]);
+
+		elseif($_GET["action"] == "pdf_collectibles"):
+			renderview("public/report_system/pdf_collectibles.php",[
 				"title" => "Sales Report",
 			]);
 

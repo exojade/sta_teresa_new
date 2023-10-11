@@ -72,8 +72,8 @@
             90                  => 'ninety',
             100                 => 'hundred',
             1000                => 'thousand',
-            100000             => 'lakh',
-            10000000          => 'crore'
+            100000             => 'hundred',
+            10000000          => 'million'
         );
     
         if (!is_numeric($number)) {
