@@ -17,19 +17,14 @@
       <div class="col-md-12">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Payroll List
-              
-
-              </h3>
-              <a href="#" class="btn btn-primary pull-right">Create Payroll</a>
+              <h3 class="box-title">Payroll List</h3>
+              <a href="#" data-toggle="modal" data-target="#modal_payroll" class="btn btn-primary pull-right">Create Payroll</a>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered table-striped sample-datatable">
                 <thead>
                 <tr>
-                  <th >Action</th>
-                  <th>Payroll ID</th>
+                  <th width="10%">Action</th>
                   <th>Payroll Title</th>
                   <th># of Employees</th>
                   <th>Benefits</th>
@@ -40,58 +35,28 @@
                 </thead>
 
                 <tbody>
+                <?php foreach($payroll as $row): ?>
                   <tr>
-                    <td>
+                  <td>
                       <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i></a>
-                      <a href="payroll?action=details" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                      <a href="payroll?action=details&id=<?php echo($row["payroll_id"]); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                   </td>
-                    <td>PY20230001</td>
-                    <td>June 1 - 15, 2023</td>
-                    <td>15</td>
-                    <td>2,500.00</td>
-                    <td>60,000.00</td>
-                    <td>2,500.00</td>
-                    <td>65,000.00</td>
+                  <td><?php echo(short_date($row["from_date"]) . " - " . short_date($row["to_date"])); ?></td>
+                  <?php if(isset($Employees[$row["payroll_id"]])): ?>
+                      <td><?php echo($Employees[$row["payroll_id"]]["employees"]); ?></td>
+                      <td><?php echo(to_peso($Employees[$row["payroll_id"]]["benefits"])); ?></td>
+                      <td><?php echo(to_peso($Employees[$row["payroll_id"]]["base_salary"])); ?></td>
+                      <td><?php echo(to_peso($Employees[$row["payroll_id"]]["cash_advance"])); ?></td>
+                      <td><?php echo(to_peso($Employees[$row["payroll_id"]]["base_salary"] - $Employees[$row["payroll_id"]]["cash_advance"])); ?></td>
+                  <?php else: ?>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                  <?php endif; ?>
                   </tr>
-                  <tr>
-                  <td>
-                  <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i></a>
-                      <a href="payroll?action=details" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                  </td>
-                    <td>PY20230002</td>
-                    <td>June 15 - 30, 2023</td>
-                    <td>15</td>
-                    <td>2,500.00</td>
-                    <td>60,000.00</td>
-                    <td>2,500.00</td>
-                    <td>65,000.00</td>
-                  </tr>
-                  <tr>
-                  <td>
-                  <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i></a>
-                      <a href="payroll?action=details" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                  </td>
-                    <td>PY202300043</td>
-                    <td>July 1 - 15, 2023</td>
-                    <td>15</td>
-                    <td>2,500.00</td>
-                    <td>60,000.00</td>
-                    <td>2,500.00</td>
-                    <td>65,000.00</td>
-                  </tr>
-                  <tr>
-                  <td>
-                  <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i></a>
-                      <a href="payroll?action=details" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                  </td>
-                    <td>PY202300034</td>
-                    <td>July 16 - 31, 2023</td>
-                    <td>15</td>
-                    <td>2,500.00</td>
-                    <td>60,000.00</td>
-                    <td>2,500.00</td>
-                    <td>65,000.00</td>
-                  </tr>
+                <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -108,10 +73,40 @@
             </div>
           </div>
       </div>
-
-	 
-
     </div>
+    <div class="modal fade" id="modal_payroll">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+				<h3 class="modal-title text-center">Create Payroll</h3>
+			</div>
+			<div class="modal-body">
+			<form class="general_form" data-url="payroll" autocomplete="off">
+				<input type="hidden" name="action" value="add_payroll">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>From</label>
+              <input required name="from_date" required type="date"  class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>To</label>
+              <input required name="to_date" required type="date"  class="form-control">
+            </div>
+          </div>
+        </div>
+			<div class="box-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
 
 
    

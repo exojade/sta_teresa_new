@@ -34,6 +34,12 @@
         return $readable_date;
     }
 
+    function short_date($date){
+        $readable_date = date("M d, Y", strtotime($date));  
+        // dump($readable_date);
+        return $readable_date;
+    }
+
     function convert_number_to_words($number) {
 
         $hyphen      = '-';

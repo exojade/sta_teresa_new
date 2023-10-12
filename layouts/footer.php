@@ -248,8 +248,14 @@
                     text: o.message,
                     type:"success"})
                     .then(function () {
+                      if(o.link != "refresh"){
+                        window.location.replace(o.link);
+                      }
+                      else{
+                        window.location.reload();
+                      }
                     //window.location.replace('./applicant.php?page=list');
-                    window.location.replace(o.link);
+                    
                     });
                 }
                 else {

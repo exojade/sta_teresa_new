@@ -15,7 +15,7 @@
       <div class="col-md-8">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">employees</h3>
+              <h3 class="box-title">Employees</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -58,10 +58,10 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Action</th>
-                  <th>ID</th>
-                  <th>chapel</th>
-                  <th>Amount</th>
+                <th>Action</th>
+                  <th>Employee Name</th>
+                  <th>Branch</th>
+                  <th>Base Salary</th>
                   <th>Image</th>
                 </tr>
                 </tfoot>
@@ -80,38 +80,26 @@
             <!-- /.box-header -->
             <div class="box-body">
 				<form class="general_form" data-url="employees">
-				<input type="hidden" name="action" value="add">
-				<div class="form-group">
+				        <input type="hidden" name="action" value="add">
+				        <div class="form-group">
                   <label for="exampleInputEmail1">Employee Name</label>
-                  <input required type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                  <input required type="text" name="employee_name" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
                 </div>
-
-				<div class="form-group">
+				        <div class="form-group">
                   <label for="exampleInputEmail1">Base Salary</label>
-                  <input required type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                  <input required type="number" step="0.01" name="base_salary" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
                 </div>
-
                 <div class="form-group">
                   <label for="exampleInputEmail1">Branch</label>
-                  <input required type="text" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                  <input required type="text" name="branch" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
                 </div>
-				
-				<div class="form-group">
-                  <label for="exampleInputEmail1">Role</label>
-				  <select class="form-control" name="role" required>
-							<option selected disabled value="">Please select role</option>
-							<option value="ADMIN">ADMIN</option>
-							<option value="USER">USER</option>
-						</select>
-                </div>
-
-				<div class="form-group">
+				        <div class="form-group">
                   <label for="exampleInputFile">Profile Image</label>
                   <input required name="image_url" type="file" id="exampleInputFile">
                 </div>
 
-				<button class="btn btn-primary" type="submit">Submit</button>
-						</form>
+				        <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
             </div>
           </div>
 
