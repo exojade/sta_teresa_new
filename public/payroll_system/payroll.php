@@ -46,6 +46,18 @@
 						];
 						echo json_encode($res_arr); exit();
 
+
+			elseif($_POST["action"] == "delete_employee"):
+				// dump($_POST);
+
+				query("delete from payroll_employee where payroll_id = ? and employee_id = ?", $_POST["payroll_id"], $_POST["employee"]);
+				$res_arr = [
+					"result" => "success",
+					"title" => "Success",
+					"message" => "Success on Deleting Employee",
+					"link" => "refresh",
+					];
+					echo json_encode($res_arr); exit();
 			endif;
     }
 	else {

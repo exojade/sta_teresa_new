@@ -91,7 +91,14 @@
                 <tbody>
                   <?php foreach($payroll_employees as $row): ?>
                     <tr>
-                      <td><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a></td>
+                      <td>
+                      <form class="general_form" style="display:inline;" data-url="payroll" autocomplete="off">
+                        <input type="hidden" name="action" value="delete_employee">
+                        <input type="hidden" name="employee" value="<?php echo($row["employee_id"]); ?>">
+                        <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                      </form>
+                      </td>
                       <td><?php echo($row["employee_name"]); ?></td>
                       <td><?php echo(to_peso($row["base_salary"])); ?></td>
                       <td><?php echo($row["number_days"]); ?></td>
