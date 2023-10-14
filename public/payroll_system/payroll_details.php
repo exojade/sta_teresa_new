@@ -71,22 +71,28 @@
             <div class="box-header">
               <h3 class="box-title">Salary Report</h3>
               <a  href="#" data-toggle="modal" data-target="#add_employee" class="btn btn-primary pull-right">Add Employee</a> 
-              <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-success pull-right" style="margin-right: 10px;">Print Payroll Report</a>
+
+              <form class="generic_form_pdf pull-right" data-url="payroll" style="display:inline; margin-right: 10px;">
+              <input type="hidden" name="action" value="pdf_payroll">
+              <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
+                          <button class="btn btn-success btn">Print Payroll</button>
+                <!-- <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-success pull-right" style="margin-right: 10px;">Print Payroll Report</a> -->
+              </form>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered table-striped sample-datatable">
                 <thead>
-                <tr>
-                  <th>Action</th>
-                  <th>Employee</th>
-                  <th>Base Rate</th>
-                  <th>Days</th>
-                  <th>Gross Pay</th>
-                  <th>Benefits</th>
-                  <th>Deductions</th>
-                  <th>Net Pay</th>
-                </tr>
+                  <tr>
+                    <th>Action</th>
+                    <th>Employee</th>
+                    <th>Base Rate</th>
+                    <th>Days</th>
+                    <th>Gross Pay</th>
+                    <th>Benefits</th>
+                    <th>Deductions</th>
+                    <th>Net Pay</th>
+                  </tr>
                 </thead>
                 <tbody>
                   <?php foreach($payroll_employees as $row): ?>

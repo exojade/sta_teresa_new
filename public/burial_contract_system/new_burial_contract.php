@@ -36,12 +36,22 @@ input[type=text] {
             <form class="general_form" url="burial_contract">
             <br>
             <span class="rheader bg-pink">CLIENT'S INFORMATION (PROCESSOR)</span>
-            <div class="form-group pull-right">
-                  <select required class="form-control" name="branch">
-                    <option value="" selected disabled>Please select Branch here</option>
-                    <option value="PANABO">PANABO</option>
-                    <option value="BUNAWAN">BUNAWAN</option>
-                    <option value="TAGUM">TAGUM</option>
+            <div class="form-group pull-right" style="margin-left: 10px;">
+            <select  required class="form-control" name="plan">
+            <option selected value="NONE">NONE</option>
+                    <?php $plan = query("select * from plans"); ?>
+                    <?php foreach($plan as $row): ?>
+                      <option value="<?php echo($row["plan"]); ?>"><?php echo($row["plan"]); ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="form-group pull-right">
+                <select required class="form-control" name="branch">
+                <option value="" selected disabled>Please select Branch here</option>
+                    <?php $branch = query("select * from branch"); ?>
+                    <?php foreach($branch as $row): ?>
+                      <option value="<?php echo($row["branch"]); ?>"><?php echo($row["branch"]); ?></option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
             <br>

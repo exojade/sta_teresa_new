@@ -1,7 +1,9 @@
 <?php
+
 use mikehaertl\pdftk\Pdf;
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-		
+
+		$session = $_SESSION["sta_teresa"];
 		if($_POST["action"] == "new_contract"){
 			$from_date = date("Y-m-1");
 			$to_date = date("Y-m-t");
@@ -19,10 +21,10 @@ use mikehaertl\pdftk\Pdf;
 				deceased_firstname, deceased_lastname, deceased_middlename, deceased_suffix,
 				death_date, contract_date, remarks, deceased_gender, client_relationship,
 				deceased_city, deceased_address, deceased_barangay, deceased_zipcode,
-				death_address, contact_number
+				death_address, contact_number, plan, created_by
 			) 
 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-					?,?,?,?,?,?)", 
+					?,?,?,?,?,?,?,?)", 
 			$contract_id,$_POST["client_firstname"],$_POST["client_middlename"],$_POST["client_lastname"],$_POST["client_suffix"],
 			$_POST["address"],$_POST["barangay"],$_POST["city"],$_POST["zipcode"],
 			$_POST["branch"],$_POST["embalming_cost"],$_POST["embalming_days"],$_POST["casket_type"],$_POST["casket_cost"],
@@ -31,9 +33,7 @@ use mikehaertl\pdftk\Pdf;
 			$_POST["deceased_firstname"],$_POST["deceased_lastname"],$_POST["deceased_middlename"],$_POST["deceased_suffix"],
 			$_POST["death_date"],date("Y-m-d"), "UNPAID", $_POST["gender"], $_POST["client_relationship"],
 			$_POST["deceased_city"], $_POST["deceased_address"], $_POST["deceased_barangay"], $_POST["deceased_zipcode"],
-			$_POST["death_address"], $_POST["contact_number"]
-			
-			
+			$_POST["death_address"], $_POST["contact_number"], $_POST["plan"], $session["userid"]
 			) === false)
 			{
 				apologize("Sorry, that username has already been taken!");
@@ -172,7 +172,8 @@ use mikehaertl\pdftk\Pdf;
 						deceased_address = '".$_POST["deceased_address"]."',
 						deceased_barangay = '".$_POST["deceased_barangay"]."',
 						deceased_zipcode = '".$_POST["deceased_zipcode"]."',
-						contact_number = '".$_POST["contact_number"]."'
+						contact_number = '".$_POST["contact_number"]."',
+						plan = '".$_POST["plan"]."'
 						where contract_id = '".$_POST["contract_id"]."'
 					");
 
@@ -477,7 +478,10 @@ use mikehaertl\pdftk\Pdf;
 			$burial_contract = query("select * from burial_service_contract where
 										contract_id = ?", $_POST["contract_id"]);
 			$burial_contract = $burial_contract[0];
+			$created_by = query("select * from tblusers where user_id = ?", $burial_contract["created_by"]);
+			$created_by = $created_by[0];
 
+			$branch = query("select * from branch where branch = ?", $burial_contract["branch"]);
 			// dump($burial_contract);
 
 			$cash = query("select * from transaction where contract_id = ?
@@ -519,11 +523,11 @@ use mikehaertl\pdftk\Pdf;
 			endfor;
 
 			// dump($payments);
+			$header = "INVALID BRANCH";
+			if(!empty($branch)):
+				$header = $branch[0]["address"];
+			endif;	
 
-			if($burial_contract["branch"] == "PANABO")
-				$header="Km. 31 Gredu, Panabo City";
-			else
-				$header="Km. 24 Bunawan, Davao City";
 
 
 			
@@ -546,6 +550,10 @@ use mikehaertl\pdftk\Pdf;
 									$burial_contract["zipcode"]
 								),
 			  "branch"    => strtoupper($burial_contract["branch"]),
+			  "contract_date"    => readable_date($burial_contract["contract_date"]),
+			  "contract_number"    => strtoupper($burial_contract["contract_id"]),
+			  "created_by"    => strtoupper($created_by["fullname"]),
+			  "mortuary_plan"    => strtoupper($burial_contract["plan"]),
 			  "deceased"    => strtoupper($burial_contract["deceased_firstname"] . " "
 									. $burial_contract["deceased_middlename"] . " " . $burial_contract["deceased_lastname"]),
 			  "embalming_days"    => strtoupper($burial_contract["embalming_days"]),

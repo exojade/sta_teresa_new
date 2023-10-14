@@ -27,6 +27,33 @@
     }
 
 
+    function generateMonthArray($from, $to) {
+        $from = max(1, min(12, (int)$from)); // Ensure $from is between 1 and 12.
+        $to = max(1, min(12, (int)$to));     // Ensure $to is between 1 and 12.
+        $months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+    
+        $result = [];
+        for ($i = $from - 1; $i < $to; $i++) {
+            $result[] = $months[$i];
+        }
+    
+        return $result;
+    }
+
+    function generateRandomNumbers($min, $max) {
+        $result = [];
+        $count = $max;
+        for ($i = $min; $i <= $count; $i++) {
+            $result[] = rand(0, 100);
+        }
+        return $result;
+    }
+    
+
+
 
     function readable_date($date){
         $readable_date = date("F d, Y", strtotime($date));  

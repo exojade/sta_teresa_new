@@ -43,6 +43,8 @@ $role=$_SESSION["sta_teresa"]["role"];
                 <li><a href="chapels?action=list">Chapels</a></li>
                 <li><a href="announcements?action=list">Announcements</a></li>
                 <li><a href="employees?action=list">Employees</a></li>
+                <li><a href="branch?action=list">Branch</a></li>
+                <li><a href="plan?action=list">Plan</a></li>
            
                 <li><a href="users">Users</a></li>
               

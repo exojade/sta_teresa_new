@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="AdminLTE/bower_components/sweetalert/sweetalert2.min.css">
 
 <style>
 .products-list {
@@ -14,17 +15,52 @@
     <section class="content">
   
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
 
       <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Deceased <?php echo(date("Y")); ?>: Line represents the deceased per month</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+              <form class="deceased_chart_form pull-right" url="index">
+              <input type="hidden" name="action" value="deceased">
+              <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>
+              <div style="margin-left: 5px;" class="form-group pull-right">
+                  <input name="year" type="number" value="<?php echo(date("Y")); ?>" class="form-control" id="exampleInputEmail1" placeholder="---">
+                </div>
+                <div style="margin-left: 5px;" class="form-group pull-right">
+                  <select name="to" class="form-control">
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option selected value="12">December</option>
+                    <!-- <option selected value="<?php echo(date("m")); ?>"><?php echo(date("F")); ?></option> -->
+                  </select>
+                </div>
+              <div style="margin-left: 5px;" class="form-group pull-right">
+                  <select name="from" class="form-control">
+                    <option selected value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+            </form>
+         
             </div>
             <div class="box-body">
               <div class="chart">
@@ -34,17 +70,51 @@
           </div>
 
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
 
       <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Cash Sales <?php echo(date("Y")); ?>: Line represents the cash sales</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+              <form class="sales_chart_form pull-right" url="index">
+              <input type="hidden" name="action" value="sales">
+              <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>
+              <div style="margin-left: 5px;" class="form-group pull-right">
+                  <input name="year" type="number" value="<?php echo(date("Y")); ?>" class="form-control" id="exampleInputEmail1" placeholder="---">
+                </div>
+                <div style="margin-left: 5px;" class="form-group pull-right">
+                  <select name="to" class="form-control">
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option selected value="12">December</option>
+                    <!-- <option selected value="<?php echo(date("m")); ?>"><?php echo(date("F")); ?></option> -->
+                  </select>
+                </div>
+              <div style="margin-left: 5px;" class="form-group pull-right">
+                  <select name="from" class="form-control">
+                    <option selected value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+            </form>
             </div>
             <div class="box-body">
               <div class="chart">
@@ -135,15 +205,93 @@
   ?>
   <script src="AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="AdminLTE/bower_components/sweetalert/sweetalert2.min.js"></script>
 	<script src="AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
   <script src="AdminLTE/bower_components/Chart.js/Chart.js"></script>
 	<script src="AdminLTE/dist/js/adminlte.min.js"></script>
 	<script src="AdminLTE/dist/js/demo.js"></script>
 
+  <script>
+$(document).ready(function() {
+      // Trigger the form submit during document ready
+      $('.deceased_chart_form').submit();
+      $('.sales_chart_form').submit();
+    });
+  </script>
+
 
   <script>
-  $(function () {
+  
+
+
+$('.deceased_chart_form').submit(function(e) {
+var form = $(this)[0];
+var formData = new FormData(form);
+console.log(formData);
+  var promptmessage = 'This form will be submitted. Are you sure you want to continue?';
+  var prompttitle = 'Data submission';
+e.preventDefault();
+  var url = $(this).data('url');
+    var promptmessage = 'This form will be submitted. Are you sure you want to continue?';
+    var prompttitle = 'Data submission';
+    e.preventDefault();
+
+    swal({title: 'Please wait...', imageUrl: 'AdminLTE/dist/img/loader.gif', showConfirmButton: false});
+    $.ajax({
+            type: 'post',
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (results) {
+            var o = jQuery.parseJSON(results);
+            
+            areaChartData.labels = o.labels;
+            areaChartData.datasets[0].data = o.dataset;
+              lineChart.destroy();
+              var lineChartCanvas = $('#lineChart').get(0).getContext('2d');
+              lineChart = new Chart(lineChartCanvas).Line(areaChartData, areaChartOptions);
+              swal.close();
+            }
+        });
+});
+
+
+
+$('.sales_chart_form').submit(function(e) {
+var form = $(this)[0];
+var formData = new FormData(form);
+console.log(formData);
+  var promptmessage = 'This form will be submitted. Are you sure you want to continue?';
+  var prompttitle = 'Data submission';
+e.preventDefault();
+  var url = $(this).data('url');
+    var promptmessage = 'This form will be submitted. Are you sure you want to continue?';
+    var prompttitle = 'Data submission';
+    e.preventDefault();
+
+    swal({title: 'Please wait...', imageUrl: 'AdminLTE/dist/img/loader.gif', showConfirmButton: false});
+    $.ajax({
+            type: 'post',
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (results) {
+            var o = jQuery.parseJSON(results);
+            
+            areaChartData.labels = o.labels;
+            areaChartData.datasets[0].data = o.dataset;
+            lineChart2.destroy();
+            var lineChartCanvas2 = $('#lineChart2').get(0).getContext('2d');
+            lineChart2 = new Chart(lineChartCanvas2).Line(areaChartData, areaChartOptions);
+            swal.close();
+            }
+        });
+});
+
+
     /* ChartJS
      * -------
      * Here we will create a few charts using ChartJS
@@ -175,11 +323,31 @@
       ]
     }
 
+
     var areaChartOptions = {
+      bezierCurve: false,
+      scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+        callback: function (value, index, values) {
+          return value.toLocaleString();
+        }
+      }
+    }]
+  },
       //Boolean - If we should show the scale at all
       showScale               : true,
+
+      tooltips: {
+    callbacks: {
+      label: function (tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel.toLocaleString();
+      }
+    }
+  },
       //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : false,
+      scaleShowGridLines      : true,
       //String - Colour of the grid lines
       scaleGridLineColor      : 'rgba(0,0,0,.05)',
       //Number - Width of the grid lines
@@ -189,7 +357,7 @@
       //Boolean - Whether to show vertical lines (except Y axis)
       scaleShowVerticalLines  : true,
       //Boolean - Whether the line is curved between points
-      bezierCurve             : true,
+      // bezierCurve             : true,
       //Number - Tension of the bezier curve between points
       bezierCurveTension      : 0.3,
       //Boolean - Whether to show a dot for each point
@@ -221,18 +389,15 @@
     //- LINE CHART -
     //--------------
     var lineChartCanvas          = $('#lineChart').get(0).getContext('2d')
-    var lineChart                = new Chart(lineChartCanvas)
-    var lineChartOptions         = areaChartOptions
-    lineChartOptions.datasetFill = false
-    lineChart.Line(areaChartData, lineChartOptions)
+    areaChartOptions.datasetFill = false
+    lineChart = new Chart(lineChartCanvas).Line(areaChartData, areaChartOptions);
+    // lineChart.Line(areaChartData, lineChartOptions)
+    
+    console.log(lineChart);
 
 
-
-    var lineChartCanvas          = $('#lineChart2').get(0).getContext('2d')
-    var lineChart                = new Chart(lineChartCanvas)
-    var lineChartOptions         = areaChartOptions
-    lineChartOptions.datasetFill = false
-    lineChart.Line(areaChartData, lineChartOptions)
+    var lineChartCanvas2          = $('#lineChart2').get(0).getContext('2d')
+    lineChart2 = new Chart(lineChartCanvas2).Line(areaChartData, areaChartOptions);
     //-------------
     //- PIE CHART -
     //-------------
@@ -285,12 +450,12 @@
     //-------------
     //- BAR CHART -
     //-------------
-    var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
-    var barChart                         = new Chart(barChartCanvas)
-    var barChartData                     = areaChartData
-    barChartData.datasets[1].fillColor   = '#00a65a'
-    barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor  = '#00a65a'
+    // var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
+    // var barChart                         = new Chart(barChartCanvas)
+    // var barChartData                     = areaChartData
+    // barChartData.datasets[1].fillColor   = '#00a65a'
+    // barChartData.datasets[1].strokeColor = '#00a65a'
+    // barChartData.datasets[1].pointColor  = '#00a65a'
     var barChartOptions                  = {
       //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
       scaleBeginAtZero        : true,
@@ -319,9 +484,9 @@
       maintainAspectRatio     : true
     }
 
-    barChartOptions.datasetFill = false
-    barChart.Bar(barChartData, barChartOptions)
-  })
+    // barChartOptions.datasetFill = false
+    // barChart.Bar(barChartData, barChartOptions)
+
 
 var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
     var pieChart       = new Chart(pieChartCanvas)

@@ -87,13 +87,26 @@
               <br>
             <br>
               <span class="rheader bg-pink">CLIENT'S INFORMATION (PROCESSOR)</span>
-            <div class="form-group pull-right">
+                <div class="form-group pull-right" style="margin-left: 10px;">
+                  <select readonly required class="form-control" name="plan">
+                  <option selected value="<?php echo($contract["plan"]); ?>"><?php echo($contract["plan"]); ?></option>
+                    <?php $plan = query("select * from plans"); ?>
+                    <?php foreach($plan as $row): ?>
+                      <option value="<?php echo($row["plan"]); ?>"><?php echo($row["plan"]); ?></option>
+                    <?php endforeach; ?>
+                    <option value="NONE">NONE</option>
+                    
+                  </select>
+                </div>
+
+                <div class="form-group pull-right" >
                   <select readonly required class="form-control" name="branch">
-                    <option selected value="<?php echo($contract["branch"]); ?>"><?php echo($contract["branch"]); ?></option>
-                    <option value="">Please select Branch here</option>
-                    <option value="PANABO">PANABO</option>
-                    <option value="BUNAWAN">BUNAWAN</option>
-                    <option value="TAGUM">TAGUM</option>
+                  <option selected value="<?php echo($contract["branch"]); ?>"><?php echo($contract["branch"]); ?></option>
+                    <?php $branch = query("select * from branch"); ?>
+                    <?php foreach($branch as $row): ?>
+                      <option value="<?php echo($row["branch"]); ?>"><?php echo($row["branch"]); ?></option>
+                    <?php endforeach; ?>
+                    
                   </select>
                 </div>
             <br>

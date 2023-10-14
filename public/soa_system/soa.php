@@ -54,12 +54,33 @@ use mikehaertl\pdftk\Pdf;
 		}
 
 		if($_POST["action"] == "update_transaction"){
-			// dump($_POST);
+			
 			if($_POST["action_code"] == "settle"):
 				query("update transaction set account_status = 'SETTLED' where transaction_id = ?", $_POST["transaction_id"]);
 			else:
 				query("update transaction set account_status = 'UNSETTLED' where transaction_id = ?", $_POST["transaction_id"]);
 			endif;
+			// $soa = query
+			$soa = query("select s.*, 
+						sum(case when account_status = 'UNSETTLED' then amount else 0 end) as balance,
+						sum(amount) as total_amount
+						from soa s
+						left join transaction t
+						on s.soa_id = t.soa_id
+						where s.soa_id = ?
+						group by s.soa_id",$_POST["soa_id"]);
+			$balance = $soa[0]["balance"];
+			if($balance == 0):
+				query("update soa set remarks = 'PAID' where soa_id = ?", $_POST["soa_id"]);
+			else:
+				query("update soa set remarks = 'UNPAID' where soa_id = ?", $_POST["soa_id"]);
+			endif;
+			// dump($soa);
+
+
+
+
+
 			$res_arr = [
 				"result" => "success",
 				"title" => "Success",
@@ -94,7 +115,6 @@ use mikehaertl\pdftk\Pdf;
 
 	
 		if($_GET["action"] == "list"){
-
 			$guarantor = query("select * from guarantors where tbl_id = ?", $_GET["id"]);
 			$agency = $guarantor[0]["guarantor"];
 			$soa = query("select s.*, 
@@ -104,7 +124,9 @@ use mikehaertl\pdftk\Pdf;
 						left join transaction t
 						on s.soa_id = t.soa_id
 						where s.agency_id = ?
-						group by s.soa_id",$_GET["id"]);
+						group by s.soa_id
+						order by remarks DESC, date_created DESC
+						",$_GET["id"]);
 			// dump($soa);
 			if(isset($soa[0])){
 				if($soa[0]["soa_id"] == "")

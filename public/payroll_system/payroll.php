@@ -58,6 +58,20 @@
 					"link" => "refresh",
 					];
 					echo json_encode($res_arr); exit();
+			
+			elseif($_POST["action"] == "pdf_payroll"):
+				// dump($_POST);
+					$sql = query("select * from site_options");
+					$url = $sql[0]["url"];
+					$options = urlencode(serialize($_POST));
+					$webpath = $url . "/payroll?action=pdf_payroll&options=".$options;
+					$filename = "PAYROLL_REPORT";
+					$path = "reports/".$filename.".pdf";
+					$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
+					exec($exec);
+					$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+					$json = array('info' => $load);
+					echo json_encode($json);
 			endif;
     }
 	else {
@@ -92,6 +106,14 @@
 				"payroll_employees" => $payroll_employees,
 				"employees" => $employees,
 			]);
+
+		elseif($_GET["action"] == "pdf_payroll"):
+				renderview("public/payroll_system/pdf_payroll.php",[
+					"title" => "Sales Report",
+				]);
+
+
+
 		endif;
 
 
