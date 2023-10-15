@@ -31,8 +31,8 @@
         $from = max(1, min(12, (int)$from)); // Ensure $from is between 1 and 12.
         $to = max(1, min(12, (int)$to));     // Ensure $to is between 1 and 12.
         $months = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         ];
     
         $result = [];

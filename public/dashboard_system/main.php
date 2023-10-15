@@ -20,11 +20,12 @@
 			
 
 			$dataset = query("select CONCAT(CAST(MONTH(death_date) AS CHAR)) AS month_year,
+			SUM(CASE WHEN deceased_gender = 'MALE' THEN 1 ELSE 0 END) AS male_count,
+    SUM(CASE WHEN deceased_gender = 'FEMALE' THEN 1 ELSE 0 END) AS female_count,
 			COUNT(*) AS total
 			FROM burial_service_contract
 			where 1=1 ".$where." 
 			GROUP BY month_year");
-			// dump($dataset);
 			// dump($dataset);
 			$Data = [];
 			foreach($dataset as $row):
@@ -32,14 +33,37 @@
 			endforeach;
 
 			$JSON = [];
+			$Gender = [];
+			$male = 0;
+			$female = 0;
 			// dump($Data);
 			for($i = $_POST["from"]; $i <= $_POST["to"]; $i++):
 				if(isset($Data[$i])):
 					$JSON[] = $Data[$i]["total"];
+					$male = $male + $Data[$i]["male_count"];
+					$female = $female + $Data[$i]["female_count"];
 				else:
 					$JSON[] = 0;
 				endif;
+			
 			endfor;
+
+		
+			$Gender = array(
+				array(
+					'value' => $male,
+					'color' => '#f56954',
+					'highlight' => '#f56954',
+					'label' => 'Male'
+				),
+				array(
+					'value' => $female,
+					'color' => '#00a65a',
+					'highlight' => '#00a65a',
+					'label' => 'Female'
+				)
+			);
+			
 
 			// dump($JSON);
 
@@ -53,7 +77,9 @@
 			$json_data = array(
 				"labels" => $monthArray,
 				"dataset" => $JSON,
+				"gender" => $Gender,
 			);
+			
 			echo json_encode($json_data);
 
 
@@ -117,6 +143,33 @@
     }
 	else {
 		
-		render("public/dashboard_system/indexform.php");
+		$ambot = query("select count(*) as count, t.agency , g.guarantor from transaction t
+		left join guarantors g on g.tbl_id = t.agency where t.payment_type = 'GUARANTEE'
+		and (t.soa_id is null or t.soa_id = '') group by t.agency");
+		// dump($guarantors);
+
+		$soa = query("select * from soa where remarks = 'UNPAID'");
+
+		$clients = query("SELECT
+		contract_id, CONCAT(client_lastname, ', ', client_firstname) AS client,
+	 
+		CASE
+			WHEN valid_date IS NOT NULL THEN
+				CASE
+					WHEN CURDATE() > valid_date THEN 'OVERDUE'
+					ELSE remarks
+				END
+			ELSE remarks
+		END AS remarks
+	FROM
+		burial_service_contract
+		WHERE remarks = 'UNPAID'");
+
+		render("public/dashboard_system/indexform.php",[
+			"title" => "Plans",
+			"ambot" => $ambot,
+			"soa" => $soa,
+			"clients" => $clients,
+		]);
 	}
 ?>

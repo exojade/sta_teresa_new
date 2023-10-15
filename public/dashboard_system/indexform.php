@@ -7,12 +7,149 @@
     height: 200px;
     overflow: auto;
 }
+
+.OVERDUE{
+  color: red;
+}
+
+.UNPAID{
+  color: green;
+}
 </style>
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <div class="container">
     <section class="content">
+
+
+    <div class="row">
+            <div class="col-md-4">
+            <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Guarantors without SOA yet</h3>
+          
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="direct-chat-messages">
+
+              <?php if(!empty($ambot)): ?>
+                <table class="table table-bordered table-striped sample-datatable">
+                  <thead>
+                    <tr>
+                      <th>Guarantor</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                <?php foreach($ambot as $g):?>
+                  <tr>
+                    <td><a href="soa?action=list&id=<?php echo($g["agency"]); ?>"><?php echo($g["guarantor"]); ?></a></td>
+                    <td><?php echo($g["count"]); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+              <?php else: ?>
+                <h3>No data yet</h3>
+              <?php endif; ?>
+
+
+              
+                
+              </div>
+            </div>
+          </div>
+            </div>
+            <div class="col-md-4">
+
+            <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Collectibles SOA</h3>
+          
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="direct-chat-messages">
+                <div class="direct-chat-msg">
+
+                <?php if(!empty($soa)): 
+                 
+                  
+                  ?>
+                <table class="table table-bordered table-striped sample-datatable">
+                  <thead>
+                    <tr>
+                      <th>Guarantor</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                <?php foreach($soa as $s):
+                   $amount = query("select sum(amount) as amount from transaction where account_status = 'UNSETTLED' and soa_id = ?", $s["soa_id"]);
+                  ?>
+                  <tr>
+                    <td><a href="soa?action=details&id=<?php echo($s["soa_id"]); ?>"><?php echo($s["agency"]); ?></a></td>
+                    <td><?php echo($amount[0]["amount"]); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+              <?php else: ?>
+                <h3>No data yet</h3>
+              <?php endif; ?>
+             
+   
+                </div>
+              </div>
+            </div>
+          </div>
+              
+            </div>
+
+
+            <div class="col-md-4">
+
+            <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">UNPAID / OVERDUE Clients</h3>
+          
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="direct-chat-messages">
+                <div class="direct-chat-msg">
+
+                <?php if(!empty($clients)): ?>
+                <table class="table table-bordered table-striped sample-datatable">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Remarks</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                <?php foreach($clients as $row):?>
+                  <tr>
+                    <td><a href="soa?action=list&id=<?php echo($row["contract_id"]); ?>"><?php echo($row["client"]); ?></a></td>
+                    <td class="<?php echo($row["remarks"]); ?>"><?php echo($row["remarks"]); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+              <?php else: ?>
+                <h3>No data yet</h3>
+              <?php endif; ?>
+             
+   
+                </div>
+              </div>
+            </div>
+          </div>
+              
+            </div>
+          </div>
   
     <div class="row">
       <div class="col-md-12">
@@ -63,9 +200,24 @@
          
             </div>
             <div class="box-body">
-              <div class="chart">
+              <div class="row">
+                <div class="col-md-9" style="border-right: 1px solid black;">
+                <div class="chart">
                 <canvas id="lineChart" style="height:250px"></canvas>
               </div>
+
+                </div>
+                <div class="col-md-3" >
+                <div class="row">
+              <canvas id="pieChart2" style="height:250px"></canvas>
+              <ul class="chart-legend clearfix text-center">
+                    <li><i class="fa fa-circle-o text-red"></i> Male</li>
+                    <li><i class="fa fa-circle-o text-green"></i> Female</li>
+                  </ul>
+              </div>
+                </div>
+              </div>
+              
             </div>
           </div>
 
@@ -127,69 +279,7 @@
     </div>
 
       
-          <div class="row">
-            <div class="col-md-4">
-               <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Deceased per Gender for this month of <?php echo(date("F, Y")); ?></h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="row">
-              <div class="col-md-6">
-              <canvas id="pieChart" style="height:250px"></canvas>
-              </div>
-              <div class="col-md-4">
-                  <ul class="chart-legend clearfix">
-                    <li><i class="fa fa-circle-o text-red"></i> Male</li>
-                    <li><i class="fa fa-circle-o text-green"></i> Female</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-            </div>
-            <div class="col-md-8">
-
-              <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Collectibles for this month of  <?php echo(date("F, Y")); ?></h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <table class="table">
-                <thead>
-                  <th>SOA</th>
-                  <th>Collectible</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>DSWD</td>
-                    <td>6,000.00</td>
-                  </tr>
-                  <tr>
-                    <td>CSWDO</td>
-                    <td>7,000.00</td>
-                  </tr>
-                </tbody>
-
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-              
-            </div>
-          </div>
+          
          
 
 
@@ -246,12 +336,27 @@ e.preventDefault();
             contentType: false,
             success: function (results) {
             var o = jQuery.parseJSON(results);
-            
+            console.log(o);
             areaChartData.labels = o.labels;
             areaChartData.datasets[0].data = o.dataset;
               lineChart.destroy();
+              // pieChart.clear();
               var lineChartCanvas = $('#lineChart').get(0).getContext('2d');
               lineChart = new Chart(lineChartCanvas).Line(areaChartData, areaChartOptions);
+              console.log(pieChart);
+             
+              var pieChartCanvas = $('#pieChart2').get(0).getContext('2d');
+              console.log(o.gender);
+              pieChart = new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: o.gender,
+                options: {
+                  responsive: true
+                }
+              });
+              // pieChart.destroy();
+
+
               swal.close();
             }
         });
@@ -393,7 +498,6 @@ e.preventDefault();
     lineChart = new Chart(lineChartCanvas).Line(areaChartData, areaChartOptions);
     // lineChart.Line(areaChartData, lineChartOptions)
     
-    console.log(lineChart);
 
 
     var lineChartCanvas2          = $('#lineChart2').get(0).getContext('2d')
@@ -402,23 +506,19 @@ e.preventDefault();
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Male'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'Female'
-      },
-      
-    ]
+
+    // var pieChart = new Chart(pieChartCanvas);
+    // var pieChart       = new Chart(pieChartCanvas)
+    var doughnutData = {
+  labels: ['Male', 'Female'],
+  datasets: [
+    {
+      data: [700, 500], // Values for Male and Female
+      backgroundColor: ['#f56954', '#00a65a'], // Colors for the segments
+      hoverBackgroundColor: ['#f56954', '#00a65a'], // Colors for hover
+    }
+  ]
+};
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
@@ -445,7 +545,17 @@ e.preventDefault();
     }
     //Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
+    // pieChart.Doughnut(PieData, pieOptions)
+    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
+
+    var pieChart = new Chart(pieChartCanvas, {
+  type: 'doughnut',
+  data: doughnutData,
+  options: {
+    responsive: true
+  }
+});
+    // pieChart = new Chart(pieChartCanvas).Doughnut(doughnutData, pieOptions);
 
     //-------------
     //- BAR CHART -
@@ -488,50 +598,7 @@ e.preventDefault();
     // barChart.Bar(barChartData, barChartOptions)
 
 
-var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Male'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'Female'
-      },
-     
-    ]
-    var pieOptions     = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke    : true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor   : '#fff',
-      //Number - The width of each segment stroke
-      segmentStrokeWidth   : 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps       : 100,
-      //String - Animation easing effect
-      animationEasing      : 'easeOutBounce',
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate        : true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale         : false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive           : true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio  : true,
-      //String - A legend template
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
+
 </script>
 
   <?php
