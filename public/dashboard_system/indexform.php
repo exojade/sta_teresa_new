@@ -156,7 +156,7 @@
 
       <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Deceased <?php echo(date("Y")); ?>: Line represents the deceased per month</h3>
+              <h3 class="box-title">Deceased Chart</h3>
               <form class="deceased_chart_form pull-right" url="index">
               <input type="hidden" name="action" value="deceased">
               <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>
@@ -209,7 +209,7 @@
                 </div>
                 <div class="col-md-3" >
                 <div class="row">
-              <canvas id="pieChart2" style="height:250px"></canvas>
+              <canvas id="pieChart" style="height:250px"></canvas>
               <ul class="chart-legend clearfix text-center">
                     <li><i class="fa fa-circle-o text-red"></i> Male</li>
                     <li><i class="fa fa-circle-o text-green"></i> Female</li>
@@ -226,7 +226,7 @@
 
       <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Cash Sales <?php echo(date("Y")); ?>: Line represents the cash sales</h3>
+              <h3 class="box-title">Sales Chart</h3>
               <form class="sales_chart_form pull-right" url="index">
               <input type="hidden" name="action" value="sales">
               <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>
@@ -344,17 +344,13 @@ e.preventDefault();
               var lineChartCanvas = $('#lineChart').get(0).getContext('2d');
               lineChart = new Chart(lineChartCanvas).Line(areaChartData, areaChartOptions);
               console.log(pieChart);
-             
-              var pieChartCanvas = $('#pieChart2').get(0).getContext('2d');
+
+              pieChart.destroy();
+              PieData = o.gender;
+              var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
               console.log(o.gender);
-              pieChart = new Chart(pieChartCanvas, {
-                type: 'pie',
-                data: o.gender,
-                options: {
-                  responsive: true
-                }
-              });
-              // pieChart.destroy();
+              pieChart = new Chart(pieChartCanvas).Doughnut(PieData, pieOptions);
+              
 
 
               swal.close();
@@ -397,19 +393,6 @@ e.preventDefault();
 });
 
 
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    // var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    // var areaChart       = new Chart(areaChartCanvas)
 
     var areaChartData = {
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -509,16 +492,47 @@ e.preventDefault();
 
     // var pieChart = new Chart(pieChartCanvas);
     // var pieChart       = new Chart(pieChartCanvas)
-    var doughnutData = {
-  labels: ['Male', 'Female'],
-  datasets: [
-    {
-      data: [700, 500], // Values for Male and Female
-      backgroundColor: ['#f56954', '#00a65a'], // Colors for the segments
-      hoverBackgroundColor: ['#f56954', '#00a65a'], // Colors for hover
-    }
-  ]
-};
+   
+
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var PieData        = [
+      {
+        value    : 700,
+        color    : '#f56954',
+        highlight: '#f56954',
+        label    : 'Chrome'
+      },
+      {
+        value    : 500,
+        color    : '#00a65a',
+        highlight: '#00a65a',
+        label    : 'IE'
+      },
+      {
+        value    : 400,
+        color    : '#f39c12',
+        highlight: '#f39c12',
+        label    : 'FireFox'
+      },
+      {
+        value    : 600,
+        color    : '#00c0ef',
+        highlight: '#00c0ef',
+        label    : 'Safari'
+      },
+      {
+        value    : 300,
+        color    : '#3c8dbc',
+        highlight: '#3c8dbc',
+        label    : 'Opera'
+      },
+      {
+        value    : 100,
+        color    : '#d2d6de',
+        highlight: '#d2d6de',
+        label    : 'Navigator'
+      }
+    ]
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
@@ -545,58 +559,10 @@ e.preventDefault();
     }
     //Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.
-    // pieChart.Doughnut(PieData, pieOptions)
-    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
-
-    var pieChart = new Chart(pieChartCanvas, {
-  type: 'doughnut',
-  data: doughnutData,
-  options: {
-    responsive: true
-  }
-});
-    // pieChart = new Chart(pieChartCanvas).Doughnut(doughnutData, pieOptions);
-
-    //-------------
-    //- BAR CHART -
-    //-------------
-    // var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
-    // var barChart                         = new Chart(barChartCanvas)
-    // var barChartData                     = areaChartData
-    // barChartData.datasets[1].fillColor   = '#00a65a'
-    // barChartData.datasets[1].strokeColor = '#00a65a'
-    // barChartData.datasets[1].pointColor  = '#00a65a'
-    var barChartOptions                  = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero        : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke           : true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth          : 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing         : 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing       : 1,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-      //Boolean - whether to make the chart responsive
-      responsive              : true,
-      maintainAspectRatio     : true
-    }
-
-    // barChartOptions.datasetFill = false
-    // barChart.Bar(barChartData, barChartOptions)
-
+    lineChart2 = new Chart(lineChartCanvas2).Line(areaChartData, areaChartOptions);
+    pieChart = new Chart(pieChartCanvas).Doughnut(PieData, pieOptions);
+    
+    
 
 
 </script>
