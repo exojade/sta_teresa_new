@@ -60,6 +60,7 @@
                         </div>
                       </form>
                 </div>
+                </div>
               <table class="table table-bordered table-striped collectible-datatable">
                 <thead>
                 <tr>
@@ -84,7 +85,7 @@
                 </tr>
                 </tfoot>
               </table>
-            </div>
+           
           </div>
       </div>
 

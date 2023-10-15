@@ -20,7 +20,7 @@ if(!empty($options["from_date"])):
       $where = $where . " and contract_date >= '" . $options["from_date"] . "'";
 endif;
 
-if(!empty($_REQUEST["to_date"])):
+if(!empty($options["to_date"])):
       $where = $where . " and contract_date <= '" . $options["to_date"] . "'";
 endif;
 $month = "";
@@ -29,8 +29,28 @@ $total = 0;
 
 $casket = query("SELECT * FROM burial_service_contract where 1=1 ".$where." order by contract_date desc");
 ?>
-<div class="text-center"><img src="resources/stateresa_header.jpg" class="img-responsive"></div>
+<div class="text-center" ><img src="resources/stateresa_header.jpg" class="img-responsive"></div>
 <hr>
+
+<div class="row">
+  <div class="col-xs-4 co-sm-4">
+      <h3 style="font-weight: 900;" style="float:left;">DECEASED REPORT</h3>
+  </div>
+
+  <?php
+
+
+if(!empty($options["from_date"])):
+ 
+  echo("<div class='col-xs-4 col-sm-4'><h3 style='font-weight:700;'>From: ".readable_date($options["from_date"])."</h3></div>");
+endif;
+if(!empty($options["to_date"])):
+  echo("<div class='col-xs-4 col-sm-4'><h3 style='font-weight:700;'>To: ".readable_date($options["to_date"])."</h3></div>");
+endif;
+
+
+?>
+</div>
             <div class="box-body">
             <table class="table table-bordered table-striped">
               <thead class="text-right">

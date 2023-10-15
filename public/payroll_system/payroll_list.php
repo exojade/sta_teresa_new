@@ -38,7 +38,6 @@
                 <?php foreach($payroll as $row): ?>
                   <tr>
                   <td>
-                      <a href="resources/payroll_sample.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i></a>
                       <a href="payroll?action=details&id=<?php echo($row["payroll_id"]); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                   </td>
                   <td><?php echo(short_date($row["from_date"]) . " - " . short_date($row["to_date"])); ?></td>

@@ -10,7 +10,8 @@ $options = unserialize($_GET["options"]);
 $month = "";
 $day = "";
 $total = 0;
-
+$payroll = query("select * from payroll where payroll_id = ?", $options["payroll_id"]);
+$payroll = $payroll[0];
 $payroll_employees = query("select pe.*, e.employee_name from payroll_employee pe left join
 									employees e on e.employee_id = pe.employee_id
 									where pe.payroll_id = ?", $options["payroll_id"]);
@@ -19,6 +20,8 @@ $payroll_employees = query("select pe.*, e.employee_name from payroll_employee p
 ?>
 <div class="text-center"><img src="resources/stateresa_header.jpg" class="img-responsive"></div>
 <hr>
+<h4 style="font-weight: 900;">PAYROLL REPORT</h4>
+<h4 style="font-weight: 900;">PERIOD: <?php echo(readable_date($payroll["from_date"]) . " - " . readable_date($payroll["to_date"])); ?></h4>
             <div class="box-body">
             <table class="table table-bordered table-striped">
             <thead>
