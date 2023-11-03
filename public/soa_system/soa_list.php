@@ -17,7 +17,7 @@
     <?php if($count != 0): ?>
       <div class="alert alert-warning alert-dismissible">
                 <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                There are <?php echo($count); ?> guarentee letters not yet created SOA. 
+                There is/are <?php echo($count); ?> ungenerated SOA. Please click Generate SOA button.
                 <br>
                 <br>
                 <form class="general_form" url="soa">

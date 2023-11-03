@@ -1,5 +1,15 @@
 <link rel="stylesheet" href="AdminLTE/dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+<style>
+  .table, th, td, thead, tbody{
+    border: 2px solid black !important;
+  }
+
+  .table thead{
+    background-color:#FFCCD5;border-color:#000;
+  }
+</style>
 <?php 
 
 // dump($_GET);

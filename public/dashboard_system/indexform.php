@@ -156,7 +156,7 @@
 
       <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Deceased Chart</h3>
+              <h3 class="box-title">Deceased Chart [Line Represents number of deceased]</h3>
               <form class="deceased_chart_form pull-right" url="index">
               <input type="hidden" name="action" value="deceased">
               <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>
@@ -210,7 +210,7 @@
                 <div class="col-md-3" >
                 <div class="row">
               <canvas id="pieChart" style="height:250px"></canvas>
-              <ul class="chart-legend clearfix text-center">
+              <ul class="chart-legend clearfix text-left" style="margin-left: 20px;">
                     <li><i class="fa fa-circle-o text-red"></i> Male</li>
                     <li><i class="fa fa-circle-o text-green"></i> Female</li>
                   </ul>
@@ -226,7 +226,7 @@
 
       <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Sales Chart</h3>
+              <h3 class="box-title">Sales Chart [Line Represents Cash Sales]</h3>
               <form class="sales_chart_form pull-right" url="index">
               <input type="hidden" name="action" value="sales">
               <button style="margin-left: 5px;" class="btn btn-primary btn-flat pull-right" type="submit">Filter</button>

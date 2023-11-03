@@ -15,7 +15,7 @@
       <div class="col-md-12">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Casket Report</h3>
+              <h3 class="box-title">Casket Sold Report</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -80,7 +80,7 @@
                 <tfoot>
                 <tr>
                   <th>Date</th>
-                  <th>Payment Type</th>
+                  <th>Casket Type</th>
                   <th>Quantity</th>
                 </tr>
                 </tfoot>

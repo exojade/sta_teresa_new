@@ -185,7 +185,7 @@ input[type=text] {
 
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Death Address</label>
+                  <label for="exampleInputEmail1">Place of Death</label>
                   <input type="text" name="death_address" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>

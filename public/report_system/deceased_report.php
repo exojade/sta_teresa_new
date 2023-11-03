@@ -68,8 +68,7 @@
                 <thead>
                 <tr>
                   <th rowspan="2">Date</th>
-                  <th colspan="3">Deceased</th>
-                  <th rowspan="2">Contact Number</th>
+                  <th colspan="3" style="text-align:center;">Deceased</th>
                   <th rowspan="2">BSC NO.</th>
                 </tr>
                 <tr>
@@ -129,7 +128,6 @@
                     { data: 'deceased_lastname', "orderable": false },
                     { data: 'deceased_firstname', "orderable": false },
                     { data: 'deceased_middlename', "orderable": false },
-                    { data: 'contact_number', "orderable": false },
                     { data: 'contract_id', "orderable": false },
                 ],
                 "footerCallback": function (row, data, start, end, display) {

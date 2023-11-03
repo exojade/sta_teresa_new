@@ -152,6 +152,7 @@ use mikehaertl\pdftk\Pdf;
 						branch = '".$_POST["branch"]."',
 						embalming_cost = '".$_POST["embalming_cost"]."',
 						embalming_days = '".$_POST["embalming_days"]."',
+						death_address = '".$_POST["death_address"]."',
 						casket_type = '".$_POST["casket_type"]."',
 						casket_cost = '".$_POST["casket_cost"]."',
 						arrangement_type = '".$_POST["arrangement_type"]."',

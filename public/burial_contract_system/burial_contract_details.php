@@ -86,7 +86,7 @@
             
               <br>
             <br>
-              <span class="rheader bg-pink">CLIENT'S INFORMATION (PROCESSOR)</span>
+              <span class="rheader bg-pink">CUSTOMER'S INFORMATION (PROCESSOR)</span>
                 <div class="form-group pull-right" style="margin-left: 10px;">
                   <select readonly required class="form-control" name="plan">
                   <option selected value="<?php echo($contract["plan"]); ?>"><?php echo($contract["plan"]); ?></option>
@@ -174,7 +174,7 @@
 
               <div class="col-md-4">
               <div class="form-group">
-                  <label for="exampleInputEmail1">Relationship</label>
+                  <label for="exampleInputEmail1">Contact Number</label>
                   <input type="text" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
                 </div>
               </div>
@@ -235,7 +235,7 @@
 
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Death Address</label>
+                  <label for="exampleInputEmail1">Place of Death</label>
                   <input type="text" name="death_address" value="<?php echo($contract["death_address"]); ?>"  class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>

@@ -318,7 +318,6 @@
 						$options = urlencode(serialize($_POST));
 						$webpath = $url . "/reports_page?action=pdf_deceased&options=".$options;
 						// dump($webpath);
-						// dump($webpath);
 						$filename = "DECEASED_REPORT";
 						// dump($filename);
 						$path = "reports/".$filename.".pdf";
