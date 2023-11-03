@@ -104,7 +104,7 @@
           </div>
       </div>
   </section>
-  <section class="upcoming-meetings" style="padding-top: 50px !important;" id="obituary">
+  <section class="upcoming-meetings" style="padding-top: 50px !important; background-color: #1F262C !important;" id="obituary" >
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -203,7 +203,7 @@
     </div>
   </section>
 
-  <section class="our-courses" id="caskets">
+  <section class="our-courses" id="caskets" style="background-color: #1F262C !important;">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -310,7 +310,7 @@
   </section>
 
 
-  <section class="our-courses" id="chapels">
+  <section class="our-courses" id="chapels" style="background-color: #1F262C !important;">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -376,7 +376,7 @@
   
   
 
-  <section class="contact-us" id="contact">
+  <section class="contact-us" id="contact"  style="background-color: #1F262C !important;">
    
     <div class="footer">
       <!-- <p>Copyright © 2022 Edu Meeting Co., Ltd. All Rights Reserved.  -->
