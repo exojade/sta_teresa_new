@@ -32,6 +32,8 @@
 					require 'public/employees_system/employees.php';
 				else if ($request == 'plan')
 					require 'public/plan_system/plan.php';
+				else if ($request == 'partners')
+					require 'public/partners_system/partners.php';
 				else if ($request == 'branch')
 					require 'public/branch_system/branch.php';
 

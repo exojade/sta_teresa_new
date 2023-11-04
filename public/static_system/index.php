@@ -277,29 +277,13 @@
             </div>
             <div class="col-lg-12">
             <div class="owl-courses-item owl-carousel">
-          <?php $chapel = query("select * FROM chapel ORDER BY RAND() LIMIT  10"); 
+          <?php $partners = query("select * FROM partners"); 
           ?>
+          <?php foreach($partners as $row): ?>
           <div class="item" style="background: none;">
-                <img src="resources/partners/Abundant Mortuary Logo.png" alt="Course One">
+                <img src="<?php echo($row["partner_image"]); ?>" alt="Course One">
             </div>
-            <div class="item" style="background: none;">
-                <img src="resources/partners/CSWDO Panabo.png" alt="Course One">
-            </div>
-            <div class="item" style="background: none;">
-                <img src="resources/partners/DSWD Logo.png" alt="Course One">
-            </div>
-            <div class="item" style="background: none;">
-                <img src="resources/partners/Future Life Care Logo.png" alt="Course One">
-            </div>
-            <div class="item" style="background: none;">
-                <img src="resources/partners/Majar Logo.png" alt="Course One">
-            </div>
-            <!-- <div class="item" style="background: none;">
-                <img src="resources/partners/Tadeco-Logo-removebg-preview.png" alt="Course One">
-            </div> -->
-            <div class="item" style="background: none;">
-                <img src="resources/partners/TagumCooplogo-removebg-preview.png" alt="Course One">
-            </div>
+          <?php endforeach; ?>
           </div>
             </div>
           </div>
@@ -378,10 +362,8 @@
 
   <section class="contact-us" id="contact"  style="background-color: #1F262C !important;">
    
-    <div class="footer">
-      <!-- <p>Copyright © 2022 Edu Meeting Co., Ltd. All Rights Reserved.  -->
-      <p>Copyright © <?php echo(date("Y")); ?> STA TERESA INC. All Rights Reserved. 
-          </p>
+  <div class="footer">
+      <p>Copyright © <?php echo(date("Y")); ?> STA TERESA FUNERAL HOMES INC.
     </div>
   </section>
 
