@@ -63,6 +63,16 @@ $("#cancel_obi_btn").click(function() {
   $('#obituary_form').find('select').attr('readonly',true);
 });
 
+function toggleAddressFields() {
+        var checkbox = document.getElementById("sameResidence");
+        var fieldsToToggle = ["deceasedCity", "deceasedBarangay", "deceasedAddress", "deceasedZipcode"];
+
+        for (var i = 0; i < fieldsToToggle.length; i++) {
+            var field = document.getElementById(fieldsToToggle[i]);
+            field.readOnly = checkbox.checked;
+        }
+    }
+
 function printDiv()
     {
 

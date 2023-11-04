@@ -5,12 +5,25 @@ use mikehaertl\pdftk\Pdf;
 
 		$session = $_SESSION["sta_teresa"];
 		if($_POST["action"] == "new_contract"){
+			// dump($_POST);
+			$branch = query("select * from branch where branch = ?", $_POST["branch"]);
+			$branch = $branch[0];
 			$from_date = date("Y-m-1");
 			$to_date = date("Y-m-t");
 			$count = query("select count(*) as count from burial_service_contract where 
 			contract_date between ? and ?", $from_date, $to_date);
 			$count = $count[0]["count"] + 2;
-			$contract_id = date("Ym"). sprintf("%04d", $count);
+			$contract_id = $branch["branch"][0] . "-" . date("Ym"). sprintf("%04d", $count);
+
+
+			if(isset($_POST["same_residence"])){
+				$_POST["deceased_city"] = $_POST["city"];
+				$_POST["deceased_barangay"] = $_POST["barangay"];
+				$_POST["deceased_address"] = $_POST["address"];
+				$_POST["deceased_zipcode"] = $_POST["zipcode"];
+			}
+
+
 			if (query("insert INTO burial_service_contract 
 			(
 				contract_id,client_firstname,client_middlename,client_lastname,client_suffix,
@@ -242,6 +255,7 @@ use mikehaertl\pdftk\Pdf;
 			
             $result = $pdf->fillForm([
               "amount"    => to_peso($balance),
+              "date_printed"    => readable_date(date("Y-m-d")),
 			  "proxy"    => strtoupper($_POST["issued_client_name"]),
 			  "address_1"    => strtoupper($_POST["address"]),
 			  "amount_words"    => strtoupper(convert_number_to_words($balance)),
@@ -449,6 +463,7 @@ use mikehaertl\pdftk\Pdf;
 			  "cash"    => strtoupper(convert_number_to_words($cash[0]["amount"])) . "(" . to_peso($cash[0]["amount"]) .  ")",
 			//   "date_valid"    => strtoupper($_POST["date_valid"]),
 			  "deceased"    => strtoupper($total[0]["deceased"]),
+			  "type_certification"    => strtoupper($_POST["type"]),
 			  "non_cash_1"    => $payments[1]["encode"],
 			  "non_cash_2"    => $payments[2]["encode"],
 			  "non_cash_3"    => $payments[3]["encode"],
@@ -551,6 +566,7 @@ use mikehaertl\pdftk\Pdf;
 									$burial_contract["zipcode"]
 								),
 			  "branch"    => strtoupper($burial_contract["branch"]),
+			  "remarks"    => strtoupper($burial_contract["remarks"]),
 			  "contract_date"    => readable_date($burial_contract["contract_date"]),
 			  "contract_number"    => strtoupper($burial_contract["contract_id"]),
 			  "created_by"    => strtoupper($created_by["fullname"]),

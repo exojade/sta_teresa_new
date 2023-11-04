@@ -65,7 +65,7 @@
               <li class=""><a href="#promissory" data-toggle="tab" aria-expanded="false">Promissory Note</a></li>
               <li class=""><a href="#overdue" data-toggle="tab" aria-expanded="false">Overdue Invoice</a></li>
               <li class=""><a href="#demand" data-toggle="tab" aria-expanded="false">Demand Letter</a></li>
-              <li class=""><a href="#sss" data-toggle="tab" aria-expanded="false">SSS</a></li>
+              <li class=""><a href="#sss" data-toggle="tab" aria-expanded="false">Certification</a></li>
               <li class=""><a href="#transaction" data-toggle="tab" aria-expanded="false">Payments</a></li>
             </ul>
             <div class="tab-content">
@@ -242,7 +242,7 @@
 
               <div class="col-md-4">
               <div class="form-group">
-                  <label for="exampleInputEmail1">Death</label>
+                  <label for="exampleInputEmail1">Date of Death</label>
                   <input type="date" value="<?php echo($contract["death_date"]); ?>" name="death_date" required class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
@@ -371,7 +371,16 @@
               <form class="general_form" data-url="burial_contract">
               <input type="hidden" value="generate_overdue" name="action">
               <input type="hidden" value="<?php echo($_GET["id"]) ?>" name="contract_id">
+
+              <?php if($contract["remarks"] == "PAID"): ?>
+                <button type="submit" disabled class="btn btn-info pull-right">Generate Overdue Invoice</button>
+
+            <?php else: ?>
               <button type="submit" class="btn btn-info pull-right">Generate Overdue Invoice</button>
+
+            <?php endif; ?>
+
+
                   </form>
               <table class="table table-bordered">
                 <thead>
@@ -539,8 +548,11 @@
                 </div>
               </div>
             </div>
-
-            <button type="submit" class="btn btn-info pull-right">Print Promissory Note</button>
+            <?php if($contract["remarks"] == "PAID"): ?>
+              <button type="submit" disabled class="btn btn-info pull-right">Print Promissory Note</button>
+            <?php else: ?>
+              <button type="submit"  class="btn btn-info pull-right">Print Promissory Note</button>
+            <?php endif; ?>
             <br>
             <br>
             <br>
@@ -567,10 +579,20 @@
                   <label for="exampleInputEmail1">Relationship</label>
                   <input type="text" value="<?php echo($contract["client_relationship"]); ?>" name="relationship"  class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Type of Certification</label>
+                  <select required class="form-control" name="type" style="width: 100%;">
+                    <option value="" selected disabled>Please Select Type of Certification</option>
+                    <option value="SSS">SSS</option>
+                    <option value="PAGIBIG">PAGIBIG</option>
+                    <option value="GSIS">GSIS</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <button type="submit" class="btn btn-info pull-right">Print SSS Certification</button>
+            <button type="submit" class="btn btn-info pull-right">Print Certification</button>
             <br>
             <br>
             <br>

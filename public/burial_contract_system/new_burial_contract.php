@@ -35,7 +35,7 @@ input[type=text] {
             <div class="box-body">
             <form class="general_form" url="burial_contract">
             <br>
-            <span class="rheader bg-pink">CLIENT'S INFORMATION (PROCESSOR)</span>
+            <span class="rheader bg-pink">CUSTOMER'S INFORMATION (PROCESSOR)</span>
             <div class="form-group pull-right" style="margin-left: 10px;">
             <select  required class="form-control" name="plan">
             <option selected value="NONE">NONE</option>
@@ -155,31 +155,37 @@ input[type=text] {
                   <input type="text" name="deceased_suffix" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Same Residence with the Customer?</label>
+                    <input name="same_residence" type="checkbox" id="sameResidence" onclick="toggleAddressFields()">
+                </div>
+              </div>
 
-            
+
             
               <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputEmail1">City</label>
-                  <input type="text" name="deceased_city" required class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <input type="text" id="deceasedCity" name="deceased_city" required class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
               <div class="col-md-3">
               <div class="form-group">
                   <label for="exampleInputEmail1">Barangay</label>
-                  <input type="text" name="deceased_barangay"  class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <input type="text" id="deceasedBarangay" name="deceased_barangay"  class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
               <div class="col-md-3">
               <div class="form-group">
                   <label for="exampleInputEmail1">Purok / Street</label>
-                  <input type="text" name="deceased_address" required class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <input type="text" id="deceasedAddress" name="deceased_address" required class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
               <div class="col-md-2">
               <div class="form-group">
                   <label for="exampleInputEmail1">Zipcode</label>
-                  <input type="text" name="deceased_zipcode" class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <input id="deceasedZipcode" type="text" name="deceased_zipcode" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
 
@@ -203,7 +209,7 @@ input[type=text] {
 
               <div class="col-md-4">
               <div class="form-group">
-                  <label for="exampleInputEmail1">Death</label>
+                  <label for="exampleInputEmail1">Date of Death</label>
                   <input type="date" name="death_date" required class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
