@@ -28,7 +28,7 @@ if(!empty($options["from_date"])):
       $where = $where . " and transaction_date >= '" . $options["from_date"] . "'";
 endif;
 
-if(!empty($_REQUEST["to_date"])):
+if(!empty($options["to_date"])):
       $where = $where . " and transaction_date <= '" . $options["to_date"] . "'";
 endif;
 

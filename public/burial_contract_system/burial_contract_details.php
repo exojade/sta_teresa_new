@@ -510,7 +510,17 @@
               <form class="generic_form_pdf" url="burial_contract">
               <input type="hidden" value="demand_pdf" name="action">
               <input type="hidden" value="<?php echo($_GET["id"]) ?>" name="contract_id">
+
+
+              <?php if($contract["remarks"] == "PAID"): ?>
+                <button type="submit" disabled class="btn btn-info pull-right">Print Demand Letter</button>
+
+            <?php else: ?>
               <button type="submit" class="btn btn-info pull-right">Print Demand Letter</button>
+
+            <?php endif; ?>
+
+              
                   </form>
               <br>
               <br>
@@ -607,7 +617,20 @@
 
 
               <div class="tab-pane" id="transaction">
-                <a href="#" data-toggle="modal" data-target="#modal_add_transaction" class="btn btn-primary">Add Payment</a>
+
+              <?php if($contract["remarks"] == "PAID"): ?>
+                <a href="#" disabled id="addPaymentButton" data-toggle="modal" data-target="#modal_add_transaction" class="btn btn-primary">Add Payment</a>
+                <script>
+                  document.getElementById("addPaymentButton").addEventListener("click", function (event) {
+                      event.preventDefault(); // Prevent the default behavior (click) when the button is clicked
+                  });
+</script>
+            <?php else: ?>
+              <a href="#" data-toggle="modal" data-target="#modal_add_transaction" class="btn btn-primary">Add Payment</a>
+
+            <?php endif; ?>
+
+                
                 <h3 class="pull-right">BALANCE: P<?php echo(to_peso($balance)); ?></h3>
   <br>
   <br>
