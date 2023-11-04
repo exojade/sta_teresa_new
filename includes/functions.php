@@ -44,6 +44,7 @@
     }
 
     function generateRandomNumbers($min, $max) {
+        //sa comment
         $result = [];
         $count = $max;
         for ($i = $min; $i <= $count; $i++) {
