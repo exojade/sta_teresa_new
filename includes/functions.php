@@ -68,6 +68,8 @@
         return $readable_date;
     }
 
+    
+
     function convert_number_to_words($number) {
 
         $hyphen      = '-';

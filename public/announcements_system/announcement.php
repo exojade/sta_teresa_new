@@ -67,25 +67,27 @@ use mikehaertl\pdftk\Pdf;
 
 		if($_POST["action"] == "update"){
 			// dump($_POST);
-				query("update chapel set chapel_name = ?, price_amount = ? where chapel_id = ?",
-						$_POST["chapel"], $_POST["amount"], $_POST["chapel_id"]);
+			if($_POST["status"] == 'ACTIVE')
+			query("update announcements set status = 'INACTIVE'");
+			query("update announcements set status = ? where announcement_id = ?",
+						$_POST["status"],$_POST["announcement_id"]);
 			$res_arr = [
 				"result" => "success",
 				"title" => "Success",
-				"message" => "Success on Updating the chapel",
-				"link" => "chapels?action=list",
+				"message" => "Success on Updating Announcement",
+				"link" => "refresh",
 				];
 				echo json_encode($res_arr); exit();
 			
 		}
 
-		if($_POST["action"] == "delete_image"){
-			query("delete from chapel_image where chapel_image_id = ?", $_POST["image_id"]);
+		if($_POST["action"] == "delete"){
+			query("delete from announcements where announcement_id = ?", $_POST["announcement_id"]);
 			$res_arr = [
 				"result" => "success",
 				"title" => "Success",
-				"message" => "Success on Deleting the Image",
-				"link" => "chapels?action=list",
+				"message" => "Success on Deleting Announcement",
+				"link" => "refresh",
 				];
 				echo json_encode($res_arr); exit();
 			// dump($_POST);

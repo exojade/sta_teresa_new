@@ -63,19 +63,18 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><?php echo($a["announcement_title"]); ?></h4>
+                <h4 class="modal-title"><?php echo($a["title"]); ?></h4>
               </div>
-              <form class="general_form" data-url="chapels">
+              <form class="general_form" data-url="announcements">
               <div class="modal-body">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="chapel_id" value="<?php echo($a["announcement_id"]); ?>">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Chapel Name</label>
-                  <input required type="text" value="<?php echo($chapel["chapel_name"]); ?>" name="chapel" class="form-control" id="exampleInputEmail1" placeholder="---">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Price / Amount</label>
-                  <input required type="number" value="<?php echo($chapel["price_amount"]); ?>" name="amount" class="form-control" id="exampleInputEmail1" placeholder="---">
+                <input type="hidden" name="announcement_id" value="<?php echo($a["announcement_id"]); ?>">
+                <div class="form-group" >
+                  <select required class="form-control" name="status">
+                  <option selected value="<?php echo($a["status"]); ?>"><?php echo($a["status"]); ?></option>
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
+                  </select>
                 </div>
               </div>
               <div class="modal-footer">
@@ -150,7 +149,13 @@
                     <tr>
                       <td>
                         <a href="#" data-toggle="modal" data-target="#modal_<?php echo($a["announcement_id"]); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#modal_<?php echo($a["announcement_id"]); ?>" class="btn btn-danger"><i class="fa fa-close"></i></a>
+                        
+                        <form class="general_form" data-url="announcements" style="display:inline;">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="announcement_id" value="<?php echo($a["announcement_id"]); ?>">
+                    
+                        <button class="btn btn-danger" type="submit"><i class="fa fa-close"></i></button>
+                        </form>
                       </td>
                       <td><?php echo($a["announcement_id"]); ?></td>
                       <td><?php echo($a["title"]); ?></td>
