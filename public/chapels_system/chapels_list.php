@@ -33,6 +33,17 @@
                   <label for="exampleInputEmail1">Price / Amount</label>
                   <input required type="number" name="amount" class="form-control" id="exampleInputEmail1" placeholder="Enter chapel Name">
                 </div>
+
+                <?php $branch = query("select * from branch"); ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Branch</label>
+                  <select class="form-control" required name="branch">
+                    <option value="" disabled selected>Please Select Branch</option>
+                    <?php foreach($branch as $row): ?>
+                      <option value="<?php echo($row["branch"]); ?>"><?php echo($row["branch"]); ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
                 <div id="main_image_div"></div>
                   <div id="image_div">
                     <!-- APPEND ITEMS GOES HERE -->
@@ -105,6 +116,9 @@
                   <label for="exampleInputEmail1">Price / Amount</label>
                   <input required type="number" value="<?php echo($chapel["price_amount"]); ?>" name="amount" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
+              
+
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
