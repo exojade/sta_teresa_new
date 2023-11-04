@@ -619,12 +619,7 @@
               <div class="tab-pane" id="transaction">
 
               <?php if($contract["remarks"] == "PAID"): ?>
-                <a href="#" disabled id="addPaymentButton" data-toggle="modal" data-target="#modal_add_transaction" class="btn btn-primary">Add Payment</a>
-                <script>
-                  document.getElementById("addPaymentButton").addEventListener("click", function (event) {
-                      event.preventDefault(); // Prevent the default behavior (click) when the button is clicked
-                  });
-</script>
+      
             <?php else: ?>
               <a href="#" data-toggle="modal" data-target="#modal_add_transaction" class="btn btn-primary">Add Payment</a>
 

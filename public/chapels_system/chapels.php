@@ -4,8 +4,8 @@ use mikehaertl\pdftk\Pdf;
 		if($_POST["action"] == "add"){
 			// dump($_FILES);
 			if (query("INSERT INTO chapel (chapel_name,price_amount) 
-				VALUES(?,?)", 
-				$_POST["chapel"],$_POST["amount"]) === false)
+				VALUES(?,?,?)", 
+				$_POST["chapel"],$_POST["amount"], $_POST["branch"]) === false)
 				{
 					apologize("Sorry, that username has already been taken!");
 				}
@@ -76,8 +76,8 @@ use mikehaertl\pdftk\Pdf;
 
 		if($_POST["action"] == "update"){
 			// dump($_POST);
-				query("update chapel set chapel_name = ?, price_amount = ? where chapel_id = ?",
-						$_POST["chapel"], $_POST["amount"], $_POST["chapel_id"]);
+				query("update chapel set chapel_name = ?, price_amount = ?, branch = ? where chapel_id = ?",
+						$_POST["chapel"], $_POST["amount"], $_POST["branch"], $_POST["chapel_id"]);
 			$res_arr = [
 				"result" => "success",
 				"title" => "Success",

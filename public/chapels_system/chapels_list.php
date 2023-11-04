@@ -116,6 +116,18 @@
                   <label for="exampleInputEmail1">Price / Amount</label>
                   <input required type="number" value="<?php echo($chapel["price_amount"]); ?>" name="amount" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
+
+
+                <?php $branch = query("select * from branch"); ?>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Branch</label>
+                  <select class="form-control" required name="branch">
+                    <option value="<?php echo($chapel["branch"]); ?>"><?php echo($chapel["branch"]); ?></option>
+                    <?php foreach($branch as $row): ?>
+                      <option value="<?php echo($row["branch"]); ?>"><?php echo($row["branch"]); ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
               
 
 
@@ -222,6 +234,7 @@
                   <th>ID</th>
                   <th>chapel</th>
                   <th>Amount</th>
+                  <th>Branch</th>
                   <th width="45%">Image</th>
                 </tr>
                 </thead>
@@ -236,6 +249,7 @@
                       <td><?php echo($chapel["chapel_id"]); ?></td>
                       <td><?php echo($chapel["chapel_name"]); ?></td>
                       <td><?php echo($chapel["price_amount"]); ?></td>
+                      <td><?php echo($chapel["branch"]); ?></td>
                       <td>
                       <?php if(isset($Chapel_image[$chapel["chapel_id"]])): ?>
                         <?php foreach($Chapel_image[$chapel["chapel_id"]] as $image): ?>
@@ -254,6 +268,7 @@
                   <th>ID</th>
                   <th>chapel</th>
                   <th>Amount</th>
+                  <th>Branch</th>
                   <th width="45%">Image</th>
                 </tr>
                 </tfoot>

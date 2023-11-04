@@ -80,9 +80,16 @@
   $chapel = query("select * from chapel where chapel_id = ?", $_GET["id"]); 
   $chapel_image = query("select * from chapel_image where chapel_id = ?", $_GET["id"]); 
 ?>
+
+
+
   <section class="heading-page header-text" id="top">
     <div class="container">
       <div class="row">
+
+
+
+
         <div class="col-lg-12">
           <h6>Chapel; Section</h6>
           <h2><?php echo($chapel[0]["chapel_name"]); ?></h2>
