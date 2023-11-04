@@ -243,7 +243,11 @@ use mikehaertl\pdftk\Pdf;
 
 		if($_POST["action"] == "promissory_note_pdf"){
 			// dump($_POST);
-			
+			$user = query("select u.* from burial_service_contract c
+							left join tblusers u
+							on u.user_id = c.created_by
+							where c.contract_id = ?", $_POST["contract_id"]);
+							// dump($user);
 
 			$total = query("select total_amount, concat(deceased_firstname, ' ', deceased_middlename, ' ', deceased_lastname) as deceased from burial_service_contract where contract_id = ?", $_POST["contract_id"]);
 			$payments = query("select sum(amount) as sum from transaction where contract_id = ?", $_POST["contract_id"]);
@@ -261,6 +265,8 @@ use mikehaertl\pdftk\Pdf;
 			  "amount_words"    => strtoupper(convert_number_to_words($balance)),
 			  "date_valid"    => strtoupper($_POST["date_valid"]),
 			  "deceased"    => strtoupper($total[0]["deceased"]),
+			  "user_full"    => strtoupper($user[0]["fullname"]),
+			  "user_position"    => strtoupper($user[0]["position"]),
 				])
             //   ->needAppearances()
               ->flatten()
@@ -387,45 +393,15 @@ use mikehaertl\pdftk\Pdf;
 
 		}
 
-		if($_POST["action"] == "embalmer_pdf"){
-			// dump($_POST);
-			$contract = query("select * from burial_service_contract where contract_id
-								= ?", $_POST["contract_id"]);
-			$contract = $contract[0];
-			// 
-			// dump($contract);
-
-			$pdf = new Pdf('reports/embalmer_certificate.pdf');
-			
-            $result = $pdf->fillForm([
-              "deceased"    => strtoupper($contract["deceased_firstname"] . " " . $contract["deceased_lastname"]),
-			  "address"    => strtoupper($contract["deceased_address"] . " " . $contract["deceased_barangay"]. " " . $contract["deceased_city"]),
-			  "death"    => ($contract["death_date"]),
-			  "death_address"    => strtoupper($contract["death_address"]),
-			  "client_name"    => strtoupper($_POST["issued_client_name"]),
-			  "relationship"    => strtoupper($_POST["relationship"]),
-			  "day"    => (date("d")),
-			  "month"    => (date("F")),
-			  "year"    => (date("Y")),
-				])
-            //   ->needAppearances()
-              ->flatten()
-              ->saveAs("reports/".$_POST["contract_id"]."_embalmer.pdf");
-        
-              $filename = $_POST["contract_id"]."_embalmer.pdf";
-              $path = "reports/".$_POST["contract_id"]."_embalmer.pdf";
-              $load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
-              $json = array('info' => $load);
-              echo json_encode($json);
-
-
-
-		}
+	
 
 
 		if($_POST["action"] == "sss_pdf"){
 			
-			
+			$user = query("select u.* from burial_service_contract c
+							left join tblusers u
+							on u.user_id = c.created_by
+							where c.contract_id = ?", $_POST["contract_id"]);
 
 			$total = query("select total_amount, concat(deceased_firstname, ' ', deceased_middlename, ' ', deceased_lastname) as deceased from burial_service_contract where contract_id = ?", $_POST["contract_id"]);
 			$transaction = query("select * from transaction t
@@ -476,6 +452,8 @@ use mikehaertl\pdftk\Pdf;
 			  "day"    => (date("d")),
 			  "month"    => (date("F")),
 			  "year"    => (date("Y")),
+			  "user_full"    => $user[0]["fullname"],
+			  "user_position"    => $user[0]["position"],
 				])
             //   ->needAppearances()
               ->flatten()

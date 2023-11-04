@@ -62,17 +62,28 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><?php echo($u["user_id"]); ?></h4>
               </div>
-              <form class="general_form" data-url="chapels">
+              <form class="general_form" data-url="users">
               <div class="modal-body">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="chapel_id" value="<?php echo($u["user_id"]); ?>">
+                <input type="hidden" name="user_id" value="<?php echo($u["user_id"]); ?>">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
                   <input required type="text" value="<?php echo($u["username"]); ?>" name="username" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Password</label>
+                  <input  type="password"  name="password" class="form-control" id="exampleInputEmail1" placeholder="(Input if change password)">
+                </div>
+
 				<div class="form-group">
                   <label for="exampleInputEmail1">Fullname</label>
                   <input required type="text" value="<?php echo($u["fullname"]); ?>" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="---">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Position</label>
+                  <input required type="text" value="<?php echo($u["position"]); ?>" name="position" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
 				<div class="form-group">
                   <label for="exampleInputEmail1">Role</label>
@@ -81,6 +92,11 @@
 						<option value="ADMIN">ADMIN</option>
 						<option value="USER">USER</option>
 				  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputFile">Image</label>
+                  <input name="image" type="file" id="exampleInputFile">
                 </div>
 				
              
@@ -180,7 +196,6 @@
                     <tr>
                       <td>
                         <a href="#" title="Update User" data-toggle="modal" data-target="#modal_<?php echo($u["user_id"]); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        <a href="#" title="Delete User" data-toggle="modal" data-target="#modal_<?php echo($u["user_id"]); ?>" class="btn btn-danger"><i class="fa fa-close"></i></a>
                         <form class="general_form" style="display: inline;">
 							<input type="hidden" name="action" value="reset_password">
 							<input  type="hidden" name="user_id" value="<?php echo($u["user_id"]); ?>">
@@ -188,7 +203,7 @@
 				  		</form>
                       
 					</td>
-                      <td><?php echo($u["username"]); ?></td>
+                      <td><?php echo($u["username"] . "<br>" . $u["position"]); ?></td>
                       <td><?php echo($u["fullname"]); ?></td>
                       <td><?php echo($u["role"]); ?></td>
                       <td>
@@ -240,6 +255,11 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Fullname</label>
                   <input required type="text" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter full name">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Position</label>
+                  <input required type="text" name="position" class="form-control" id="exampleInputEmail1" placeholder="Enter Position Title">
                 </div>
 				
 				<div class="form-group">
