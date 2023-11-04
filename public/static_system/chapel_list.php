@@ -89,6 +89,17 @@ $chapel = query("select * from chapel");
           <h2>Chapels</h2>
         </div>
       </div>
+      <a style="font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;" class="button" href="static_chapel_list">All</a>
   <?php $branch = query("select * from branch"); ?>
       <?php foreach($branch as $row): ?>
   <a style="font-size: 13px;
