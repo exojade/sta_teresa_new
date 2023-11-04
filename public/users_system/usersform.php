@@ -199,7 +199,7 @@
                         <form class="general_form" style="display: inline;">
 							<input type="hidden" name="action" value="reset_password">
 							<input  type="hidden" name="user_id" value="<?php echo($u["user_id"]); ?>">
-							<button title="Change Password" type="submit" class="btn btn-success"><i class="fa fa-refresh"></i></a>
+							<!-- <button title="Change Password" type="submit" class="btn btn-success"><i class="fa fa-refresh"></i></a> -->
 				  		</form>
                       
 					</td>
