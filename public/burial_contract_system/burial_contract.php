@@ -8,11 +8,13 @@ use mikehaertl\pdftk\Pdf;
 			// dump($_POST);
 			$branch = query("select * from branch where branch = ?", $_POST["branch"]);
 			$branch = $branch[0];
-			$from_date = date("Y-m-1");
+			$from_date = date("Y-m-01");
 			$to_date = date("Y-m-t");
 			$count = query("select count(*) as count from burial_service_contract where 
 			contract_date between ? and ?", $from_date, $to_date);
+			
 			$count = $count[0]["count"] + 2;
+			// dump($count);
 			$contract_id = $branch["branch"][0] . "-" . date("Ym"). sprintf("%04d", $count);
 
 
