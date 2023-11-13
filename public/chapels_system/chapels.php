@@ -3,7 +3,7 @@ use mikehaertl\pdftk\Pdf;
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 		if($_POST["action"] == "add"){
 			// dump($_FILES);
-			if (query("INSERT INTO chapel (chapel_name,price_amount) 
+			if (query("INSERT INTO chapel (chapel_name,price_amount, branch) 
 				VALUES(?,?,?)", 
 				$_POST["chapel"],$_POST["amount"], $_POST["branch"]) === false)
 				{
