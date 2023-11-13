@@ -188,6 +188,7 @@
                   <th>Username</th>
                   <th>Fullname</th>
                   <th>Role</th>
+                  <th>Position</th>
                   <th>Image</th>
                 </tr>
                 </thead>
@@ -206,6 +207,7 @@
                       <td><?php echo($u["username"] . "<br>" . $u["position"]); ?></td>
                       <td><?php echo($u["fullname"]); ?></td>
                       <td><?php echo($u["role"]); ?></td>
+                      <td><?php echo($u["position"]); ?></td>
                       <td>
                       <?php if($u["image_url"] != ""): ?>
                           <a data-toggle="modal" data-target="#modal_image_<?php echo($u["user_id"]); ?>"  href="#" ><img style="border: 2px solid black;" src="<?php echo($u["image_url"]); ?>" width="50" height="50"></a>
