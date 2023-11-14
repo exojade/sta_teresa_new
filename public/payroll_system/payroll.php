@@ -60,6 +60,26 @@
 					echo json_encode($res_arr); exit();
 
 
+			elseif($_POST["action"] == "payslip_pdf"):
+				// dump($_POST);
+						$sql = query("select * from site_options");
+						// dump($sql);
+						$url = $sql[0]["url"];
+						$webpath = $url . "/payroll?action=payslip_pdf&payroll_id=".$_POST["payroll_id"] . "&employee_id=".$_POST["employee_id"];
+						// dump($webpath);
+						// dump($webpath);
+						$filename = "PAYSLIP";
+						// dump($filename);
+						$path = "reports/".$filename.".pdf";
+						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
+						// dump($exec);
+						exec($exec);
+						$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+						$json = array('info' => $load);
+						echo json_encode($json);
+					
+
+
 			elseif($_POST["action"] == "update"):
 				// dump($_POST);
 
@@ -127,9 +147,17 @@
 					"title" => "Sales Report",
 				]);
 
-
+		elseif($_GET["action"] == "payslip_pdf"):
+		renderview("public/payroll_system/payslip_pdf.php", [
+			"title" => "Statement of Account",
+			// "contracts" => $contracts,
+			// "agency" => $agency,
+		]);
 
 		endif;
+
+		
+		
 
 
 		

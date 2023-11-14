@@ -106,7 +106,6 @@ use mikehaertl\pdftk\Pdf;
 			$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
 			$json = array('info' => $load);
 			echo json_encode($json);
-			
 		}
 
 		

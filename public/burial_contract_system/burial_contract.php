@@ -414,7 +414,7 @@ use mikehaertl\pdftk\Pdf;
 									// dump($transaction);
 
 			$payments = [];
-			for($i = 0; $i < 9; $i++):
+			for($i = 0; $i < 6; $i++):
 				if(isset($transaction[$i])):
 					$payments[$i+1]["entity"] = strtoupper($transaction[$i]["guarantor"]);
 					$payments[$i+1]["amount"] = "(".to_peso($transaction[$i]["amount"]).")";
@@ -448,9 +448,7 @@ use mikehaertl\pdftk\Pdf;
 			  "non_cash_4"    => $payments[4]["encode"],
 			  "non_cash_5"    => $payments[5]["encode"],
 			  "non_cash_6"    => $payments[6]["encode"],
-			  "non_cash_7"    => $payments[7]["encode"],
-			  "non_cash_8"    => $payments[8]["encode"],
-			  "non_cash_9"    => $payments[9]["encode"],
+			 
 			  "day"    => (date("d")),
 			  "month"    => (date("F")),
 			  "year"    => (date("Y")),

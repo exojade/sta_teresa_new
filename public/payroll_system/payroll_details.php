@@ -154,12 +154,12 @@
                         <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
                         <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
-                      <form class="general_form" style="display:inline;" data-url="payroll" autocomplete="off">
-                        <input type="hidden" name="action" value="payslip">
-                        <input type="hidden" name="employee" value="<?php echo($row["employee_id"]); ?>">
-                        <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
-                        <button type="submit" class="btn btn-primary">Payslip</button>
-                      </form>
+                      <form class="generic_form_pdf" style="display:inline;" url="payroll">
+                      <input type="hidden" name="action" value="payslip_pdf">
+                      <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
+                      <input type="hidden" name="employee_id" value="<?php echo($row["employee_id"]); ?>">
+                      <button class="btn btn-primary btn-flat">Payslip</button>
+                    </form>
                       </td>
                       <td><?php echo($row["employee_name"]); ?></td>
                       <td><?php echo(to_peso($row["base_salary"])); ?></td>
