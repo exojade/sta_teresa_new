@@ -62,6 +62,55 @@
 	</div>
 
 
+
+
+  <?php foreach($payroll_employees as $row): ?>
+      <div class="modal fade" id="modalUpdate<?php echo($row["employee_id"]); ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Information</h4>
+              </div>
+              <form class="general_form" data-url="payroll">
+              <div class="modal-body">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="employee_id" value="<?php echo($row["employee_id"]); ?>">
+              <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Employee Name</label>
+                  <input required type="text" value="<?php echo($row["employee_name"]); ?>" disabled class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Days</label>
+                      <input required type="number" value="<?php echo($row["number_days"]); ?>" name="number_days" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Cash Advance</label>
+                      <input required type="text" value="<?php echo($row["cash_advance"]); ?>" name="cash_advance" class="form-control" id="exampleInputEmail1" placeholder="Enter ---">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+    <?php endforeach; ?>
+
+
+
+
   <div class="content-wrapper">
     <div class="container">
     <section class="content">
@@ -98,11 +147,18 @@
                   <?php foreach($payroll_employees as $row): ?>
                     <tr>
                       <td>
+                      <a href="#" title="Update User" data-toggle="modal" data-target="#modalUpdate<?php echo($row["employee_id"]); ?>" class="btn btn-warning">UPDATE</a>
                       <form class="general_form" style="display:inline;" data-url="payroll" autocomplete="off">
                         <input type="hidden" name="action" value="delete_employee">
                         <input type="hidden" name="employee" value="<?php echo($row["employee_id"]); ?>">
                         <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
-                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                      <form class="general_form" style="display:inline;" data-url="payroll" autocomplete="off">
+                        <input type="hidden" name="action" value="payslip">
+                        <input type="hidden" name="employee" value="<?php echo($row["employee_id"]); ?>">
+                        <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
+                        <button type="submit" class="btn btn-primary">Payslip</button>
                       </form>
                       </td>
                       <td><?php echo($row["employee_name"]); ?></td>

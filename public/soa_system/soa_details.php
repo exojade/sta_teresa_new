@@ -33,7 +33,12 @@
                   <b>Date Created</b> <a class="pull-right"><?php echo(($soa[0]["date_created"])); ?></a>
                 </li>
               </ul>
-              <a href="#" class="btn btn-primary btn-block"><b>Print SOA</b></a>
+              <form class="generic_form_pdf" style="display:inline;" url="soa">
+                      <input type="hidden" name="action" value="soa_pdf">
+                      <input type="hidden" name="soa_id" value="<?php echo($_GET["id"]); ?>">
+                      <button class="btn btn-primary btn-flat btn-block">Print SOA</button>
+                    </form>
+              <!-- <a href="#" class="btn btn-primary btn-block"><b>Print SOA</b></a> -->
             </div>
             <!-- /.box-body -->
           </div>

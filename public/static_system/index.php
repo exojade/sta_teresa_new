@@ -122,8 +122,8 @@
           ?>
 
           <?php foreach($obituary as $o): 
-            $month = date("M", strtotime($o["burial_date"]));
-            $day = date("d", strtotime($o["burial_date"]));
+            $burial_date = date("F d Y", strtotime($o["burial_date"]));
+            $death_date = date("F d Y", strtotime($o["death_date"]));
 
             ?>
             <?php if($count == 1 || $count == 2): ?>
@@ -138,17 +138,23 @@
                   <div class="price">
                   </div>
                   <?php if($o["obituary_image"] == ""): ?>
-                    <a href="meeting-details.html"><img width="250" height="200" src="resources/obituary/default_obituary.jpg" alt="New Lecturer Meeting"></a>
+                    <img width="250" height="200" src="resources/obituary/default_obituary.jpg" alt="New Lecturer Meeting">
                   <?php else: ?>
-                    <a href="meeting-details.html"><img width="250" height="200" src="<?php echo($o["obituary_image"]); ?>" alt="New Lecturer Meeting"></a>
+                    <img width="250" height="200" src="<?php echo($o["obituary_image"]); ?>" alt="New Lecturer Meeting">
                   <?php endif; ?>
                   <!-- <a href="meeting-details.html"><img src="public/static_system/assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a> -->
                 </div>
                 <div class="down-content">
-                  <div class="date">
-                    <h6><?php echo($month); ?> <span><?php echo($day); ?></span></h6>
+               
+                  <h4><?php echo($o["deceased_lastname"] . ", " . $o["deceased_firstname"]); ?></h4><br>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p><b>Date of Death:</b> <?php echo($death_date); ?></p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p><b>Date of Burial:</b> <?php echo($burial_date); ?></p>
+                    </div>
                   </div>
-                  <a href="meeting-details.html"><h4><?php echo($o["deceased_lastname"] . ", " . $o["deceased_firstname"]); ?></h4></a>
                   <!-- <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p> -->
                 </div>
               </div>
@@ -228,7 +234,7 @@
                 <div class="info">
                   <div class="row">
                     <div class="col-12">
-                       <span class="text-center">$160</span>
+                       <span class="text-center">P <?php echo(to_peso($c["amount"])); ?></span>
                     </div>
                   </div>
                 </div>

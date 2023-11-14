@@ -27,7 +27,7 @@
               <input type="hidden" name="action" value="add">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Title</label>
-                  <input required type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter chapel Name">
+                  <input required type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter Title">
                 </div>
                 <div class="form-group">
                   <label>Announcement Text</label>

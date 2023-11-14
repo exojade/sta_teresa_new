@@ -38,7 +38,7 @@
                 <?php foreach($payroll as $row): ?>
                   <tr>
                   <td>
-                      <a href="payroll?action=details&id=<?php echo($row["payroll_id"]); ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                      <a href="payroll?action=details&id=<?php echo($row["payroll_id"]); ?>" class="btn btn-warning btn-sm btn-block">Details</a>
                   </td>
                   <td><?php echo(short_date($row["from_date"]) . " - " . short_date($row["to_date"])); ?></td>
                   <?php if(isset($Employees[$row["payroll_id"]])): ?>

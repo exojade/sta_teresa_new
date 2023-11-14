@@ -58,6 +58,21 @@
 					"link" => "refresh",
 					];
 					echo json_encode($res_arr); exit();
+
+
+			elseif($_POST["action"] == "update"):
+				// dump($_POST);
+
+				$employee = query("select * from employees where employee_id = ?", $_POST["employee_id"]);
+				query("update payroll_employee set number_days = ?, cash_advance = ?, base_salary = ? where employee_id = ? and payroll_id = ?",
+						$_POST["number_days"], $_POST["cash_advance"], $employee[0]["base_salary"], $_POST["employee_id"], $_POST["payroll_id"]);
+				$res_arr = [
+					"result" => "success",
+					"title" => "Success",
+					"message" => "Success on Updating Employee",
+					"link" => "refresh",
+					];
+					echo json_encode($res_arr); exit();
 			
 			elseif($_POST["action"] == "pdf_payroll"):
 				// dump($_POST);

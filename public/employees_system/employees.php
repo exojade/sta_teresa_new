@@ -14,21 +14,45 @@
 			$target = "resources/employees/default.png";
 		endif;
 		$employee_id = create_uuid("EMP");
-		if (query("insert INTO employees (employee_id,employee_name,branch,base_salary,profile) 
-			VALUES(?,?,?,?,?)", 
+		if (query("insert INTO employees (employee_id,employee_name,branch,base_salary,profile,position) 
+			VALUES(?,?,?,?,?,?)", 
 			$employee_id,$_POST["employee_name"], $_POST["branch"],
-			$_POST["base_salary"], $target) === false)
+			$_POST["base_salary"], $target, $_POST["position"]) === false)
 			{
 				apologize("Sorry, that username has already been taken!");
 			}
 			$res_arr = [
 				"result" => "success",
 				"title" => "Success",
-				"message" => "Success on Adding Announcement",
+				"message" => "Success on Adding Employee",
 				"link" => "refresh",
 				];
 				echo json_encode($res_arr); exit();
 	}
+
+
+	else if($_POST["action"] == "update"){
+		// dump($_FILES);
+	if($_FILES["image_url"]["size"] != 0):
+		$target = "resources/employees/".$_FILES["image_url"]["name"];
+		if(!move_uploaded_file($_FILES['image_url']['tmp_name'], $target)):
+			echo("Do not have upload files");
+			exit();
+		endif;
+		query("update employees set profile = ? where employee_id = ?", $target, $_POST["employee_id"]);
+	endif;
+
+	query("update employees set employee_name = ?, branch = ?, base_salary = ?, position = ? where employee_id = ?", 
+			$_POST["employee_name"], $_POST["branch"], $_POST["base_salary"], $_POST["position"], $_POST["employee_id"]);
+
+		$res_arr = [
+			"result" => "success",
+			"title" => "Success",
+			"message" => "Success on Adding Employee",
+			"link" => "refresh",
+			];
+			echo json_encode($res_arr); exit();
+}
 	else if($_POST["action"] == 'reset_password'){
 		query("update tblusers SET password = ? WHERE user_id = ?", crypt('!1234#',''), $_POST["user_id"]);
 		$res_arr = [

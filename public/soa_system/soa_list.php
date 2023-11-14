@@ -15,7 +15,7 @@
       $count = $transaction[0]["count"];
     ?>
     <?php if($count != 0): ?>
-      <div class="alert alert-warning alert-dismissible">
+      <div class="alert alert-danger alert-dismissible">
                 <h4><i class="icon fa fa-warning"></i> Alert!</h4>
                 There is/are <?php echo($count); ?> ungenerated SOA. Please click Generate SOA button.
                 <br>
