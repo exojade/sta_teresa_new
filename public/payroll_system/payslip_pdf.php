@@ -17,10 +17,10 @@ $payroll[0]["to_date"] = date("F d, Y", strtotime($payroll[0]["to_date"]));
             <br>
             <br>
             <div class="row">
-              <div class="col-xs-4">
-                <img class="img-responsive" style="border: 8px solid black;" src="<?php echo($employee[0]["profile"]); ?>">
-              </div>
-              <div class="col-xs-8">
+              <!-- <div class="col-xs-4">
+                <img class="img-responsive" style="border: 8px solid black;" src="<?php //echo($employee[0]["profile"]); ?>">
+              </div> -->
+              <div class="col-xs-12">
                 <h4><b>Employee's Name</b>: <?php echo($employee[0]["employee_name"]); ?></h4>
                 <h4><b>Position</b>: <?php echo($employee[0]["position"]); ?></h4>
                 <h4><b>Branch</b>: <?php echo($employee[0]["branch"]); ?></h4>

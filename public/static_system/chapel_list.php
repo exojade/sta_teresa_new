@@ -140,7 +140,7 @@ $chapel = query("select * from chapel");
                 <div class="info">
                   <div class="row">
                     <div class="col-12">
-                       <span class="text-center">$160</span>
+                       <span class="text-center">P <?php echo(to_peso($c["price_amount"])); ?></span>
                     </div>
                   </div>
                 </div>

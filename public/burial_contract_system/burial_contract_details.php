@@ -37,7 +37,7 @@
         <div class="form-group">
 				  <label>AGENCY (if mode of payment is GUARANTEE)</label>
 					<select class="form-control" name="agency" style="width: 100%;">
-            <option value="" selected>Please Select Mode of Payment</option>
+            <option value="" selected>Select Guarantor</option>
             <?php foreach($guarantors as $g): ?>
             <option value="<?php echo($g["tbl_id"]); ?>"><?php echo($g["guarantor"]); ?></option>
             <?php endforeach; ?>
@@ -175,7 +175,7 @@
               <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="text" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
+                  <input type="number" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
                 </div>
               </div>
             </div>
