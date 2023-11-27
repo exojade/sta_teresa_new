@@ -22,7 +22,7 @@
 				<input type="hidden" name="contract_id" value="<?php echo($_GET["id"]) ?>">
 				<div class="form-group">
 				  <label>MODE OF PAYMENT</label>
-					<select required class="form-control" name="payment_type" style="width: 100%;">
+					<select required class="form-control" name="payment_type" onchange="toggleAgency()" id="payment_type" style="width: 100%;">
             <option value="" selected disabled>Please Select Mode of Payment</option>
             <option value="CASH">CASH</option>
             <option value="GUARANTEE">GUARANTEE</option>
@@ -36,7 +36,7 @@
   
         <div class="form-group">
 				  <label>AGENCY (if mode of payment is GUARANTEE)</label>
-					<select class="form-control" name="agency" style="width: 100%;">
+					<select class="form-control" name="agency" id="agency" style="width: 100%;display:none;">
             <option value="" selected>Select Guarantor</option>
             <?php foreach($guarantors as $g): ?>
             <option value="<?php echo($g["tbl_id"]); ?>"><?php echo($g["guarantor"]); ?></option>
@@ -174,8 +174,8 @@
 
               <div class="col-md-4">
               <div class="form-group">
-                  <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="number" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
+                  <label for="exampleInputEmail1">Contact Number (09xxxxxxxxx)</label>
+                  <input type="text" pattern="\d{11}" maxlength="11" inputmode="numeric" value="<?php echo($contract["contact_number"]); ?>" name="contact_number" class="form-control" id="exampleInputEmail1" placeholder="09xxxxxxxxx">
                 </div>
               </div>
             </div>

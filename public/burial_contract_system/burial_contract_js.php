@@ -28,6 +28,21 @@ $(document).ready(function(){
 });
 
 
+function toggleAgency() {
+      var paymentType = document.getElementById("payment_type").value;
+      var agencySelect = document.getElementById("agency");
+
+      if (paymentType === "GUARANTEE") {
+        // If payment type is GUARANTEE, show the agency select
+        agencySelect.style.display = "block";
+      } else {
+        // If payment type is CASH, hide the agency select
+        agencySelect.style.display = "none";
+      }
+    }
+
+
+
 $("#update_contract_btn").click(function() {
   $("#save_contract_btn").show(); //Showing submit_text
   $("#cancel_contract_btn").show(); //Showing submit_text
