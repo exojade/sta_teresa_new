@@ -5,6 +5,13 @@ use mikehaertl\pdftk\Pdf;
 
 		$session = $_SESSION["sta_teresa"];
 		if($_POST["action"] == "new_contract"){
+
+			foreach ($_POST as $key => $value) {
+				// Convert the value to uppercase and update the value in $_POST
+				$_POST[$key] = strtoupper($value);
+			}
+
+
 			// dump($_POST);
 			$branch = query("select * from branch where branch = ?", $_POST["branch"]);
 			$branch = $branch[0];
@@ -152,6 +159,14 @@ use mikehaertl\pdftk\Pdf;
 		}
 
 		if($_POST["action"] == "update_contract"){
+
+			foreach ($_POST as $key => $value) {
+				// Convert the value to uppercase and update the value in $_POST
+				$_POST[$key] = strtoupper($value);
+			}
+			
+
+
 
 
 			// dump($_POST);
