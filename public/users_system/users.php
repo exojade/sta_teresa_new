@@ -26,6 +26,8 @@
 					echo json_encode($res_arr); exit();
 		}
 
+
+
 		else if ($_POST["action"] == 'update'){
 
 			// dump($_POST);
@@ -82,6 +84,18 @@
 				"title" => "Success",
 				"message" => "Success on Updating Profile Image",
 				"link" => "users",
+				];
+				echo json_encode($res_arr); exit();
+		}
+
+		else if($_POST["action"] == "updateEmbalmer"){
+			// dump($_POST);
+			query("update site_options set embalmer_issued = ?, embalmer_expiry = ?", $_POST["embalmer_issued"], $_POST["embalmer_expiry"]);
+			$res_arr = [
+				"result" => "success",
+				"title" => "Success",
+				"message" => "Success on Updating Embalmer Settings",
+				"link" => "refresh",
 				];
 				echo json_encode($res_arr); exit();
 		}

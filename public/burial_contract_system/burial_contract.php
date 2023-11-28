@@ -227,7 +227,7 @@ use mikehaertl\pdftk\Pdf;
 			$contract = $contract[0];
 			// 
 			// dump($contract);
-
+			$settings = query("select * from site_options");
 			$pdf = new Pdf('reports/embalmer_certificate.pdf');
 			
             $result = $pdf->fillForm([
@@ -240,6 +240,8 @@ use mikehaertl\pdftk\Pdf;
 			  "day"    => (date("d")),
 			  "month"    => (date("F")),
 			  "year"    => (date("Y")),
+			  "embalmer_issued"    => $settings[0]["embalmer_issued"],
+			  "embalmer_expiry"    => $settings[0]["embalmer_expiry"],
 				])
             //   ->needAppearances()
               ->flatten()

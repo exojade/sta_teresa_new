@@ -283,6 +283,30 @@
             </div>
           </div>
 
+          <?php $embalmber_settings = query("select * from site_options"); $settings = $embalmber_settings[0];?>
+
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Embalmer Settings</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <form class="general_form" data-url="users">
+            <input type="hidden" name="action" value="updateEmbalmer">
+            <div class="form-group">
+                  <label for="exampleInputEmail1">Issued Date</label>
+                  <input required value="<?php echo($settings["embalmer_issued"]); ?>" type="date" name="embalmer_issued" class="form-control" id="exampleInputEmail1" placeholder="---">
+                </div>
+
+				        <div class="form-group">
+                  <label for="exampleInputEmail1">Expiry</label>
+                  <input required value="<?php echo($settings["embalmer_expiry"]); ?>" type="date" name="embalmer_expiry" class="form-control" id="exampleInputEmail1" placeholder="Enter password">
+                </div>
+				<button class="btn btn-primary" type="submit">Submit</button>
+						</form>
+            </div>
+          </div>
+
 	</div>
 
     </div>
