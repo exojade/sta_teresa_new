@@ -37,6 +37,9 @@
 				else if ($request == 'branch')
 					require 'public/branch_system/branch.php';
 
+				else if ($request == 'guarantors')
+					require 'public/guarantors_system/guarantors.php';
+
 
 				else if ($request == 'logout')
 					require 'logout.php';
