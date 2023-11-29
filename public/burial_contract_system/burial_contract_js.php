@@ -88,6 +88,17 @@ function toggleAddressFields() {
         }
     }
 
+
+    function toggleAddressFields2() {
+        var checkbox = document.getElementById("sameResidenceDeceased");
+        var fieldsToToggle = ["death_address"];
+
+        for (var i = 0; i < fieldsToToggle.length; i++) {
+            var field = document.getElementById(fieldsToToggle[i]);
+            field.readOnly = checkbox.checked;
+        }
+    }
+
 function printDiv()
     {
 

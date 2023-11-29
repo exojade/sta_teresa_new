@@ -32,6 +32,10 @@ use mikehaertl\pdftk\Pdf;
 				$_POST["deceased_zipcode"] = $_POST["zipcode"];
 			}
 
+			if(isset($_POST["sameResidenceDeceased"])){
+				$_POST["death_address"] = $_POST["deceased_address"] . ", " . $_POST["deceased_barangay"] . ", " . $_POST["deceased_city"] . ", " . $_POST["zipcode"];
+			}
+
 
 			if (query("insert INTO burial_service_contract 
 			(

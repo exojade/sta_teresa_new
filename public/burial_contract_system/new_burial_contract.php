@@ -191,8 +191,15 @@ input[type=text] {
 
               <div class="col-md-12">
                 <div class="form-group">
+                    <label for="exampleInputEmail1">(Place of Death same residence as the Deceased?)</label>
+                    <input name="sameResidenceDeceased" type="checkbox" id="sameResidenceDeceased" onclick="toggleAddressFields2()">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
                   <label for="exampleInputEmail1">Place of Death</label>
-                  <input type="text" name="death_address" class="form-control" id="exampleInputEmail1" placeholder="---">
+                  <input type="text" id="death_address" name="death_address" class="form-control" id="exampleInputEmail1" placeholder="---">
                 </div>
               </div>
 
