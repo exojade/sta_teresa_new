@@ -322,6 +322,7 @@ use mikehaertl\pdftk\Pdf;
 			  "date"    => date("F d, Y"),
 			  "date_valid"    => $newDate,
 			  "amount"    => to_peso($balance),
+			  "amount_words"    => strtoupper(convert_number_to_words($balance)) . " PESOS ONLY.",
 			  "deceased"    => strtoupper($total[0]["deceased"]),
 				])
             //   ->needAppearances()
@@ -572,7 +573,7 @@ use mikehaertl\pdftk\Pdf;
 			  "embalming_cost"    => to_peso($burial_contract["embalming_cost"]),
 			  "casket"    => strtoupper($burial_contract["casket_type"]),
 			  "casket_cost"    => to_peso($burial_contract["casket_cost"]),
-			  "arrangement"    => strtoupper($burial_contract["arrangement_type"]),
+			  "arranagement"    => strtoupper($burial_contract["arrangement_type"]),
 			  "arrangement_cost"    => to_peso($burial_contract["arrangement_cost"]),
 			  "coach_type"    => strtoupper($burial_contract["coach_type"]),
 			  "coach_cost"    => to_peso($burial_contract["coach_cost"]),
