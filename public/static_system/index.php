@@ -92,7 +92,7 @@
               <p>Family Satisfaction is our Prime Objective </p>
               <p>High Quality Caskets, Excellent Service, Reasonable Cost </p>
               <p>Km. 31 Gredu, Panabo City | Km. 24 Bunawan, Davao City </p>
-              <p>+63907575493 </p>
+              <p>+639075754693 </p>
           </div>
               </div>
               <div class="col-lg-5 text-center">
