@@ -293,7 +293,7 @@
 			elseif($_POST["action"] == "pdf_casket"):
 				$base_url = the_base_url();
 						$options = urlencode(serialize($_POST));
-						$webpath = $base_url . "/reports_page?action=pdf_casket&options=".$options;
+						$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_casket&options=".$options;
 						// dump($webpath);
 						// dump($webpath);
 						$filename = "CASKET_REPORT";
@@ -325,7 +325,7 @@
 						
 						$base_url = the_base_url();
 						$options = urlencode(serialize($_POST));
-						$webpath = $base_url . "/reports_page?action=pdf_collectibles&options=".$options;
+						$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_collectibles&options=".$options;
 						$filename = "COLLECTIBLE_REPORT";
 						$path = "reports/".$filename.".pdf";
 						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O landscape  "'.$webpath.'" '.$path.'';
