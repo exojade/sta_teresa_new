@@ -18,7 +18,9 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">Payroll List</h3>
+              <?php if($_SESSION["sta_teresa"]["role"] == "admin"): ?>
               <a href="#" data-toggle="modal" data-target="#modal_payroll" class="btn btn-primary pull-right">Create Payroll</a>
+              <?php endif; ?>
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped sample-datatable">

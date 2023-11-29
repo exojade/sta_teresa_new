@@ -119,7 +119,9 @@
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">Salary Report</h3>
+              <?php if($_SESSION["sta_teresa"]["role"] == "admin"): ?>
               <a  href="#" data-toggle="modal" data-target="#add_employee" class="btn btn-primary pull-right">Add Employee</a> 
+              <?php endif; ?>
 
               <form class="generic_form_pdf pull-right" data-url="payroll" style="display:inline; margin-right: 10px;">
               <input type="hidden" name="action" value="pdf_payroll">
@@ -147,13 +149,16 @@
                   <?php foreach($payroll_employees as $row): ?>
                     <tr>
                       <td>
+                      <?php if($_SESSION["sta_teresa"]["role"] == "admin"): ?>
                       <a href="#" title="Update User" data-toggle="modal" data-target="#modalUpdate<?php echo($row["employee_id"]); ?>" class="btn btn-warning">UPDATE</a>
+                      
                       <form class="general_form" style="display:inline;" data-url="payroll" autocomplete="off">
                         <input type="hidden" name="action" value="delete_employee">
                         <input type="hidden" name="employee" value="<?php echo($row["employee_id"]); ?>">
                         <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
                         <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
+                      <?php endif; ?>
                       <form class="generic_form_pdf" style="display:inline;" url="payroll">
                       <input type="hidden" name="action" value="payslip_pdf">
                       <input type="hidden" name="payroll_id" value="<?php echo($_GET["id"]); ?>">
