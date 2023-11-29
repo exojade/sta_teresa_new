@@ -93,6 +93,9 @@
 			if ($request == 'static_chapel_details')
 				require 'public/static_system/chapel_details.php';
 
+				if ($request == 'obituary')
+				require 'public/static_system/obituary.php';
+
 			if ($request == 'reports_page')
 			require 'public/report_system/reports.php';
 

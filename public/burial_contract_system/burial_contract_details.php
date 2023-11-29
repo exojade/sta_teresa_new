@@ -440,10 +440,7 @@
                       <?php endif; ?>
                     </div>
                     <div class="col-md-7">
-                      <div class="form-group">
-                        <label>Obituary Post Message</label>
-                        <textarea name="obituary_message" readonly class="form-control" rows="5" placeholder="Enter ..." spellcheck="false"><?php echo($contract["obituary_message"]); ?></textarea>
-                      </div>
+                 
                       <label for="exampleInputEmail1">Valid Date</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
