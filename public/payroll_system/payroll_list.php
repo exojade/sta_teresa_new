@@ -63,14 +63,14 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Action</th>
-                  <th>Payroll ID</th>
+                  <th width="10%">Action</th>
                   <th>Payroll Title</th>
                   <th># of Employees</th>
                   <th>Benefits</th>
                   <th>Total Benefits</th>
+                  <th>Gross Pay</th>
                   <th>Deductions</th>
-                  <th>Salary</th>
+                  <th>Net Pay</th>
                 </tr>
                 </tfoot>
               </table>
