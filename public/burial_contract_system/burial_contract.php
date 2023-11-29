@@ -20,7 +20,7 @@ use mikehaertl\pdftk\Pdf;
 			$count = query("select count(*) as count from burial_service_contract where 
 			contract_date between ? and ?", $from_date, $to_date);
 			
-			$count = $count[0]["count"] + 2;
+			$count = $count[0]["count"] + 3;
 			// dump($count);
 			$contract_id = $branch["branch"][0] . "-" . date("Ym"). sprintf("%04d", $count);
 
