@@ -94,10 +94,9 @@
 			
 			elseif($_POST["action"] == "pdf_payroll"):
 				// dump($_POST);
-					$sql = query("select * from site_options");
-					$url = $sql[0]["url"];
+				$base_url = the_base_url();
 					$options = urlencode(serialize($_POST));
-					$webpath = $url . "/payroll?action=pdf_payroll&options=".$options;
+					$webpath = $base_url . "/sta_teresa/payroll?action=pdf_payroll&options=".$options;
 					$filename = "PAYROLL_REPORT";
 					$path = "reports/".$filename.".pdf";
 					$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';

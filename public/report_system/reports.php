@@ -272,12 +272,11 @@
 				echo json_encode($json_data);
 
 			elseif($_POST["action"] == "pdf_sales"):
-			// dump($_POST);
-				$sql = query("select * from site_options");
-			// dump($sql);
-				$url = $sql[0]["url"];
+
+				$base_url = the_base_url();
+	
 				$options = urlencode(serialize($_POST));
-				$webpath = $url . "/reports_page?action=pdf_sales&options=".$options;
+				$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_sales&options=".$options;
 				// dump($webpath);
 				// dump($webpath);
 				$filename = "SALES_REPORT";
@@ -292,12 +291,9 @@
 
 
 			elseif($_POST["action"] == "pdf_casket"):
-					// dump($_POST);
-						$sql = query("select * from site_options");
-					// dump($sql);
-						$url = $sql[0]["url"];
+				$base_url = the_base_url();
 						$options = urlencode(serialize($_POST));
-						$webpath = $url . "/reports_page?action=pdf_casket&options=".$options;
+						$webpath = $base_url . "/reports_page?action=pdf_casket&options=".$options;
 						// dump($webpath);
 						// dump($webpath);
 						$filename = "CASKET_REPORT";
@@ -311,12 +307,9 @@
 						echo json_encode($json);
 
 			elseif($_POST["action"] == "pdf_deceased"):
-						// dump($_POST);
-						$sql = query("select * from site_options");
-					// dump($sql);
-						$url = $sql[0]["url"];
+				$base_url = the_base_url();
 						$options = urlencode(serialize($_POST));
-						$webpath = $url . "/reports_page?action=pdf_deceased&options=".$options;
+						$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_deceased&options=".$options;
 						// dump($webpath);
 						$filename = "DECEASED_REPORT";
 						// dump($filename);
@@ -329,10 +322,10 @@
 						echo json_encode($json);
 
 			elseif($_POST["action"] == "pdf_collectibles"):
-						$sql = query("select * from site_options");
-						$url = $sql[0]["url"];
+						
+						$base_url = the_base_url();
 						$options = urlencode(serialize($_POST));
-						$webpath = $url . "/reports_page?action=pdf_collectibles&options=".$options;
+						$webpath = $base_url . "/reports_page?action=pdf_collectibles&options=".$options;
 						$filename = "COLLECTIBLE_REPORT";
 						$path = "reports/".$filename.".pdf";
 						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O landscape  "'.$webpath.'" '.$path.'';

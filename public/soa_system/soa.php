@@ -91,10 +91,8 @@ use mikehaertl\pdftk\Pdf;
 		}
 
 		if($_POST["action"] == "soa_pdf"){
-			$sql = query("select * from site_options");
-			// dump($sql);
-            $url = $sql[0]["url"];
-			$webpath = $url . "/soa?action=generate_soa&soa_id=".$_POST["soa_id"];
+			$base_url = the_base_url();
+			$webpath = $base_url . "/sta_teresa/soa?action=generate_soa&soa_id=".$_POST["soa_id"];
 			// dump($webpath);
 			// dump($webpath);
 			$filename = "SOA";
