@@ -28,6 +28,7 @@
                   <th>Payroll Title</th>
                   <th># of Employees</th>
                   <th>Benefits</th>
+                  <th>Total Benefits</th>
                   <th>Gross Pay</th>
                   <th>Deductions</th>
                   <th>Net Pay</th>
@@ -43,6 +44,7 @@
                   <td><?php echo(short_date($row["from_date"]) . " - " . short_date($row["to_date"])); ?></td>
                   <?php if(isset($Employees[$row["payroll_id"]])): ?>
                       <td><?php echo($Employees[$row["payroll_id"]]["employees"]); ?></td>
+                      <td><?php echo(to_peso($row["benefits"])); ?></td>
                       <td><?php echo(to_peso($Employees[$row["payroll_id"]]["benefits"])); ?></td>
                       <td><?php echo(to_peso($Employees[$row["payroll_id"]]["base_salary"])); ?></td>
                       <td><?php echo(to_peso($Employees[$row["payroll_id"]]["cash_advance"])); ?></td>
@@ -64,6 +66,7 @@
                   <th>Payroll Title</th>
                   <th># of Employees</th>
                   <th>Benefits</th>
+                  <th>Total Benefits</th>
                   <th>Deductions</th>
                   <th>Salary</th>
                 </tr>
@@ -95,6 +98,13 @@
             <div class="form-group">
               <label>To</label>
               <input required name="to_date" required type="date"  class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Benefits</label>
+              <input required name="benefits" required type="number" step="0.01"  class="form-control" placeholder="Ex. 488">
             </div>
           </div>
         </div>

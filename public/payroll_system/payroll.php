@@ -6,9 +6,9 @@
 		if($_POST["action"] == "add_payroll"):
 			// dump($_POST);
 			$payroll_id = create_uuid("PYR");
-			if (query("insert INTO payroll (payroll_id,from_date,to_date,status) 
-				VALUES(?,?,?,?)", 
-				$payroll_id,$_POST["from_date"], $_POST["to_date"],"pending") === false)
+			if (query("insert INTO payroll (payroll_id,from_date,to_date,status,benefits) 
+				VALUES(?,?,?,?,?)", 
+				$payroll_id,$_POST["from_date"], $_POST["to_date"],"pending", $_POST["benefits"]) === false)
 				{
 					apologize("Sorry, that username has already been taken!");
 				}
@@ -23,11 +23,12 @@
 			
 			elseif($_POST["action"] == "add_employee"):
 				// dump($_POST);
+				$payroll = query("select * from payroll where payroll_id = ?", $_POST["payroll_id"]);
 				$employee = query("select * from employees where employee_id = ?", $_POST["employee"]);
 				$e = $employee[0];
 				if (query("INSERT INTO payroll_employee (payroll_id,employee_id,number_days,base_salary,cash_advance,benefits) 
 					VALUES(?,?,?,?,?,?)", 
-					$_POST["payroll_id"],$_POST["employee"],$_POST["number_days"],$e["base_salary"], $_POST["cash_advance"], "488") === false)
+					$_POST["payroll_id"],$_POST["employee"],$_POST["number_days"],$e["base_salary"], $_POST["cash_advance"], $payroll[0]["benefits"]) === false)
 					{
 						$res_arr = [
 							"result" => "failed",
@@ -61,11 +62,8 @@
 
 
 			elseif($_POST["action"] == "payslip_pdf"):
-				// dump($_POST);
-						$sql = query("select * from site_options");
-						// dump($sql);
-						$url = $sql[0]["url"];
-						$webpath = $url . "/payroll?action=payslip_pdf&payroll_id=".$_POST["payroll_id"] . "&employee_id=".$_POST["employee_id"];
+						$base_url = the_base_url();
+						$webpath = $base_url . "/sta_teresa/payroll?action=payslip_pdf&payroll_id=".$_POST["payroll_id"] . "&employee_id=".$_POST["employee_id"];
 						// dump($webpath);
 						// dump($webpath);
 						$filename = "PAYSLIP";
