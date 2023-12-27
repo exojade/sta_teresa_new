@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98
 {
+    public static $files = array (
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
         'm' => 
         array (
             'mikehaertl\\wkhtmlto\\' => 20,
@@ -14,13 +22,30 @@ class ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98
             'mikehaertl\\shellcommand\\' => 24,
             'mikehaertl\\pdftk\\' => 17,
         ),
+        'S' => 
+        array (
+            'SMSGatewayMe\\Client\\' => 20,
+        ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPJasper\\' => 10,
+        ),
+        'M' => 
+        array (
+            'Mpdf\\' => 5,
+        ),
+        'D' => 
+        array (
+            'DeepCopy\\' => 9,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'mikehaertl\\wkhtmlto\\' => 
         array (
             0 => __DIR__ . '/..' . '/mikehaertl/phpwkhtmltopdf/src',
@@ -37,10 +62,30 @@ class ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98
         array (
             0 => __DIR__ . '/..' . '/mikehaertl/php-pdftk/src',
         ),
+        'SMSGatewayMe\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/smsgatewayme/client/lib',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'PHPJasper\\' => 
         array (
             0 => __DIR__ . '/..' . '/geekcom/phpjasper/src',
         ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -48,6 +93,7 @@ class ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit67eec93e842538f6df4b96e7eefc7b98::$classMap;
 
         }, null, ClassLoader::class);
     }

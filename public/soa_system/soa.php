@@ -1,5 +1,10 @@
 <?php
 use mikehaertl\pdftk\Pdf;
+
+
+
+
+
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
@@ -91,17 +96,129 @@ use mikehaertl\pdftk\Pdf;
 		}
 
 		if($_POST["action"] == "soa_pdf"){
-			$base_url = the_base_url();
-			$webpath = $base_url . "/sta_teresa/soa?action=generate_soa&soa_id=".$_POST["soa_id"];
+
+			$mpdf = new \Mpdf\Mpdf([
+				'mode' => 'utf-8', 'format' => 'FOLIO-L',
+				'margin_top' => 15,
+				'margin_left' => 5,
+				'margin_right' => 5,
+				'margin_bottom' => 5,
+				'margin_footer' => 1,
+				'default_font' => 'helvetica'
+			]);
+
+			$mpdf->showImageErrors = true;
+			// $logo = $_SERVER['DOCUMENT_ROOT'] . "/AdminLTE/dist/img/header_soa.png";
+
+
+			$guarantor = query("select * from soa s
+                    left join guarantors g
+                    on g.tbl_id = s.soa_id
+                    where soa_id = ?", $_POST["soa_id"]);
+					
+			$agency = $guarantor[0]["agency"];
+			$contracts = query("select * from transaction t
+								left join burial_service_contract c
+								on t.contract_id = c.contract_id
+								where soa_id = ?", $_POST["soa_id"]);
+			// dump($contracts);
+
+								$html = <<< EOD
+
+								<link rel="stylesheet" href="AdminLTE/dist/css/AdminLTE.min.css">
+								<link rel="stylesheet" href="AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+								<style>
+								.table, th, td, thead, tbody{
+									border: 2px solid black !important;
+									padding: 8px !important;
+								}
+							
+
+							
+								</style>
+								
+							
+								<div style="text-align:center;">
+									<div class="text-center"><img src="AdminLTE/dist/img/header_soa.png"></div>
+								</div>
+								<h3 class="text-center">STATEMENT OF ACCOUNT</h3>
+								<h4 class="text-center">$agency</h4>
+								<div class="box-body">
+								<table  style="width: 100%; ">
+								<tr style="background-color:#FFCCD5;">
+									<th>Date</th>
+									<th>Deceased</th>
+									<th>Address</th>
+									<th>Particulars</th>
+									<th>Amount</th>
+								</tr>
+								<tbody>
+
+								EOD;
+								$total = 0; 
+								foreach($contracts as $contract): $total = $total + $contract["amount"];
+								$amount = to_peso($contract["amount"]);
+								$contract_date = $contract["contract_date"];
+								$html .= <<< EOD
+								<tr>
+								<td>$contract_date</td>
+								<td>$contract_date</td>
+								<td>$contract_date</td>
+								<td>$contract_date</td>
+								<td>$amount</td>
+								</tr>
+								EOD;
+								endforeach;
+								$total = to_peso($total);
+								$html .= <<< EOD
+								<tr>
+									<td colspan="4" class="text-right"><b>TOTAL</b></td>
+									<td>$total</td>
+								</tr>
+
+								EOD;
+
+								$html .= <<< EOD
+								</tbody>
+								</table>
+								</div>
+								EOD;
+
+								$html .= <<< EOD
+								<div style="position:absolute; bottom:0; margin-bottom:10px; width: 100%">
+								<div class="row">
+								<div class="col-xs-3">
+									<h4><b>Prepared By:</b></h4>
+									<br>
+									<br>
+									<br>
+									<h4 class="text-center"><b>ANGELIQUE E. LAO</b></h4>
+									<h4 class="text-center">MANAGER</h4>
+								</div>
+								</div>
+								</div>
+								EOD;
+
+// dump($html);
+
+$mpdf->WriteHTML($html);
+
+
+								$mpdf->Output("resources/SOA.pdf", \Mpdf\Output\Destination::FILE);
+
+
+
+			// $base_url = the_base_url();
+			// $webpath = $base_url . "/sta_teresa/soa?action=generate_soa&soa_id=".$_POST["soa_id"];
 			// dump($webpath);
 			// dump($webpath);
 			$filename = "SOA";
 			// dump($filename);
 			$path = "reports/".$filename.".pdf";
-			$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O Landscape  "'.$webpath.'" '.$path.'';
-			// dump($exec);
-			exec($exec);
-			$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+			// $exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O Landscape  "'.$webpath.'" '.$path.'';
+			// // dump($exec);
+			// exec($exec);
+			$load[] = array('path'=>"resources/SOA.pdf", 'filename' => "SOA.pdf", 'result' => 'success');
 			$json = array('info' => $load);
 			echo json_encode($json);
 		}

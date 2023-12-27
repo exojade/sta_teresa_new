@@ -3,6 +3,7 @@
         "geekcom/phpjasper": "^3.0.0",
         "mikehaertl/php-pdftk": "^0.13.0",
         "mikehaertl/phpwkhtmltopdf": "^2.5",
-        "smsgatewayme/client": "^0.0.1"
+        "smsgatewayme/client": "^0.0.1",
+        "mpdf/mpdf": "8.0"
     }
 }

@@ -1,6 +1,8 @@
 /vendor
-tests/*.jasper
-tests/codeCoverage
+/tests/log
+phpunit.xml
+*.jasper
+*.cache
 
 # IDE
 ## Eclipse

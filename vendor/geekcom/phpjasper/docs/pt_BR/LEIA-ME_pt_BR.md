@@ -1,24 +1,34 @@
+![PHPJasper logo](../images/phpjasper.png)
+
 # PHPJasper
 
 _Gerador de relatórios PHP_
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/geekcom/phpjasper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/geekcom/phpjasper/?branch=master)
+[![Build Status](https://api.travis-ci.com/PHPJasper/phpjasper.svg?branch=master)](https://app.travis-ci.com/github/PHPJasper/phpjasper)
+[![Coverage Status](https://coveralls.io/repos/github/PHPJasper/phpjasper/badge.svg?branch=master)](https://coveralls.io/github/PHPJasper/phpjasper?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/geekcom/phpjasper/v/stable)](https://packagist.org/packages/geekcom/phpjasper)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-blue.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%207.2-blue.svg?style=flat-square)](https://php.net/)
 [![Total Downloads](https://poser.pugx.org/geekcom/phpjasper/downloads)](https://packagist.org/packages/geekcom/phpjasper)
-[![License](https://poser.pugx.org/geekcom/phpjasper/license)](https://packagist.org/packages/geekcom/phpjasper) 
+[![License](https://poser.pugx.org/geekcom/phpjasper/license)](https://packagist.org/packages/geekcom/phpjasper)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan) 
 
 ### Documentação
 [![Language-en_US](https://img.shields.io/badge/en__US-100%25-green.svg)](https://github.com/PHPJasper/phpjasper/blob/master/README.md)
+
+> ### Por favor, considere **[fazer uma doação](https://nubank.com.br/pagar/518o5/zVBzxd00Sb)**, apoie nossas atividades
 
 ### Sobre a biblioteca
 
 PHPJasper é a solução perfeita para compilar e processar relatórios Jasper (.jrxml & .jasper) com PHP, ou seja, gerar relatórios com PHP.
 
+#### Nosso canal no discord
+https://discord.gg/7FpDnQ
+
 **Notas:** 
 * PHPJasper pode ser usado independente de seu Framework
 * Se você está usando uma versão menor que PHP 7.0 veja: [v1.16](https://github.com/PHPJasper/phpjasper/releases/tag/v1.16)
 * [Aqui](https://github.com/PHPJasper/examples) tem vários exemplos de como usar PHPJasper
+
 ### Por quê preciso do PHPJasper?
 
 Alguma vez você precisou de um relatório simples ou complexo em PHP para seu sistema web?
@@ -39,16 +49,16 @@ Apresento para vocês **JasperReports** a melhor solução open source que exist
 * Relatórios
 * Listas
 
-
 ## Requisitos
 
-* PHP 7.0 em diante
+* PHP 7.2 em diante
 * Java JDK 1.8
 
 ## Opcional
 
-* [Mysql JDBC Driver](http://dev.mysql.com/downloads/connector/j/) (se você pretende usar esse tipo de banco de dados)
-* [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/download.html) (se você pretende usar esse tipo de banco de dados)
+* Qualquer driver jdbc (MySQL, PostgreSQL, MSSQL...), para ser usado deve ser copiado para a pasta `bin/jasperstarter/jdbc`
+* Incluímos o [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1.48) na pasta `bin/jasperstarter/jdbc`
+* Incluímos também o [PostgreSQL](https://jdbc.postgresql.org/) (42.2.9) na pasta `bin/jasperstarter/jdbc`
 * [Microsoft JDBC Drivers](https://www.microsoft.com/en-US/download/details.aspx?id=11774) (se você pretende usar esse tipo de banco de dados)
 * [Jaspersoft Studio](http://community.jaspersoft.com/project/jaspersoft-studio) (para escrever e compilar seus relatórios)
 
@@ -65,7 +75,7 @@ Ou crie um arquivo 'composer.json' e adicione o trecho:
 ```json
 {
     "require": {
-        "geekcom/phpjasper": "^3.0.0"
+        "geekcom/phpjasper": "^3.2.0"
     }
 }
 ```
@@ -86,10 +96,10 @@ Com o Docker CE e o docker-compose instalados basta executar os comandos:
 
 Para rodar os testes dentro do container execute:
 
-* `docker exec -it phpjasper ./vendor/bin/phpunit` ou
-* `docker exec -it phpjasper ./vendor/bin/phpunit --testdox`
+* `docker exec -it phpjasper sudo composer test` ou
+* `docker exec -it phpjasper sudo composer testdox`
 
-Para ver o coverage basta executar o arquivo: `/tests/codeCoverage/html/dashboard.html`
+Para ver o coverage basta executar o arquivo: `tests/log/report/index.html`
 
 _Ajude-nos escrevendo novos testes, faça um fork_ :)
 
@@ -301,19 +311,6 @@ $jasper->process(
     $options
 )->execute();
 ```
-
-### MySQL
-
-Incluímos o [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1.39) na pasta `/src/JasperStarter/jdbc/`
-
-### PostgreSQL
-
-Incluímos também o [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) na pasta `/src/JasperStarter/jdbc/`
-
-### MSSQL
-
-[Microsoft JDBC Drivers 6.0, 4.2, 4.1, and 4.0 for SQL Server
-](https://www.microsoft.com/en-us/download/details.aspx?displaylang=en&id=11774).
 
 ## Performance
 

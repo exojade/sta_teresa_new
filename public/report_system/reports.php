@@ -291,17 +291,151 @@
 
 
 			elseif($_POST["action"] == "pdf_casket"):
-				$base_url = the_base_url();
-						$options = urlencode(serialize($_POST));
-						$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_casket&options=".$options;
-						// dump($webpath);
-						// dump($webpath);
-						$filename = "CASKET_REPORT";
-						// dump($filename);
-						$path = "reports/".$filename.".pdf";
-						$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
+
+
+				$where = "";
+				if(!empty($_POST["from_date"])):
+					$where = $where . " and contract_date >= '" . $_POST["from_date"] . "'";
+				endif;
+				if(!empty($_POST["to_date"])):
+						$where = $where . " and contract_date <= '" . $_POST["to_date"] . "'";
+				endif;
+				$month = "";
+				$day = "";
+				$total = 0;
+				$casket = query("SELECT contract_date, casket_type, COUNT(*) AS quantity FROM burial_service_contract where 1=1 ".$where." GROUP BY contract_date, casket_type order by contract_date desc");
+				
+				$mpdf = new \Mpdf\Mpdf([
+					'mode' => 'utf-8', 'format' => 'FOLIO-P',
+					'margin_top' => 15,
+					'margin_left' => 5,
+					'margin_right' => 5,
+					'margin_bottom' => 5,
+					'margin_footer' => 1,
+					'default_font' => 'helvetica'
+				]);
+				
+				$html = "";
+				$html .= '
+				<link rel="stylesheet" href="AdminLTE/dist/css/AdminLTE.min.css">
+				<link rel="stylesheet" href="AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+				<link rel="stylesheet" href="AdminLTE/dist/css/skins/_all-skins.min.css">
+				<style>
+					.table, th, td, thead, tbody{
+						border: 2px solid black !important;
+						padding: 8px !important;
+					}
+					</style>
+					<div class="text-center"><img src="resources/stateresa_header.jpg" class="img-responsive"></div>
+					<hr>
+
+					<div class="row">
+					<div class="col-xs-3 co-sm-3">
+						<h4 style="font-weight: 900;" style="float:left;">CASKET SOLD REPORT</h4>
+					</div>
+				';
+
+				if(!empty($_POST["from_date"])):
+ 
+					$html .= "<div class='col-xs-3 col-sm-3'><h4 style='font-weight:700;'>From: ".readable_date($_POST["from_date"])."</h4></div>";
+				endif;
+				if(!empty($_POST["to_date"])):
+					$html .="<div class='col-xs-3 col-sm-3'><h4 style='font-weight:700;'>To: ".readable_date($_POST["to_date"])."</h4></div>";
+				endif;
+
+				$html .= '</div>';
+
+				$html .= '
+				<div class="box-body">
+					<table style="width: 100%;">
+					<tr style="background-color:#FFCCD5;">
+						<th>Month</th>
+						<th>Day</th>
+						<th>Casket</th>
+						<th>Quantity</th>
+					</tr>
+					<tbody>
+				';
+
+				foreach($casket as $row): 
+					$total = $total + $row["quantity"];
+					
+					$html .= ' <tr>';
+					  if($month != full_month($row["contract_date"])):
+						$month = full_month($row["contract_date"]);
+						$html.='<td>'.$month.'</td>';
+					  else:
+						$html.='<td></td>';
+					  endif;
+
+
+					  if($day != date_day($row["contract_date"])):
+						$day = date_day($row["contract_date"]);
+						$html.='<td>'.$day.'</td>';
+					  else:
+						$html.='<td></td>'; 
+					  endif;
+
+
+					  $html .='<td>'.$row["casket_type"].'</td>';  
+                  	  $html .='<td>'.$row["quantity"].'</td>';
+
+					$html .= ' </tr>';
+				endforeach;
+
+				$html .='
+				</tbody>
+            </table>
+			<br>
+			<h4><b>Total Casket Sold:</b> '.$total.'</h4>
+            </div>
+
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center; border-top:2px solid black;padding-top:20px;">
+              <div class="row">
+                  <div class="col-xs-12">
+                      <p><i>"Family Satisfaction is our Prime Objective"</i></p>
+                  </div>
+              </div>
+            </div>
+				';
+
+
+				
+
+
+				$mpdf->WriteHTML($html);
+				
+				$filename = "CASKET_REPORT";
+				$path = "reports/".$filename.".pdf";
+				$mpdf->Output($path, \Mpdf\Output\Destination::FILE);
+
+
+
+
+
+
+
+
+				// $base_url = the_base_url();
+				// 		$options = urlencode(serialize($_POST));
+				// 		$webpath = $base_url . "/sta_teresa/reports_page?action=pdf_casket&options=".$options;
+				// 		// dump($webpath);
+				// 		// dump($webpath);
+				// 		$filename = "CASKET_REPORT";
+				// 		// dump($filename);
+				// 		$path = "reports/".$filename.".pdf";
+				// 		$exec = '"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe" -O portrait  "'.$webpath.'" '.$path.'';
+				// 		// dump($exec);
+				// 		exec($exec);
+				// 		$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
+				// 		$json = array('info' => $load);
+				// 		echo json_encode($json);
+
+
+			
+			
 						// dump($exec);
-						exec($exec);
+				
 						$load[] = array('path'=>$path, 'filename' => $filename, 'result' => 'success');
 						$json = array('info' => $load);
 						echo json_encode($json);
